@@ -1,0 +1,26 @@
+# Back-up files
+*#
+*~
+
+# Build products
+*.o
+debug/GLHelloWorld
+
+# Autoscan generated files
+autoscan.log
+configure.scan
+
+# Autoreconf generated files
+aclocal.m4
+config.h.in
+configure
+config.status
+config.log
+config.h
+
+# Automake generated files
+autom4te.cache
+stamp-h1
+Makefile.in
+Makefile
+.deps
