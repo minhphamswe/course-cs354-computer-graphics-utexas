@@ -4,7 +4,7 @@
 AC_PREREQ([2.65])
 AC_INIT([CS354 Debug], [0.01], [minh.pham@utexas.edu])
 AM_INIT_AUTOMAKE
-AC_CONFIG_SRCDIR([debug/db_GLHelloWorld.cpp])
+AC_CONFIG_SRCDIR([debug/db_cube.cpp])
 AC_CONFIG_HEADERS([config.h])
 
 # Checks for programs.

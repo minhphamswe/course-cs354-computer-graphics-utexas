@@ -1,5 +1,5 @@
-bin_PROGRAMS = GLHelloWorld
+bin_PROGRAMS = cube
 
-#GLHelloWorld_CPPFLAGS = 
-GLHelloWorld_LDFLAGS = -lGL -lGLU -lglut
-GLHelloWorld_SOURCES = db_GLHelloWorld.cpp
+#cube_CPPFLAGS = 
+cube_LDFLAGS = -lGL -lGLU -lglut
+cube_SOURCES = db_cube.cpp

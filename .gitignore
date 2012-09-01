@@ -4,7 +4,7 @@
 
 # Build products
 *.o
-debug/GLHelloWorld
+debug/cube
 
 # Autoscan generated files
 autoscan.log

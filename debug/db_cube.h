@@ -1,5 +1,5 @@
-#ifndef DEBUG_GL_HELLOWORLD_H_
-#define DEBUG_GL_HELLOWORLD_H_
+#ifndef DEBUG_CUBE_H_
+#define DEBUG_CUBE_H_
 
 #include <GL/gl.h>
 #include <GL/glu.h>

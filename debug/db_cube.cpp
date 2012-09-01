@@ -1,9 +1,10 @@
-#include <db_GLHelloWorld.h>
+#include <db_cube.h>
 
 void init(void)
 {
     glClearColor(0,0,0,0);
     glShadeModel(GL_FLAT);
+    glClear(GL_COLOR_BUFFER_BIT);
 }
 
 void DrawCube(void)
@@ -13,28 +14,29 @@ void DrawCube(void)
     glBegin(GL_QUADS);
 
     //face in xy plane
-    glColor3f(0.82, 0.41, 0.12);//this the color with which complete cube is drawn. 
-    glVertex3f(0,0 ,0 );
+    //glColor3f(0.82, 0.41, 0.12);
+    glColor3f(1, 0, 0);
+    glVertex3f(0, 0, 0);
     glVertex3f(5, 0, 0);
     glVertex3f(5, 5, 0);
     glVertex3f(0, 5, 0);
 
     //face in yz plane
-    glColor3f(1, 0, 0);
+    glColor3f(1, 0, 0);  // red
     glVertex3f(0, 0, 0);
     glVertex3f(0, 0, 5);
     glVertex3f(0, 5, 0);
     glVertex3f(0, 5, 5);
 
     //face in zx plance
-    glColor3f(0, 1, 0);
-    glVertex3f(0, 0, 0  );
+    glColor3f(0, 1, 0);  // green
+    glVertex3f(0, 0, 0);
     glVertex3f(0, 0, 5);
     glVertex3f(5, 0, 5);
     glVertex3f(5, 0, 0);
 
     //|| to xy plane.
-    glColor3f(0, 0, 1);
+    glColor3f(0, 0, 1);  // blue
     glVertex3f(0, 0, 5);
     glVertex3f(5, 0, 5);
     glVertex3f(5, 5, 5);
@@ -42,7 +44,7 @@ void DrawCube(void)
 
     //|| to yz plane
     glColor3f(0.73, 0.58, 0.58);
-    glVertex3f(0,0 ,5 );
+    glVertex3f(0, 0 ,5);
     glVertex3f(5, 0, 5);
     glVertex3f(5, 5, 5);
     glVertex3f(0, 5, 5);
@@ -59,9 +61,8 @@ void DrawCube(void)
 
 
 void reshape(int w,int h){
-
     glViewport(0, 0, (GLsizei)w, (GLsizei)h);
-
+    glClear(GL_COLOR_BUFFER_BIT);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     glFrustum(-1, 1, -1, 1, 1.5, 20);
@@ -69,13 +70,20 @@ void reshape(int w,int h){
 }
 
 int main(int argc, char** argv){
-    glutInit(&argc, argv);//we initizlilze the glut. functions
+    // Initialilze glut functions
+    glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_SINGLE|GLUT_RGB);
     glutInitWindowPosition(100, 100);
     glutCreateWindow(argv[0]);
-    init();
+
+    // Register callback functions
     glutDisplayFunc(DrawCube);
     glutReshapeFunc(reshape);
+
+    // Set clear color
+    init();
+
+    // Enter main loop
     glutMainLoop();
     return 0;
 }
