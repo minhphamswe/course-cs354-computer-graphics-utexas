@@ -5,6 +5,7 @@
 # Build products
 *.o
 debug/cube
+turtle
 
 # Autoscan generated files
 autoscan.log

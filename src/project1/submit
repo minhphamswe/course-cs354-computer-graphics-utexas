@@ -1,0 +1,76 @@
+#! /bin/bash
+
+username=`whoami`
+report_fn=submit-README.txt
+report=`pwd`/${report_fn}
+
+if [ -d $username ]; then
+  echo "The directory $username must not exist in the current directory."
+  echo "Project not submitted."
+  exit
+fi
+
+echo "Submitting..."
+
+rm -f ${report} > /dev/null 2>&1
+touch ${report} > /dev/null 2>&1
+
+echo "turnin" >> ${report} 2>&1
+echo "--------------------------------------------------" >> ${report} 2>&1
+turnin --submit edwardsj project1 . >> ${report} 2>&1
+turnin --verify edwardsj project1 >> ${report} 2>&1
+
+pushd .  > /dev/null 2>&1
+cd $username  > /dev/null 2>&1
+
+# clean
+make clean > /dev/null 2>&1
+rm -f turtle > /dev/null 2>&1
+
+# check code
+echo >> ${report} 2>&1
+echo "code check " >> ${report} 2>&1
+echo "--------------------------------------------------" >> ${report} 2>&1
+./check-code *.c* *.h >> ${report} 2>&1 
+
+# compile
+echo >> ${report} 2>&1
+echo "compile " >> ${report} 2>&1
+echo "--------------------------------------------------" >> ${report} 2>&1
+make >> ${report} 2>&1
+
+# run
+echo >> ${report} 2>&1
+echo "run " >> ${report} 2>&1
+echo "--------------------------------------------------" >> ${report} 2>&1
+./turtle example1.txt >> ${report} 2>&1
+./turtle example2.txt >> ${report} 2>&1
+if [ $? = 0 ]; then
+  echo "successful run" >> ${report} 2>&1
+fi
+
+if [ -f design.txt ]; then
+  ./turtle design.txt >> ${report} 2>&1
+  if [ $? = 0 ]; then
+    echo "successful run" >> ${report} 2>&1
+  fi
+else
+  echo "ERROR: design.txt does not exist" >> ${report} 2>&1
+fi
+
+if [ -f design.png ]; then
+  display design.png >> ${report} 2>&1
+else
+  echo "ERROR: design.png does not exist" >> ${report} 2>&1
+fi
+
+popd > /dev/null 2>&1
+
+# cleanup
+echo >> ${report} 2>&1
+echo "cleanup " >> ${report} 2>&1
+echo "--------------------------------------------------" >> ${report} 2>&1
+echo "removing directory $username" >> ${report} 2>&1
+rm -r $username  > /dev/null 2>&1
+
+echo "Submission complete.  Consult ${report_fn} for any errors."
