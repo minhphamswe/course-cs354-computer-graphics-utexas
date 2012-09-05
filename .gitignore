@@ -25,3 +25,9 @@ stamp-h1
 Makefile.in
 Makefile
 .deps
+
+# Test suites from library
+lib/UnitTest++/tests
+
+# Files from Other VCS
+.svn
