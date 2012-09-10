@@ -7,6 +7,24 @@
 
 using namespace std;
 
+// Useful constants
+const float PI = 3.14;
+const float TWO_PI = 6.28318530718;
+const float INV_180 = 0.00555555555;
+
+// Command vector
+vector<Command> commands;
+
+// Cursor states
+bool draw;      /// True if the pen is down (drawing)
+float x, y;     /// Location of the cursor
+float o;        /// Orientation of the cursor (in radian)
+
+/// Return the radian measurment of an angle measured in degrees
+float rad(double degree) {
+  return degree * INV_180 * PI;
+}
+
 void Init() {
   glClearColor(1.0, 1.0, 1.0, 1.0);
   glColor3f(1.0, 0.0, 0.0);
@@ -16,25 +34,14 @@ void Init() {
   // TODO: Change this call so that the drawing methods work on a canvas
   // that is 200x200 units with the origin (0, 0) at the center of the
   // canvas.
-  gluOrtho2D(-1.0, 1.0, -1.0, 1.0);
+  gluOrtho2D(-100.0, 100.0, -100.0, 100.0);
   glMatrixMode(GL_MODELVIEW);
-}
 
-void Display() {
-  glClear(GL_COLOR_BUFFER_BIT);
-  // TODO: Change to draw according to turtle commands given
-  // Draw a red triangle.
-  glBegin(GL_LINES);
-  glColor3f(1.0, 0.0, 0.0);
-  glVertex2f(-0.5, -0.5);
-  glVertex2f(0.5, -0.5);
-  glVertex2f(0.5, -0.5);
-  glVertex2f(0.0, 0.5);
-  glVertex2f(0.0, 0.5);
-  glVertex2f(-0.5, -0.5);
-  glEnd();
-
-  glFlush();
+  // Initialize values for the cursor
+  draw = true;
+  x = 0;
+  y = 0;
+  o = rad(90);
 }
 
 void Interpret(const vector<Command>& commands) {
@@ -42,29 +49,59 @@ void Interpret(const vector<Command>& commands) {
   // TODO: Remove output statements as you implement them.
   for (int i = 0; i < commands.size(); ++i) {
     const Command& c = commands[i];
+
+    // pre-action debug info
+    cout << "Pre Action: " << endl;
+    cout << "(x, y): (" << x << ", " << y << ")" << endl;
+    cout << "o: " << o << endl;
+
     switch (c.name()) {
     case FORWARD:
       cout << "forward " << c.arg() << endl;
+      x = x + cos(o) * c.arg();
+      y = y + sin(o) * c.arg();
+      if (draw) {
+        glVertex2f(x, y);
+      }
       break;
     case RIGHT:
       cout << "right " << c.arg() << endl;
+      o = o - rad(c.arg());
       break;
     case LEFT:
       cout << "left " << c.arg() << endl;
+      o = o + rad(c.arg());
       break;
     case PEN_UP:
       cout << "pen up" << endl;
+      draw = false;
       break;
     case PEN_DOWN:
       cout << "pen down" << endl;
+      draw = true;
       break;
     case COLOR:
       cout << "color " << c.arg() << endl;
+      if (c.arg() == 0)
+        glColor3f(0.f, 0.f, 0.f);
+      if (c.arg() == 1)
+        glColor3f(1.f, 0.f, 0.f);
+      if (c.arg() == 2)
+        glColor3f(0.f, 1.f, 0.f);
+      if (c.arg() == 3)
+        glColor3f(0.f, 0.f, 1.f);
       break;
     case ORIGIN:
       cout << "origin" << endl;
+      x = 0;
+      y = 0;
+      o = rad(90);
       break;
     }
+    // post-action debug info
+    cout << "Post Action: " << endl;
+    cout << "(x, y): (" << x << ", " << y << ")" << endl;
+    cout << "o: " << o << endl;
   }
 }
 
@@ -74,6 +111,18 @@ void Keyboard(unsigned char key, int x, int y) {
       exit(EXIT_SUCCESS);
       break;
   }
+}
+
+void Display() {
+  glClear(GL_COLOR_BUFFER_BIT);
+  // TODO: Change to draw according to turtle commands given
+  // Draw a red triangle.
+  glBegin(GL_LINE_STRIP);
+  // glVertex2f(x, y);
+  Interpret(commands);
+  glEnd();
+
+  glFlush();
 }
 
 int main(int argc, char** argv) {
@@ -91,8 +140,6 @@ int main(int argc, char** argv) {
     cout << "Usage: turtle filename" << endl;
     exit(1);
   }
-  vector<Command> commands = Parse(argv[1]);
-  Interpret(commands);
-
+  commands = Parse(argv[1]);
   glutMainLoop();
 }
