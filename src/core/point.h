@@ -9,6 +9,7 @@ public:
 
 public:
   Point();
+  Point(float xx, float yy);
   Point(float xx, float yy, float zz);
 
   Point operator+(const Vector& v) const;

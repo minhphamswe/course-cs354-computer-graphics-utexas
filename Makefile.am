@@ -1,1 +1,1 @@
-SUBDIRS = debug
+SUBDIRS = src

@@ -4,7 +4,8 @@
 
 # Build products
 *.o
-debug/cube
+src/debug/cube
+src/core/test/testcore
 turtle
 
 # Autoscan generated files
