@@ -32,6 +32,12 @@ Makefile.in
 Makefile
 .deps
 
+# Automake standard files (generate with 'automake -acf')
+INSTALL
+depcomp
+install-sh
+missing
+
 # Test suites from library
 lib/UnitTest++/tests
 
