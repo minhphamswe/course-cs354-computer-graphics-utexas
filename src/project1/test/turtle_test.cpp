@@ -27,6 +27,7 @@ enum tests {
   VerticalLine,
   TenOFive,
   Square,
+  Example1,
 
   numTest,
 };
@@ -84,9 +85,44 @@ void DrawSquare() {
   t.forward(15);
 
   // Checks
-  CHECK_EQUAL(4, points.size());
-  CHECK_EQUAL(4, colors.size());
+  CHECK_EQUAL(10, points.size());
+  CHECK_EQUAL(10, colors.size());
 
+  glutPostRedisplay();
+}
+
+void DrawExample1() {
+  printf("Drawing Example 1 ...\n");
+
+  Turtle t = Turtle();
+  t.reset();
+
+  t.forward(30);
+  t.right (90);
+  t.forward (30);
+  t.left (90);
+
+  t.color (1);
+  t.forward(30);
+  t.right(90);
+  t.forward(30);
+  t.left(90);
+
+  t.origin();
+  t.left(90);
+
+  t.color(2);
+  t.forward(30);
+  t.left(90);
+  t.forward(30);
+  t.right(90);
+
+  t.color(3);
+  t.forward(30);
+  t.left(90);
+  t.forward(30);
+  t.right(90);
+  
   glutPostRedisplay();
 }
 
@@ -107,6 +143,9 @@ void Keyboard(unsigned char key, int x, int y) {
         case Square:
           DrawSquare();
           break;
+        case Example1:
+          DrawExample1();
+          break;
       break;
       }
   }
@@ -116,7 +155,7 @@ void Display()
 {
   // Draw previously issued commands
   glClear(GL_COLOR_BUFFER_BIT);
-  glBegin(GL_LINE_STRIP);
+  glBegin(GL_LINES);
   for (unsigned i = 0; i < points.size(); i++) {
     glColor3f(colors[i].r, colors[i].g, colors[i].b);
     glVertex2f(points[i].x, points[i].y);

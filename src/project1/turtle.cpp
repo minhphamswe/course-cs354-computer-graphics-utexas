@@ -17,6 +17,7 @@ class TurtleImpl {
   std::vector<Point> *points;
   std::vector<Color> *colors;
   bool drawing;
+  enum {BLACK, RED, GREEN, BLUE};
 
  public:
   TurtleImpl()
@@ -25,17 +26,16 @@ class TurtleImpl {
 
   void setPoints(std::vector<Point> *points_) {
     points = points_;
-    points->push_back(location);
   }
 
   void setColors(std::vector<Color> *colors_) {
     colors = colors_;
-    colors->push_back(color);
   }
 
   void forward(float distance) {
+    mark();     // start a new line
     location = location + distance * orientation;
-    mark();
+    mark();     // finish the line
   }
 
   void left(float deg) {
@@ -56,7 +56,6 @@ class TurtleImpl {
   void origin() {
     location = Point(0.f, 0.f, 0.f);
     orientation = Vector(0.f, 1.f, 0.f);
-    mark();
   }
 
   void up() {
@@ -65,9 +64,25 @@ class TurtleImpl {
 
   void down() {
     drawing = true;
-    mark();
   }
 
+  void changeColor(int colNum) {
+    switch(colNum) {
+      case BLACK:
+        color = Color(0.f, 0.f, 0.f);
+        break;
+      case RED:
+        color = Color(1.f, 0.f, 0.f);
+        break;
+      case GREEN:
+        color = Color(0.f, 1.f, 0.f);
+        break;
+      case BLUE:
+        color = Color(0.f, 0.f, 1.f);
+        break;
+    }
+  }
+  
   void mark() {
     if (drawing) {
       points->push_back(location);
@@ -115,6 +130,11 @@ void Turtle::up() {
 void Turtle::down() {
   impl->down();
 }
+
+void Turtle::color(int colNum) {
+  impl->changeColor(colNum);
+}
+
 
 void Turtle::reset() {
   impl->reset();

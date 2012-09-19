@@ -22,6 +22,7 @@ public:
   void origin();
   void up();
   void down();
+  void color(int colNum);
 
   /// Destroy the trace list and return the turtle to the origin.
   /// Mainly for testing purpose.
