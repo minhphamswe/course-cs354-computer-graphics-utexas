@@ -17,6 +17,8 @@ public:
 
   Point operator-(const Vector& v) const;
   Point& operator-=(const Vector& v);
+
+  float operator[](int i) const;
 };
 
 #endif

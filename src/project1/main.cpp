@@ -7,11 +7,6 @@
 
 using namespace std;
 
-// Useful constants
-const float PI = 3.14;
-const float TWO_PI = 6.28318530718;
-const float INV_180 = 0.00555555555;
-
 // Command vector
 vector<Command> commands;
 
@@ -22,7 +17,7 @@ float o;        /// Orientation of the cursor (in radian)
 
 /// Return the radian measurment of an angle measured in degrees
 float rad(double degree) {
-  return degree * INV_180 * PI;
+  
 }
 
 void Init() {

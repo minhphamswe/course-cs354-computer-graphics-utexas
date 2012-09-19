@@ -9,6 +9,7 @@ public:
 
 public:
   Vector();
+  Vector(float xx, float yy);
   Vector(float xx, float yy, float zz);
 
   // Operations with scalars
@@ -24,6 +25,9 @@ public:
   Vector operator-(const Vector& v) const;
   Vector& operator-=(const Vector& v);
 
+  float operator[](int i) const;
 };
+
+Vector operator*(float f, const Vector& v);
 
 #endif

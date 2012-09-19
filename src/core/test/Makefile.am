@@ -6,8 +6,9 @@ testcore_CPPFLAGS = -I$(top_srcdir)/lib \
 testcore_LDADD = $(top_srcdir)/lib/libUnitTest++.a
 
 testcore_SOURCES = main.cpp \
-                   point_test.cpp \
-                   ../point.cpp
+                   geometry_test.cpp \
+                   ../point.cpp \
+                   ../vector.cpp
 
 check: all
 	@echo 'Executing unittests for core ...'
