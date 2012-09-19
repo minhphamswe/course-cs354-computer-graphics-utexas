@@ -2,11 +2,16 @@
 *#
 *~
 
-# Build products
+# Intermediate build products
 *.o
+
+# Test executables
 src/debug/cube
+*_test
 src/core/test/testcore
-turtle
+
+# Build products not for distro
+src/project1/turtle
 
 # Autoscan generated files
 autoscan.log
@@ -32,3 +37,6 @@ lib/UnitTest++/tests
 
 # Files from Other VCS
 .svn
+
+# Hidden file system files
+.fuse_hidden*
