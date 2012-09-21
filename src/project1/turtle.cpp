@@ -1,5 +1,6 @@
 #include <math.h>
-#include <project1/turtle.h>
+#include <vector>
+#include "./turtle.h"
 
 double degree(double rad) {
   return rad * INV_PI * 180;
@@ -44,7 +45,7 @@ class TurtleImpl {
 
     x = orientation.x * cos(rad) - orientation.y * sin(rad);
     y = orientation.y * cos(rad) + orientation.x * sin(rad);
-    
+
     orientation.x = x;
     orientation.y = y;
   }
@@ -67,7 +68,7 @@ class TurtleImpl {
   }
 
   void changeColor(int colNum) {
-    switch(colNum) {
+    switch (colNum) {
       case BLACK:
         color = Color(0.f, 0.f, 0.f);
         break;
@@ -82,17 +83,18 @@ class TurtleImpl {
         break;
     }
   }
-  
+
   void mark() {
     if (drawing) {
       points->push_back(location);
       colors->push_back(color);
     }
   }
-  
+
   void reset() {
     points->clear();
     colors->clear();
+    color = Color(0.f, 0.f, 0.f);
     drawing = true;
     origin();
   }

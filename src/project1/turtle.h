@@ -2,17 +2,17 @@
 #define TURTLE_TURTLE_H_
 
 #include <vector>
-#include <core/geometry.h>
-#include <core/common.h>
-#include <core/color.h>
+#include "./common.h"
+#include "./geometry.h"
+#include "./color.h"
 
 class TurtleImpl;
 
 class Turtle {
-private:
+ private:
   static TurtleImpl* impl;
 
-public:
+ public:
   Turtle();
   Turtle(std::vector< Point > *points_, std::vector< Color > *colors_);
 

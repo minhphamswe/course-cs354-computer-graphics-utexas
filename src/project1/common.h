@@ -1,15 +1,15 @@
-#ifndef __COMMON_H__
-#define __COMMON_H__
+#ifndef CORE_COMMON_H_
+#define CORE_COMMON_H_
 
-#ifdef _WIN32
-#include <windows.h>
-#endif
-#ifdef __MAC__
-#include <OpenGL/gl.h>
-#include <GLUT/glut.h>
-#else
-#include <GL/gl.h>
-#include <GL/glut.h>
-#endif
+#include <assert.h>
+#include <stdint.h>
+
+#define Assert assert
+
+// Useful constants
+#define PI      3.14159265359
+#define INV_PI  0.31830988618
+#define TWO_PI  6.28318530718
+#define INV_180 0.00555555555
 
 #endif

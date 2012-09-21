@@ -30,6 +30,7 @@ autom4te.cache
 stamp-h1
 Makefile.in
 Makefile
+!src/project*/Makefile
 .deps
 
 # Automake standard files (generate with 'automake -acf')
