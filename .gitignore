@@ -47,3 +47,6 @@ lib/UnitTest++/tests
 
 # Hidden file system files
 .fuse_hidden*
+
+# Submit logs
+src/project*/submit-README.txt

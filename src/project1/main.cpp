@@ -93,8 +93,8 @@ void Display() {
   // Draw a red triangle.
   glBegin(GL_LINES);
   for (int i = 0; i < points.size(); i++) {
-    glVertex2f(points[i].x, points[i].y);
     glColor3f(colors[i].r, colors[i].g, colors[i].b);
+    glVertex2f(points[i].x, points[i].y);
   }
   glEnd();
 

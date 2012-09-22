@@ -1,1 +1,70 @@
-forward 50
+up
+forward 90
+right 90
+down
+loop 360 {
+	forward 1.6
+	right 1
+}
+origin
+
+up
+forward 90
+down	
+
+color 1
+loop 90 {
+	up
+	right 151
+	down
+	loop 119 {
+		forward 1.6
+		right 1
+	}
+	up
+	right 149.5
+	forward 90
+	
+	right 5
+	
+	forward 94
+	down
+}
+
+color 2
+loop 90 {
+	up
+	right 151
+	down
+	loop 119 {
+		forward 1.6
+		right 1
+	}
+	up
+	right 149.5
+	forward 90
+	
+	right 10
+	
+	forward 94
+	down
+}
+
+color 3
+loop 120 {
+	up
+	right 151
+	down
+	loop 119 {
+		forward 1.6
+		right 1
+	}
+	up
+	right 149.5
+	forward 90
+	
+	right 15
+	
+	forward 94
+	down
+}
