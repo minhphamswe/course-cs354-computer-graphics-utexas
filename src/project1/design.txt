@@ -1,45 +1,70 @@
+up
+forward 90
+right 90
+down
+loop 360 {
+	forward 1.6
+	right 1
+}
 origin
+
+up
+forward 90
+down	
+
 color 1
-loop 100 {
-  loop 4 {
-    forward 90
-    right 90
-  }
-  right 19
-  forward 20
-  right 18
+loop 90 {
+	up
+	right 151
+	down
+	loop 119 {
+		forward 1.6
+		right 1
+	}
+	up
+	right 149.5
+	forward 90
+	
+	right 5
+	
+	forward 94
+	down
 }
 
 color 2
-up
-origin
-left 60
-forward 90
-down
-
-loop 60 {
-  loop 4 {
-    forward 30
-    right 90
-  }
-  right 19
-  forward 20
-  right 18
+loop 90 {
+	up
+	right 151
+	down
+	loop 119 {
+		forward 1.6
+		right 1
+	}
+	up
+	right 149.5
+	forward 90
+	
+	right 10
+	
+	forward 94
+	down
 }
 
 color 3
-up
-origin
-left 150
-forward 90
-down
-
-loop 60 {
-  loop 4 {
-    forward 60
-    right 90
-  }
-  right 19
-  forward 20
-  right 18
+loop 120 {
+	up
+	right 151
+	down
+	loop 119 {
+		forward 1.6
+		right 1
+	}
+	up
+	right 149.5
+	forward 90
+	
+	right 15
+	
+	forward 94
+	down
 }

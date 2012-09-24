@@ -1,0 +1,74 @@
+\documentclass[13pt]{letter}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage[T1]{fontenc}
+\linespread{1.2}
+\begin{document}
+Student: Minh Pham \\
+EID: mlp2279
+
+\begin{center}
+	\textbf{Homework 1}
+\end{center}
+
+\begin{enumerate}
+	\item (10 points)
+	Given:
+	\begin{verbatim}
+	glutInitWindowSize(800, 600);
+	gluOrtho2D(-100.0, 100.0, -100.0, 100.0);	
+	\end{verbatim}
+	
+	Convert the following object coordinates to window coordinates.
+	
+	Solution:
+	\begin{tabbing}
+	\hspace{20pt} \= Object Coordinates \= Window Coordinates \\
+	(a)           \> (0, 0)             \> (400, 300) \\
+	(b)           \> (-50, 50)          \> (200, 150) \\
+	(c)	          \> (-75, -100)        \> (100, 600) \\
+	(d)	          \> (90, 10)           \> (760, 270) \\
+	(e)	          \> (0, -40)           \> (400, 420) \\
+	\end{tabbing}
+	
+
+	\item (5 points)
+	Let:
+	\begin{enumerate}
+	\item[•] $\alpha$, $\beta$, $\gamma$ be scalars
+	\item[•] $A$, $B$, $C$ be points
+	\item[•] $u$, $v$, $w$ be vectors
+	\end{enumerate}
+	
+	Are the following operations defined? \\
+	Answer T/F/? if operation is defined/undefined/don't know.
+	\begin{tabbing}
+	\hspace{20pt} \= Operation \hspace{20pt} \= Defined?  \\
+	(a)           \> $v - u$                 \> T \\
+	(b)           \> $v - A$                 \> F \\
+	(c)           \> $A - v$                 \> T \\
+	(d)           \> $A + \alpha(B-A)$       \> T \\
+	(e)           \> $\alpha A + v$          \> F \\
+	\end{tabbing}
+	
+	\item (5 points)
+	Find a homogeneous-coordinate representation of a plane. Hint: the answer will be a dot product.
+	
+	\item (15 points)
+	If we are interested in only two-dimensional graphics, we can use three-dimensional homogeneous coordinates by representing a point as $p = [x~y~1]^T$ and a vector as $v = [a~b~0]^T$. \\
+	Find the 3x3 rotation, translation, scaling, and shear matrices R,T,S, and H, respectively. How many degrees of freedom are there in an affine transformation for transforming two-dimensional points?
+	
+	\item (15 points)
+	Derive a rotation matrix where we rotate first about the x-axis $R_x(\theta_x)$, then about the y-axis $R_y(\theta_y)$, and then about the z-axis $R_z(\theta_z)$. Assume that the fixed point is the origin.
+	
+	$$\left[
+	\begin {array}{ccc}
+	9 & 13& 17\\
+	14& 18& 22
+	\end {array}
+	\right]$$
+
+\end{enumerate}
+\end{document}
