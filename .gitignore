@@ -50,3 +50,8 @@ lib/UnitTest++/tests
 
 # Submit logs
 src/project*/submit-README.txt
+
+# LaTeX build products
+*.aux
+*.logs
+*.synctex.gz
