@@ -23,6 +23,7 @@ vector<Color> colors;
 void Init() {
   glClearColor(1.0, 1.0, 1.0, 1.0);
   glColor3f(1.0, 0.0, 0.0);
+  glDisable(GL_BLEND);
 
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
@@ -93,8 +94,8 @@ void Display() {
   // Draw a red triangle.
   glBegin(GL_LINES);
   for (int i = 0; i < points.size(); i++) {
-    glVertex2f(points[i].x, points[i].y);
-    glColor3f(colors[i].r, colors[i].g, colors[i].b);
+    glColor3f(colors[i].r, colors[i].g, colors[i].b);  // change color first
+    glVertex2f(points[i].x, points[i].y);              // draw point in color
   }
   glEnd();
 
