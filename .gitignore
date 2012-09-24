@@ -53,5 +53,5 @@ src/project*/submit-README.txt
 
 # LaTeX build products
 *.aux
-*.logs
+*.log
 *.synctex.gz

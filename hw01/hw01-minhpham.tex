@@ -20,8 +20,8 @@ EID: mlp2279
 	glutInitWindowSize(800, 600);
 	gluOrtho2D(-100.0, 100.0, -100.0, 100.0);	
 	\end{verbatim}
-	
-	Convert the following object coordinates to window coordinates.
+
+	Convert the following object coordinates to window coordinates. \\
 	
 	Solution:
 	\begin{tabbing}
@@ -43,7 +43,8 @@ EID: mlp2279
 	\end{enumerate}
 	
 	Are the following operations defined? \\
-	Answer T/F/? if operation is defined/undefined/don't know.
+	Answer T/F/? if operation is defined/undefined/don't know. \\
+
 	\begin{tabbing}
 	\hspace{20pt} \= Operation \hspace{20pt} \= Defined?  \\
 	(a)           \> $v - u$                 \> T \\
@@ -54,21 +55,97 @@ EID: mlp2279
 	\end{tabbing}
 	
 	\item (5 points)
-	Find a homogeneous-coordinate representation of a plane. Hint: the answer will be a dot product.
+	Find a homogeneous-coordinate representation of a plane. \\
+	
+	The following solution assumes we are working in 3 dimensions. \\
+	Suppose we had a point $P(x_0, y_0, z_0, 1)$ and two non-parallel vectors $a$ and $b$. These completely define a plane in 3 dimensions. Let $n(x_n, y_n, z_n, 0)$ be the cross product of $a$ and $b$. Then $n$ is a vector perpendicular to the plane defined by $P$, $a$ and $b$. \\
+	Let $Q(x, y, z, 1)$ be an arbitrary point in 3 dimensions. \\
+	Let $v(x-x_0, y-y_0, z-z_0, 0)$ be the vector from $P$ to $Q$. $Q$ lies on the plane defined by $P$, $a$, and $b$ if and only if $v$ is a linear combination of $a$ and $b$. This implies that $v$ is perpendicular to $n$, since $n$ is the cross-product of the two. \\
+	Because $v$ and $n$ are perpendicular, their dot product must be 0. \\
+	A homogeneous-coordinate representation of a plane is therefore:
+	\begin{enumerate}
+		\item[] $n \cdot v = 0$
+    \item[$\Leftrightarrow$] $x_n * (x-x_0) + y_n * (y-y_0) + z_n * (z-z_0) = 0$
+	\end{enumerate}
 	
 	\item (15 points)
 	If we are interested in only two-dimensional graphics, we can use three-dimensional homogeneous coordinates by representing a point as $p = [x~y~1]^T$ and a vector as $v = [a~b~0]^T$. \\
-	Find the 3x3 rotation, translation, scaling, and shear matrices R,T,S, and H, respectively. How many degrees of freedom are there in an affine transformation for transforming two-dimensional points?
+	Find the 3x3 rotation, translation, scaling, and shear matrices $R$, $T$, $S$, and $H$, respectively. How many degrees of freedom are there in an affine transformation for transforming two-dimensional points?
 	
 	\item (15 points)
 	Derive a rotation matrix where we rotate first about the x-axis $R_x(\theta_x)$, then about the y-axis $R_y(\theta_y)$, and then about the z-axis $R_z(\theta_z)$. Assume that the fixed point is the origin.
 	
-	$$\left[
-	\begin {array}{ccc}
-	9 & 13& 17\\
-	14& 18& 22
+	Assuming we are working in 3 dimension, in a right-handed coordinate system. \\
+	We have the following rotation matrices around each of the axes:
+
+	$$R_x = \left[
+	\begin {array}{cccc}
+	1 & 0           & 0           & 0 \\
+	0 & \cos\theta  & -\sin\theta & 0 \\
+	0 & \sin\theta  & \cos\theta  & 0 \\
+	0 & 0           & 0           & 1
 	\end {array}
 	\right]$$
+	
+	$$R_y = \left[
+	\begin {array}{cccc}
+	\cos\theta  & 0 & \sin\theta  & 0 \\
+	0           & 1 & 0           & 0 \\
+	-\sin\theta & 0 & \cos\theta  & 0 \\
+	0           & 0 & 0           & 1
+	\end {array}
+	\right]$$
+
+	$$R_z = \left[
+	\begin {array}{cccc}
+	\cos\theta & -\sin\theta & 0 & 0 \\
+	\sin\theta & \cos\theta  & 0 & 0 \\
+	0          & 0           & 1 & 0 \\
+	0          & 0           & 0 & 1
+	\end {array}
+	\right]$$
+
+	The transformation that rotates a vector $v$ first about the x-axis by $\theta_x$, then about the y-axis by $\theta_y$, and then about the z-axis by $\theta_z$ is $R_z(\theta_z)R_y(\theta_y)R_x(\theta_x)v$. \\
+	We get the combined transformation matrix $M$ by multiplying the three individual rotation matrices together. We have:
+	\begin{enumerate}
+		\item[] $M = R_z(\theta_z)R_y(\theta_y)R_x(\theta_x)$
+		\item[] $M = \left[ 	\begin {array}{cccc}
+													\cos\theta_z & -\sin\theta_z & 0 & 0 \\
+													\sin\theta_z & \cos\theta_z  & 0 & 0 \\
+													0          & 0           & 1 & 0 \\
+													0          & 0           & 0 & 1
+						     \end {array} 	\right]
+							   \left[ 	\begin {array}{cccc}
+													\cos\theta_y  & 0 & \sin\theta_y  & 0 \\
+													0             & 1 & 0             & 0 \\
+													-\sin\theta_y & 0 & \cos\theta_y  & 0 \\
+													0             & 0 & 0             & 1
+                 \end {array} 	\right]
+	               \left[ 	\begin {array}{cccc}
+													1 & 0           & 0           & 0 \\
+													0 & \cos\theta_x  & -\sin\theta_x & 0 \\
+													0 & \sin\theta_x  & \cos\theta_x  & 0 \\
+													0 & 0           & 0           & 1
+	               \end {array} \right]$
+		\item[] $M = \left[ 	\begin {array}{cccc}
+													\cos\theta_z\cos\theta_y & -\sin\theta_z & \cos\theta_z\sin\theta_y & 0 \\
+													\sin\theta_z\cos\theta_y & \cos\theta_z  & \sin\theta_z\sin\theta_y & 0 \\
+													-\sin\theta_y            & 0           & \cos\theta_y & 0 \\
+													0                        & 0           & 0 & 1
+						     \end {array} 	\right]
+						     \left[ 	\begin {array}{cccc}
+													1 & 0           & 0           & 0 \\
+													0 & \cos\theta_x  & -\sin\theta_x & 0 \\
+													0 & \sin\theta_x  & \cos\theta_x  & 0 \\
+													0 & 0           & 0           & 1
+	               \end {array} \right]$
+		\item[] $M = \left[ 	\begin {array}{cccc}
+													\cos\theta_z\cos\theta_y & -\sin\theta_z\cos\theta_x + \cos\theta_z\sin\theta_y\sin\theta_x & \sin\theta_z\sin\theta_x + \cos\theta_z\sin\theta_y\cos\theta_x & 0 \\
+													\sin\theta_z\cos\theta_y & \cos\theta_z\cos\theta_x + \sin\theta_z\sin\theta_y\sin\theta_x  &  -                                      \cos\theta_z\sin\theta_x + \sin\theta_z\sin\theta_y\cos\theta_x & 0 \\
+													-\sin\theta_y & \cos\theta_y\sin\theta_x & \cos\theta_y\cos\theta_x & 0 \\
+													0 & 0           & 0           & 1
+	               \end {array} \right]$
+	\end{enumerate}
 
 \end{enumerate}
 \end{document}
