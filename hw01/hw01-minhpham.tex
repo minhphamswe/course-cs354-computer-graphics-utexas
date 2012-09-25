@@ -72,6 +72,52 @@ EID: mlp2279
 	If we are interested in only two-dimensional graphics, we can use three-dimensional homogeneous coordinates by representing a point as $p = [x~y~1]^T$ and a vector as $v = [a~b~0]^T$. \\
 	Find the 3x3 rotation, translation, scaling, and shear matrices $R$, $T$, $S$, and $H$, respectively. How many degrees of freedom are there in an affine transformation for transforming two-dimensional points?
 	
+	In two dimensions we have:
+	\begin{enumerate}
+		\item[•]	 Rotation matrix for rotating an angle $\theta$ counter-clockwise: \\
+		$R = \left[
+		\begin{array}{ccc}
+			\cos	\theta & -\sin\theta  & 0 \\
+			\sin\theta & \cos\theta   & 0 \\
+			0          & 0            & 1
+		\end{array}
+		\right]$
+		\item[•] Translation matrix for translating by a vector $[\alpha_x~\alpha_y~0]^T$ : \\
+		$T = \left[
+		\begin{array}{ccc}
+			1 & 0 	& \alpha_x \\
+			0 & 1 & \alpha_y \\
+			0 & 0 & 1
+		\end{array}
+		\right]$
+		\item[•] Scaling matrix for scaling by $\beta_x$ in the $x$ direction, and $\beta_y$ in the $y$ direction: \\
+		$S = \left[
+		\begin{array}{ccc}
+			\beta_x & 0       & 0 \\
+			0       & \beta_y & 0 \\
+			0       & 0       & 1
+		\end{array}
+		\right]$
+		\item[•] Shear matrix for shearing along the $x$ axis by the angle $\theta$: \\
+		$H_x = \left[
+		\begin{array}{ccc}
+			1 & \cot\theta & 0 \\
+			0 & 1          & 0 \\
+			0 & 0          & 1
+		\end{array}
+		\right]$	
+		\item[$\cdot$] Shear matrix for shearing along the $y$ axis by the angle $\theta$: \\
+		$H_y = \left[
+		\begin{array}{ccc}
+			1          & 0 & 0 \\
+			\cot\theta & 1 & 0 \\
+			0          & 0 & 1
+		\end{array}
+		\right]$	
+	\end{enumerate}
+	
+	In two dimentions there are 6 degrees of freedom for affine transformations, represented by the top and middle rows in the transformation matrix (thhe bottom row is always 0 0 1 for 2 dimension).
+	
 	\item (15 points)
 	Derive a rotation matrix where we rotate first about the x-axis $R_x(\theta_x)$, then about the y-axis $R_y(\theta_y)$, and then about the z-axis $R_z(\theta_z)$. Assume that the fixed point is the origin.
 	
