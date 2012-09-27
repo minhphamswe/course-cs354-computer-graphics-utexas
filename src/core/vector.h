@@ -4,30 +4,49 @@
 class Point;
 
 class Vector {
-public:
+ public:
+  /// Vector components
   float x, y, z;
 
-public:
+ public:
+  /// Initialize zero vector
   Vector();
+
+  /// Initialize vector on the x-y plane
   Vector(float xx, float yy);
+
+  /// Initialize a full 3D vector
   Vector(float xx, float yy, float zz);
 
-  // Operations with scalars
-  /** Return the multiple of this Vector with a scalar without modifying this. */
+  /// Multiply with scalar and return new Vector
   Vector operator*(float f) const;
-  /** Multiply this Vector */
+
+  /// Multiply with scalar and save to this Vector
   Vector& operator*=(float f);
 
-  // Operations with vectors
+  /// Add to another Vector and return a new Vector
   Vector operator+(const Vector& v) const;
+
+  /// Add to another Vector and save to this Vector
   Vector& operator+=(const Vector& v);
 
+  /// Subtract another Vector and return a new Vector
   Vector operator-(const Vector& v) const;
+
+  /// Subtract another Vector and save to this Vector
   Vector& operator-=(const Vector& v);
 
+  /// Get Vector components by integer index
   float operator[](int i) const;
 };
 
+/// Multiply with a scalar and return new Vector (when scalar comes first)
 Vector operator*(float f, const Vector& v);
+
+/// Compute the dot product of two vectors
+float Dot(const Vector &v1, const Vector &v2);
+
+/// Compute the cross product of two vectors
+Vector Cross(const Vector &v1, const Vector &v2);
 
 #endif

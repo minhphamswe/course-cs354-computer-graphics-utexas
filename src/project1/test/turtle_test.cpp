@@ -1,5 +1,10 @@
 #include <stdio.h>
+#include <GL/gl.h>
+#include <GL/glu.h>
+#include <GL/glut.h>
+
 #include <vector>
+
 #include <UnitTest++/UnitTest++.h>
 #include <core/geometry.h>
 #include <core/color.h>
