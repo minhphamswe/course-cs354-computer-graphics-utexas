@@ -1,1 +1,5 @@
-SUBDIRS = core/test debug project1/test
+SUBDIRS = \
+	debug \
+	core/test \
+	shapes/test \
+	project1/test

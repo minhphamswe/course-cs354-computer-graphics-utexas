@@ -35,6 +35,7 @@ AC_CHECK_FUNCS([gettimeofday strstr])
 AC_CONFIG_FILES([Makefile
                  src/Makefile
                  src/core/test/Makefile
+                 src/shapes/test/Makefile
                  src/debug/Makefile
                  src/project1/test/Makefile])
 AC_OUTPUT
