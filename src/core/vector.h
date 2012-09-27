@@ -36,6 +36,12 @@ class Vector {
   /// Subtract another Vector and save to this Vector
   Vector& operator-=(const Vector& v);
 
+  /// Return another Vector that is the additive inverse of this vector
+  Vector operator-() const;
+
+  /// Return true if two Vectors are identical
+  bool operator==(const Vector& v) const;
+
   /// Get Vector components by integer index
   float operator[](int i) const;
 };

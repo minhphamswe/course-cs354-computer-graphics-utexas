@@ -32,6 +32,34 @@ TEST(VectorConstructor) {
   }
 }
 
+TEST(VectorUnaryMinus) {
+  Vector v;
+
+  v = Vector(1, 0, 0);
+  CHECK_EQUAL( -1, (-v).x);
+  CHECK_EQUAL(0, (-v).y);
+  CHECK_EQUAL(0, (-v).z);
+
+  v = -Vector(1, 2, 3);
+  CHECK_EQUAL(-1, v.x);
+  CHECK_EQUAL(-2, v.y);
+  CHECK_EQUAL(-3, v.z);
+}
+
+TEST(VectorCompareEqual) {
+  Vector v;
+
+  v = Vector(1, 0, 0);
+  CHECK(v == v);
+  CHECK(v == Vector(1, 0, 0));
+  CHECK(Vector(1, 0, 0) == Vector(1, 0, 0));
+
+  v = Vector(4, 5, 6);
+  CHECK(v == v);
+  CHECK(v == Vector(4, 5, 6));
+  CHECK(Vector(4, 5, 6) == Vector(4, 5, 6));
+}
+
 TEST(VectorIndexAccessor) {
   Vector v;
   v = Vector(5, 6);
@@ -49,20 +77,14 @@ TEST(VectorMultiplication) {
   Vector v;
 
   v = Vector(1, 2, 3) * 5;
-  CHECK_EQUAL(v.x, 5);
-  CHECK_EQUAL(v.y, 10);
-  CHECK_EQUAL(v.z, 15);
+  CHECK(v == Vector(5, 10, 15));
 
   v = 5 * Vector(1, 2, 3);
-  CHECK_EQUAL(v.x, 5);
-  CHECK_EQUAL(v.y, 10);
-  CHECK_EQUAL(v.z, 15);
+  CHECK(v == Vector(5, 10, 15));
 
   v = Vector(1, 2, 3);
   v *= 5;
-  CHECK_EQUAL(v.x, 5);
-  CHECK_EQUAL(v.y, 10);
-  CHECK_EQUAL(v.z, 15);
+  CHECK(v == Vector(5, 10, 15));
 }
 
 TEST(VectorVectorAddition) {
@@ -73,31 +95,21 @@ TEST(VectorVectorAddition) {
 
   // Check addition identity
   v = v1 + Vector(0, 0, 0);
-  CHECK_EQUAL(v.x, 1);
-  CHECK_EQUAL(v.y, 2);
-  CHECK_EQUAL(v.z, 3);
+  CHECK(v == Vector(1, 2, 3));
 
   v = v2 + Vector(0, 0, 0);
-  CHECK_EQUAL(v.x, 4);
-  CHECK_EQUAL(v.y, 5);
-  CHECK_EQUAL(v.z, 6);
+  CHECK(v == Vector(4, 5, 6));
 
   // Check result of addition
   v = v1 + v2;
-  CHECK_EQUAL(v.x, 5);
-  CHECK_EQUAL(v.y, 7);
-  CHECK_EQUAL(v.z, 9);
+  CHECK(v == Vector(5, 7, 9));
 
   // Check result of increment
   v += v2;
-  CHECK_EQUAL(v.x, 9);
-  CHECK_EQUAL(v.y, 12);
-  CHECK_EQUAL(v.z, 15);
+  CHECK(v == Vector(9, 12, 15));
 
   // Check addition is commutative
-  CHECK_EQUAL((v1+v2).x, (v2+v1).x);
-  CHECK_EQUAL((v1+v2).y, (v2+v1).y);
-  CHECK_EQUAL((v1+v2).z, (v2+v1).z);
+  CHECK((v1 + v2) == (v2 + v1));
 }
 
 TEST(VectorVectorSubtration) {
@@ -108,36 +120,24 @@ TEST(VectorVectorSubtration) {
 
   // Check subtraction identity
   v = v1 - Vector(0, 0, 0);
-  CHECK_EQUAL(v.x, 1);
-  CHECK_EQUAL(v.y, 2);
-  CHECK_EQUAL(v.z, 3);
+  CHECK(v == Vector(1, 2, 3));
 
   v = v2 - Vector(0, 0, 0);
-  CHECK_EQUAL(v.x, 4);
-  CHECK_EQUAL(v.y, 5);
-  CHECK_EQUAL(v.z, 6);
+  CHECK(v == Vector(4, 5, 6));
 
   // Check result of subtraction
   v = v2 - v1;
-  CHECK_EQUAL(v.x, 3);
-  CHECK_EQUAL(v.y, 3);
-  CHECK_EQUAL(v.z, 3);
+  CHECK(v == Vector(3, 3, 3));
 
   v = v1 - v2;
-  CHECK_EQUAL(v.x, -3);
-  CHECK_EQUAL(v.y, -3);
-  CHECK_EQUAL(v.z, -3);
+  CHECK(v == Vector(-3, -3, -3));
 
   // Check result of decrement
   v -= v2;
-  CHECK_EQUAL(v.x, -7);
-  CHECK_EQUAL(v.y, -8);
-  CHECK_EQUAL(v.z, -9);
+  CHECK(v == Vector(-7, -8, -9));
 
-  // Check addition is inversely commutative
-  CHECK_EQUAL((v1-v2).x, -(v2-v1).x);
-  CHECK_EQUAL((v1-v2).y, -(v2-v1).y);
-  CHECK_EQUAL((v1-v2).z, -(v2-v1).z);
+  // Check addition is anticommutative
+  CHECK((v1 - v2) == -(v2 - v1));
 }
 
 TEST(DotProduct) {
@@ -177,5 +177,28 @@ TEST(DotProduct) {
 }
 
 TEST(CrossProduct) {
-  CHECK(false);
+  Vector v1, v2;
+
+  // Check (i x j == k), (j x i == -k)
+  v1 = Vector(1, 0, 0);
+  v2 = Vector(0, 1, 0);
+  CHECK(Cross(v1, v2) == Vector(0, 0, 1));
+  CHECK(Cross(v1, v2) == -Cross(v2, v1));
+
+  // Check (j x k == i), (k x j == -i)
+  v1 = Vector(0, 1, 0);
+  v2 = Vector(0, 0, 1);
+  CHECK(Cross(v1, v2) == Vector(1, 0, 0));
+  CHECK(Cross(v1, v2) == -Cross(v2, v1));
+
+  // Check (k x i == j), (i x k == -j)
+  v1 = Vector(0, 0, 1);
+  v2 = Vector(1, 0, 0);
+  CHECK(Cross(v1, v2) == Vector(0, 1, 0));
+  CHECK(Cross(v1, v2) == -Cross(v2, v1));
+
+  v1 = Vector(1, 2, 3);
+  v2 = Vector(4, 5, 6);
+  CHECK(Cross(v1, v2) == Vector(-3, 6, -3));
+  CHECK(Cross(v1, v2) == -Cross(v2, v1));
 }

@@ -53,6 +53,15 @@ Vector& Vector::operator-=(const Vector& v) {
   return *this;
 }
 
+Vector Vector::operator-() const {
+  return Vector(-x, -y, -z);
+}
+
+bool Vector::operator==(const Vector& v) const {
+  return ((x == v.x) && (y == v.y) && (z == v.z));
+}
+
+
 float Vector::operator[](int i) const {
   Assert(i >= 0);
   Assert(i < 3);
@@ -64,5 +73,7 @@ float Dot(const Vector &v1, const Vector &v2) {
 }
 
 Vector Cross(const Vector &v1, const Vector &v2) {
-
+  return Vector(v1.y * v2.z - v1.z * v2.y,
+                v1.z * v2.x - v1.x * v2.z,
+                v1.x * v2.y - v1.y * v2.x);
 }
