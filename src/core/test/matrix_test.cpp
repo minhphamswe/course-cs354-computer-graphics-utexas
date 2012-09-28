@@ -87,15 +87,18 @@ TEST(Matrix4x4InequalityOperator) {
     {5.1, 6.2, 7.3, 8.4}
   };
   m1 = Matrix4x4(m);
+  m2 = Matrix4x4(m);
+  CHECK(!(m1 != m2));
 
   for (i = 0; i < 4; i++) {
     for (j = 0; j < 4; j++) {
       m2 = Matrix4x4(m);
-      m2.m[i][j] += d;
+      m2.m[i][j] = m2.m[i][j] + d;
       CHECK(m1 != m2);
 
-      m2.m[j][i] -= d;
-      CHECK(m1 != m2);
+      m2.m[i][j] = m2.m[i][j] - d;
+      CHECK(!(m1 != m2));
+      CHECK_ARRAY2D_CLOSE(m1.m, m2.m, 4, 4, 0.0001);
     }
   }
 }
@@ -148,11 +151,15 @@ TEST(Matrix4x4Multiply) {
 
 TEST(Matrix4x4Inverse) {
   Matrix4x4 m1, m2, i;
+  i = Matrix4x4();
 
+  m2 = Matrix4x4(1.f, 2.f, 3.f, 4.f,
+                 5.f, 6.f, 7.f, 8.f,
+                 1.5, 2.6, 3.7, 4.8,
+                 5.1, 6.2, 7.3, 8.4);
   // Inverse of identity matrix is itself
   m1 = Matrix4x4();
-  m2 = Matrix4x4();
-  CHECK(m2 == Inverse(m1));
+  CHECK_ARRAY2D_CLOSE(i.m, Inverse(m1).m, 4, 4, 0.00);
 
   // Check product of a matrix and its inverse is the identity matrix
   m1 = Matrix4x4(1.f, 2.f, 3.f, 4.f,
@@ -160,6 +167,6 @@ TEST(Matrix4x4Inverse) {
                  1.5, 2.6, 3.7, 4.8,
                  5.1, 6.2, 7.3, 8.4);
   m2 = Inverse(m1);
-  i = Matrix4x4();
-  CHECK(i == Mul(m1, m2));
+  
+  CHECK_ARRAY2D_CLOSE(i.m, Mul(m1, m2).m, 4, 4, 0.00);
 }

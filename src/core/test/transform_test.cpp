@@ -30,22 +30,22 @@ TEST(ApplyTranslationToVector) {
   // Translate in X direction
   d = Vector(5.1, 0.f, 0.f);
   t = Translate(d);
-  CHECK(t(v) == v+d);
+  CHECK(t(v) == v);
 
   // Translate in Y direction
   d = Vector(0.f, 6.2, 0.f);
   t = Translate(d);
-  CHECK(t(v) == v+d);
+  CHECK(t(v) == v);
 
   // Translate in Z direction
   d = Vector(0.f, 0.f, 7.3);
   t = Translate(d);
-  CHECK(t(v) == v+d);
+  CHECK(t(v) == v);
 
   // Translate in all 3 directions
   d = Vector(5.1, 6.2, 7.3);
   t = Translate(d);
-  CHECK(t(v) == v+d);
+  CHECK(t(v) == v);
 }
 
 TEST(ApplyInverseTranslationToVector) {
@@ -57,22 +57,22 @@ TEST(ApplyInverseTranslationToVector) {
   // Translate in X direction
   d = Vector(5.1, 0.f, 0.f);
   t = Translate(d);
-  CHECK(t(v) == v-d);
+  CHECK(t(v) == v);
 
   // Translate in Y direction
   d = Vector(0.f, 6.2, 0.f);
   t = Translate(d);
-  CHECK(t(v) == v-d);
+  CHECK(t(v) == v);
 
   // Translate in Z direction
   d = Vector(0.f, 0.f, 7.3);
   t = Translate(d);
-  CHECK(t(v) == v-d);
+  CHECK(t(v) == v);
 
   // Translate in all 3 directions
   d = Vector(5.1, 6.2, 7.3);
   t = Translate(d);
-  CHECK(t(v) == v-d);
+  CHECK(t(v) == v);
 }
 
 TEST(ApplyRotationX) {

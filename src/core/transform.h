@@ -28,6 +28,8 @@ class Transform {
 
   /// Concatentate multiple transforms
   Transform operator*(const Transform &t2) const;
+
+  friend Transform Inverse(const Transform &t);
 };
 
 /// Return the inverse a transform as a new transform

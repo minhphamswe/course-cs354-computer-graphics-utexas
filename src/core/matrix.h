@@ -1,6 +1,12 @@
 #ifndef CORE_MATRIX_H_
 #define CORE_MATRIX_H_
 
+// Low-level matrix elementary row operations
+void swap_row(float (*m)[4][8], int r1, int r2);
+void scale_row(float (*m)[4][8], int r, float f);
+void add_row(float (*m)[4][8], int from, int to, float f);
+
+
 struct Matrix4x4 {
  public:
   float m[4][4];

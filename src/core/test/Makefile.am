@@ -26,7 +26,7 @@ matrix_test_SOURCES = main.cpp matrix_test.cpp ../matrix.cpp
 transform_test_CPPFLAGS = -I$(top_srcdir)/lib -I$(top_srcdir)/src
 transform_test_LDADD = $(top_srcdir)/lib/libUnitTest++.a
 transform_test_SOURCES = main.cpp transform_test.cpp ../transform.cpp \
-                         ../matrix.cpp
+                         ../matrix.cpp ../point.cpp ../vector.cpp
 
 check: all
 	@echo 'Executing unittests for core ...'
