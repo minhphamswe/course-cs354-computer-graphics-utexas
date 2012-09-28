@@ -3,7 +3,7 @@
 
 class Color {
  public:
-   float r, g, b, a;
+  float r, g, b, a;
 
  public:
   Color(float rr, float gg, float bb);

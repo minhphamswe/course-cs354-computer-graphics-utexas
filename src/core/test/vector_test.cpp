@@ -46,7 +46,7 @@ TEST(VectorUnaryMinus) {
   CHECK_EQUAL(-3, v.z);
 }
 
-TEST(VectorCompareEqual) {
+TEST(VectorEquality) {
   Vector v;
 
   v = Vector(1, 0, 0);
@@ -104,12 +104,25 @@ TEST(VectorVectorAddition) {
   v = v1 + v2;
   CHECK(v == Vector(5, 7, 9));
 
-  // Check result of increment
-  v += v2;
-  CHECK(v == Vector(9, 12, 15));
-
   // Check addition is commutative
   CHECK((v1 + v2) == (v2 + v1));
+}
+
+TEST(VectorVectorIncrement) {
+  Vector v1, v2, v;
+
+  v1 = Vector(1, 2, 3);
+  v2 = Vector(4, 5, 6);
+
+  // Check result of increment
+  v = v1;
+  v += v2;
+  CHECK(v == Vector(5, 7, 9));
+
+  // Check result of increment
+  v = v2;
+  v += v1;
+  CHECK(v == Vector(5, 7, 9));
 }
 
 TEST(VectorVectorSubtration) {

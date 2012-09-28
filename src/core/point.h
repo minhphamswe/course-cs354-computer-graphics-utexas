@@ -4,10 +4,10 @@
 class Vector;
 
 class Point {
-public:
+ public:
   float x, y, z;
 
-public:
+ public:
   /// Initialize point at origin
   Point();
 
@@ -29,8 +29,20 @@ public:
   /// Subtract a vector from this point, return reference to this point
   Point& operator-=(const Vector& v);
 
+  /// Return true if two points occupy the same position
+  bool operator==(const Point& p) const;
+
+  /// Return result by weighing points by a scalar
+  Point operator*(float f) const;
+
+  /// Add a point to this point (used to compute weighted sum of points)
+  Point operator+(const Point &p) const;
+
   /// Get point components by integer index
   float operator[](int i) const;
 };
+
+/// Return result by weighing points by a scalar
+Point operator*(float f, const Point &p);
 
 #endif

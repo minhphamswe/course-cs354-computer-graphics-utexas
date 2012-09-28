@@ -61,7 +61,6 @@ bool Vector::operator==(const Vector& v) const {
   return ((x == v.x) && (y == v.y) && (z == v.z));
 }
 
-
 float Vector::operator[](int i) const {
   Assert(i >= 0);
   Assert(i < 3);

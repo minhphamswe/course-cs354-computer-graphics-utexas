@@ -32,6 +32,40 @@ TEST(PointConstructors) {
   }
 }
 
+TEST(PointEquality) {
+  Point p;
+
+  p = Point(1, 0, 0);
+  CHECK(p == p);
+  CHECK(p == Point(1, 0, 0));
+  CHECK(Point(1, 0, 0) == Point(1, 0, 0));
+
+  p = Point(4, 5, 6);
+  CHECK(p == p);
+  CHECK(p == Point(4, 5, 6));
+  CHECK(Point(4, 5, 6) == Point(4, 5, 6));
+}
+
+TEST(PointPointAddition) {
+  Point p1, p2, p;
+
+  p1 = Point(1, 2, 3);
+  p2 = Point(4, 5, 6);
+
+  // Check addition identity
+  p = p1 + Point(0, 0, 0);
+  CHECK(p == Point(1, 2, 3));
+
+  p = p2 + Point(0, 0, 0);
+  CHECK(p == Point(4, 5, 6));
+
+  // Check result of addition
+  p = p1 + p2;
+  CHECK(p == Point(5, 7, 9));
+
+  // Check addition is commutative
+  CHECK((p1 + p2) == (p2 + p1));
+}
 
 TEST(PointIndexAccessor) {
   Point p;

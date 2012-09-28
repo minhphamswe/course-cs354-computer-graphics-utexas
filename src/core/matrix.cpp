@@ -69,7 +69,6 @@ Matrix4x4::Matrix4x4(float a00, float a01, float a02, float a03,
   m[3][3] = a33;
 }
 
-
 bool Matrix4x4::operator==(const Matrix4x4 &mat) const {
   int i, j;
   for (i = 0; i < 4; i++)
@@ -80,7 +79,7 @@ bool Matrix4x4::operator==(const Matrix4x4 &mat) const {
 }
 
 bool Matrix4x4::operator!=(const Matrix4x4 &mat) const {
-  
+
 }
 
 Matrix4x4 Inverse(const Matrix4x4& m)

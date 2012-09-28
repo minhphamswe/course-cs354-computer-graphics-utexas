@@ -10,7 +10,7 @@ struct Matrix4x4 {
   Matrix4x4();
 
   /// Initialize a matrix using an array
-  Matrix4x4(float mat[4][4]);
+  explicit Matrix4x4(float mat[4][4]);
 
   /// Initialize a matrix using floats
   Matrix4x4(float a00, float a01, float a02, float a03,
