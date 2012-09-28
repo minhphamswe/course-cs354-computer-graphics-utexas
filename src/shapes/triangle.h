@@ -5,7 +5,7 @@ class Triangle {
  private:
   
   
-public:
+ public:
   
   
 };
