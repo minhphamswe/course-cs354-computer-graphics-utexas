@@ -11,6 +11,6 @@ Ball::Ball (float r, float g, float b)
     : color(r, g, b), disk(radius, Point()), psph(mass, radius, 0, 0) {}
 
 Ball::Ball (float r, float g, float b, float x, float y)
-    : color(r, g, b), disk(radius, Point()), psph(mass, radius, x, y) {}
+    : color(r, g, b), disk(radius, Point(x, y)), psph(mass, radius, x, y) {}
 
 

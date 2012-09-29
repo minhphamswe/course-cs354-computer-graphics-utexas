@@ -10,7 +10,7 @@ struct Disk {
 public:
   float r;    // radius
   Point c;    // center
-  std::vector<Point*> verts;
+  std::vector<Point> verts;
 
 public:
   /// Create a disk at the origin, parallel to the x-y plane
