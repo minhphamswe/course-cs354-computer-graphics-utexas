@@ -55,4 +55,10 @@ float Dot(const Vector &v1, const Vector &v2);
 /// Compute the cross product of two vectors
 Vector Cross(const Vector &v1, const Vector &v2);
 
+/// Return the length of the vector
+float Length(const Vector &v);
+
+/// Return a new vector which is this vector normalized
+Vector Normalize(const Vector &v);
+
 #endif

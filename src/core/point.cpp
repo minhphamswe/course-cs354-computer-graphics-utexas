@@ -32,6 +32,10 @@ Point& Point::operator-=(const Vector& v) {
   return *this;
 }
 
+Vector Point::operator-(const Point& p) const {
+  return Vector(x - p.x, y - p.y, z - p.z);
+}
+
 Point Point::operator+(const Point& p) const {
   return Point(x + p.x, y + p.y, z + p.z);
 }
@@ -52,4 +56,8 @@ float Point::operator[](int i) const {
   Assert(i >= 0);
   Assert(i < 3);
   return (&x)[i];
+}
+
+float Distance(const Point &p1, const Point &p2) {
+  return Length(p2-p1);
 }

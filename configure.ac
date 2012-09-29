@@ -37,5 +37,6 @@ AC_CONFIG_FILES([Makefile
                  src/core/test/Makefile
                  src/shapes/test/Makefile
                  src/debug/Makefile
-                 src/project1/test/Makefile])
+                 src/project1/test/Makefile
+                 src/project2/Makefile])
 AC_OUTPUT

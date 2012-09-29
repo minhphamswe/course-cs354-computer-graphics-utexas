@@ -151,8 +151,8 @@ TEST(Matrix4x4Multiply) {
 
 TEST(Matrix4x4Inverse) {
   Matrix4x4 m1, m2, i;
-  i = Matrix4x4();
 
+  i = Matrix4x4();
   m2 = Matrix4x4(1.f, 2.f, 3.f, 4.f,
                  5.f, 6.f, 7.f, 8.f,
                  1.5, 2.6, 3.7, 4.8,

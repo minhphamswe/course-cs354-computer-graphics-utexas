@@ -35,14 +35,15 @@ Vector Transform::operator()(const Vector& v) const {
                 m.m[2][0] * x + m.m[2][1] * y + m.m[2][2] * z);
 }
 
+/*
 Transform Transform::operator*(const Transform& t2) const {
 
 }
+*/
 
 Transform Inverse(const Transform& t) {
   return Transform(t.mInv, t.m);
 }
-
 
 Transform Translate(const Vector& delta) {
   Matrix4x4 mat = Matrix4x4(1.f, 0.f, 0.f, delta.x,

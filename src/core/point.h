@@ -29,6 +29,9 @@ class Point {
   /// Subtract a vector from this point, return reference to this point
   Point& operator-=(const Vector& v);
 
+  /// Subtract a point from this point, return a new vector
+  Vector operator-(const Point& p) const;
+  
   /// Return true if two points occupy the same position
   bool operator==(const Point& p) const;
 
@@ -44,5 +47,8 @@ class Point {
 
 /// Return result by weighing points by a scalar
 Point operator*(float f, const Point &p);
+
+/// Return the distance between two points
+float Distance(const Point &p1, const Point &p2);
 
 #endif

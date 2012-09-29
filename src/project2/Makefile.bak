@@ -1,0 +1,57 @@
+###########################################################
+# Project 1 Makefile
+
+CC = g++
+CFLAGS = -g
+INCLUDE = -I$(shell pwd)
+LIBDIR =
+LIBS = -lglut -lGLU -lGL -lm
+
+###########################################################
+# Options if compiling on Mac
+UNAME := $(shell uname)
+ifeq ($(UNAME), Darwin)
+CC = g++
+CFLAGS = -D__MAC__
+INCLUDE = 
+LIBDIR = -L/lusr/X11/lib
+LIBS = -framework OpenGL -framework GLUT
+endif
+
+###########################################################
+# Uncomment the following line if you are using Mesa
+#LIBS = -lglut -lMesaGLU -lMesaGL -lm
+
+
+###########################################################
+
+# To add a cpp file called myfile.cpp see comments below
+
+billiards: main.o ball.o point.o vector.o sphere.o
+	${CC} ${CFLAGS} $(INCLUDE) -o billiards main.o ball.o point.o vector.o sphere.o ${LIBDIR} ${LIBS}
+#	${CC} ${CFLAGS} $(INCLUDE) -o billiards main.o ball.o myfile.o ${LIBDIR} ${LIBS} # replace the previous line with this line
+
+main.o: main.cpp common.h geom2.h
+	${CC} -c ${CFLAGS} $(INCLUDE) main.cpp
+
+ball.o: ball.cpp ball.h common.h geom2.h core/point.cpp core/point.h core/vector.h core/vector.cpp physics/sphere.h physics/sphere.cpp core/color.cpp core/color.h
+	${CC} -c ${CFLAGS} $(INCLUDE) ball.cpp core/point.cpp core/vector.cpp physics/sphere.cpp core/color.cpp core/color.h
+
+# add the following lines
+# myfile.o: myfile.cpp myfile.h # any additional dependencies
+#	 ${CC} -c ${CFLAGS} $(INCLUDE) myfile.cpp
+
+point.o: core/point.cpp core/point.h
+	${CC} -c ${CFLAGS} $(INCLUDE) core/point.cpp
+
+vector.o: core/vector.cpp core/vector.h
+	${CC} -c ${CFLAGS} $(INCLUDE) core/vector.cpp
+	
+sphere.o: physics/sphere.cpp physics/sphere.h
+	${CC} -c ${CFLAGS} $(INCLUDE) physics/sphere.cpp
+
+color.o: core/color.cpp core/color.h
+	${CC} -c ${CFLAGS} $(INCLUDE) core/color.cpp
+
+clean:
+	rm -f billiards *.o

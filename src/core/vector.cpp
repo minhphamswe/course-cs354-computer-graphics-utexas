@@ -76,3 +76,18 @@ Vector Cross(const Vector &v1, const Vector &v2) {
                 v1.z * v2.x - v1.x * v2.z,
                 v1.x * v2.y - v1.y * v2.x);
 }
+
+float Length(const Vector& v) {
+  return v.x * v.x + v.y * v.y + v.z * v.z;
+}
+
+Vector Normalize(const Vector& v) {
+  float l = Length(v);
+  if (l) {
+    float f = 1/l;
+    return Vector(v.x * f, v.y * f, v.z * f);
+  }
+  else {
+    return Vector();
+  }
+}
