@@ -1,0 +1,89 @@
+\documentclass[13pt]{letter}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage[T1]{fontenc}
+\usepackage[margin=1in, paperwidth=8.5in, paperheight=11in]{geometry}
+\usepackage{tikz}
+\linespread{1.5}
+\begin{document}
+Student: Minh Pham \\
+EID: mlp2279
+
+\begin{center}
+	\textbf{Homework 1}
+\end{center}
+
+\begin{enumerate}
+	\item (5 points)
+	Vector $v = [x~y~z~0]^T$ is rotated about the x-axis until it lies in the xz plane. The new vector is $v'$. What is $|v'|$ (the length of $v'$)?
+	
+	\vspace{13pt}
+
+	\item (5 points)
+	Using $v'$ from problem 1, $v''$ is the projection of $v'$ onto the z axis. What is $|v''|$?
+
+	\vspace{13pt}
+	
+	\item (10 points)
+	Happy Harry is happy even when he's sleeping. Give a series of 3x3 2D transformation matrices (using homogeneous coordinates) in the proper order to transform Happy Harry from his awake position centered at $(x,~y)$ (figure a) to his sleeping position centered at $(x,~0)$ (figure b).
+	Leave any trigonometric functions unevaluated (leave rotation matrices in terms of sine and cosine).
+	
+	\begin{tikzpicture}
+		\draw (-0.5,0) -- (3.5,0);	
+		\draw (0,-0.5) -- (0,3.5);	
+		\draw (2, 2) circle [radius=1.0];
+		\draw (2.4, 2.4) circle [radius=0.25];
+		\draw (1.4, 2.4) -- (1.9, 2.4);
+		\draw (1.5, 1.5) arc (240:300:1.0);
+	\end{tikzpicture}
+
+	\begin{tikzpicture}
+		\draw (-0.5,0) -- (1,0);	
+		\draw (3.0,0) -- (3.5,0);	
+		\draw (0,-0.5) -- (0,3.5);	
+		\draw[rotate=-90] (0, 2) circle [radius=1.0];
+		\draw[rotate=-90] (0.4, 2.4) circle [radius=0.25];
+		\draw[rotate=-90] (-0.6, 2.4) -- (-0.1, 2.4);
+		\draw[rotate=-90] (-0.5, 1.5) arc (240:300:1.0);
+	\end{tikzpicture}
+
+	
+	\vspace{13pt}
+	
+	\item (5 points)
+	A wireframe cube (see wikipedia: "wire-frame model") is placed at the origin. The camera is placed using \texttt{gluLookAt(0, 0, 5, 0, 0, 0, 0, 1, 0)}. Using pespective projection, sketch what will be rendered on the screen.
+
+	\vspace{13pt}
+
+	\item (10 points)
+	The camera is placed using \texttt{gluLookAt(0, 10, 5, 0, 5, 0, 0, 1, 0)}. What are the coordinate axes $u$, $v$, $n$? Show your work.
+
+	\vspace{13pt}
+
+	\item 
+	Consider the following code:
+	
+	\begin{verbatim}
+		glutInitWindowSize(500, 500);
+		glMatrixMode(GL_PROJECTION);
+		glLoadIdentity();
+		glFrustum(-1, 1, -1/3.0, 1/3.0, 1, 3);
+		glMatrixMode(GL_MODELVIEW);
+		glLoadIdentity();
+		gluLookAt(0, 0, 2, 0, 0, 0, 0, 1, 0);
+		glColor3f(0, 0, 0);
+		glutWireCube(2);
+	\end{verbatim}
+	\begin{enumerate}
+		\item (5 points)
+		Sketch what will be rendered.
+
+		\item (10 points) 
+		What percentage of the cube’s volume lies inside the view frustum?
+	
+	\end{enumerate}
+\end{enumerate}
+
+\end{document}	
