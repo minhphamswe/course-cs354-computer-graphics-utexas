@@ -1,0 +1,4 @@
+* Get the build so that we can check out single directories (with dependencies) without too much hassle.
+* Do a coverage test to know how much of the code is tested.
+* Work on in-place operations and assigments operators.
+* Get the rendering code for shapes into a single class (say TriangleMesh)

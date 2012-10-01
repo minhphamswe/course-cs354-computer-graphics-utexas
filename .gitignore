@@ -1,6 +1,7 @@
-# Back-up files
+# Text-editor generated files
 *#
 *~
+*.kate-swp
 
 # Intermediate build products
 *.o

@@ -4,7 +4,7 @@
 AC_PREREQ([2.65])
 AC_INIT([CS354], [0.01], [minh.pham@utexas.edu])
 AM_INIT_AUTOMAKE
-AC_CONFIG_SRCDIR([src/debug/db_cube.cpp])
+AC_CONFIG_SRCDIR([src/project2/main.cpp])
 AC_CONFIG_HEADERS([config.h])
 
 # Checks for programs.
@@ -34,9 +34,5 @@ AC_CHECK_FUNCS([gettimeofday strstr])
 
 AC_CONFIG_FILES([Makefile
                  src/Makefile
-                 src/core/test/Makefile
-                 src/shapes/test/Makefile
-                 src/debug/Makefile
-                 src/project1/test/Makefile
                  src/project2/Makefile])
 AC_OUTPUT
