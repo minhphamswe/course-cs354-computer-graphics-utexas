@@ -6,7 +6,7 @@
 #include <iostream>
 #include <vector>
 
-#include "./ball.h"
+#include <ball.h>
 #include <core/point.h>
 #include <core/transform.h>
 
