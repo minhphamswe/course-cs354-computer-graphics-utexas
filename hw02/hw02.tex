@@ -162,13 +162,21 @@ EID: mlp2279
 	\textbf{Answer:} \\
 	
 
-	\vspace{13pt}
+	\vspace{144pt}
 
 	\item (10 points)
 	The camera is placed using \texttt{gluLookAt(0, 10, 5, 0, 5, 0, 0, 1, 0)}. What are the coordinate axes $u$, $v$, $n$? Show your work.
 
   \textbf{Answer:} \\
-  
+  We have: \\
+  $eye = [0~10~5]^T$ \\
+  $at = [0~5~0]^T$ \\
+  $up = [0~1~0]^T$ \\
+  The coordinate axes are: \\
+  $n = at - eye = [0~-5~-5]^T$ \\
+  $u = up \times n = [0~1~0]^T \times [0~-5~-5]^T = [-5~0~0]^T$ \\
+  $v = n \times u = [0~-5~-5]^T \times [-5~0~0]^T = [0~25~-25]^T$ 
+
 	\vspace{13pt}
 
 	\item 
@@ -195,6 +203,8 @@ EID: mlp2279
 	\end{enumerate}
 	
 	\textbf{Answer:} \\
+	\vspace{288pt}
+
 \end{enumerate}
 
 \end{document}	
