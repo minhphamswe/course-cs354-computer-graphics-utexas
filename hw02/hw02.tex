@@ -48,9 +48,6 @@ EID: mlp2279
 	Applying the same transformation to $v$ instead of $u$, we have:
 	$$|v''| = |v'|\sqrt{\cos^2\theta_y + \cos^2\theta_z} = (x^2 + y^2 + z^2)\sqrt{\cos^2\theta_y + \cos^2\theta_z}$$
 	
-	
-	
-
 	\vspace{13pt}
 	
 	\item (10 points)
@@ -79,16 +76,99 @@ EID: mlp2279
 		(a) & (b) \\
 	\end{tabularx}
 
+  \textbf{Answer:} \\
+  To get figure (b) from figure (a), we do as follow, in order:
+  \begin{enumerate}
+    \item Translate the figure from its original position $(x~y)$ to the origin with matrix $T_1$
+    \item Rotate the figure 90 degrees (or $pi/2$ radian) clock-wise with matrix $R$
+    \item Translate the figure to its final position at $(x, 0)$ with matrix $T_2$
+  \end{enumerate}
+  We have the values for the matrices as follow:
+  $$
+  T_2 = \left[
+  \begin{array}{ccc}
+    1 & 0 & x \\
+    0 & 1 & 0 \\
+    0 & 0 & 1
+  \end{array}
+  \right]
+  \hspace{12pt}
+  R = \left[
+  \begin{array}{ccc}
+     \cos{90} &  \sin{90} & 0 \\
+    -\sin{90} &  \cos{90} & 0 \\
+            0 &         0 & 1
+  \end{array}
+  \right]
+  \hspace{12pt}
+  T_1 = \left[
+  \begin{array}{ccc}
+    1 &  0 & -x \\
+    0 &  1 & -y \\
+    0 &  0 &  1
+  \end{array}
+  \right]
+  $$
+  The concatenated matrix that do the above transformations in the order specified is:
+  $$ M = T_2RT_1 \linebreak $$
+  $$ M = \left[
+  \begin{array}{ccc}
+    1 & 0 & x \\
+    0 & 1 & 0 \\
+    0 & 0 & 1
+  \end{array}
+  \right]
+  \left[
+  \begin{array}{ccc}
+     \cos{90} &  \sin{90} & 0 \\
+    -\sin{90} &  \cos{90} & 0 \\
+            0 &         0 & 1
+  \end{array}
+  \right]
+  \left[
+  \begin{array}{ccc}
+    1 &  0 & -x \\
+    0 &  1 & -y \\
+    0 &  0 &  1
+  \end{array}
+  \right] $$
+  $$ M = \left[
+  \begin{array}{ccc}
+     \cos{90} &  \sin{90} & x \\
+    -\sin{90} &  \cos{90} & 0 \\
+            0 &         0 & 1
+  \end{array}
+  \right]
+  \left[
+  \begin{array}{ccc}
+    1 &  0 & -x \\
+    0 &  1 & -y \\
+    0 &  0 &  1
+  \end{array}
+  \right]
+  $$
+  $$ M = \left[
+  \begin{array}{ccc}
+     \cos{90} &  \sin{90} & -x\cos{90} - y\sin{90} + x \\
+    -\sin{90} &  \cos{90} &  x\sin{90} - y\cos{90} \\
+            0 &         0 & 1
+  \end{array}
+  \right] $$
 	\vspace{13pt}
 	
 	\item (5 points)
 	A wireframe cube (see wikipedia: "wire-frame model") is placed at the origin. The camera is placed using \texttt{gluLookAt(0, 0, 5, 0, 0, 0, 0, 1, 0)}. Using pespective projection, sketch what will be rendered on the screen.
+	
+	\textbf{Answer:} \\
+	
 
 	\vspace{13pt}
 
 	\item (10 points)
 	The camera is placed using \texttt{gluLookAt(0, 10, 5, 0, 5, 0, 0, 1, 0)}. What are the coordinate axes $u$, $v$, $n$? Show your work.
 
+  \textbf{Answer:} \\
+  
 	\vspace{13pt}
 
 	\item 
@@ -113,6 +193,8 @@ EID: mlp2279
 		What percentage of the cube’s volume lies inside the view frustum?
 	
 	\end{enumerate}
+	
+	\textbf{Answer:} \\
 \end{enumerate}
 
 \end{document}	
