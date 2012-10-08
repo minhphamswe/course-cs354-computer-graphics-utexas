@@ -34,4 +34,4 @@ mocap_SOURCES = $(srcdir)/main.cpp \
                 $(srcdir)/joint.h \
                 $(srcdir)/y.tab.cpp \
                 $(srcdir)/y.tab.h \
-                $(srcdir)/lex.yy.cpp
+                $(srcdir)/lex.yy.cpp	
