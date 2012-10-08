@@ -4,9 +4,10 @@
 AC_PREREQ([2.65])
 AC_INIT([CS354], [0.01], [minh.pham@utexas.edu])
 AM_INIT_AUTOMAKE
-AC_CONFIG_SRCDIR([src/project2/main.cpp])
+AC_CONFIG_SRCDIR([src/demo/gl_cube.cpp])
 AC_CONFIG_HEADERS([config.h])
-AC_CONFIG_SUBDIRS([src/project2])
+AC_CONFIG_SUBDIRS([src/project2
+                   src/project3])
 
 # Checks for programs.
 AC_PROG_CXX
