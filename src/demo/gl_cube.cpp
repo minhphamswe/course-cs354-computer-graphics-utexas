@@ -1,4 +1,4 @@
-#include <db_cube.h>
+#include <demo/gl_cube.h>
 
 void init(void)
 {

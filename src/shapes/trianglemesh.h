@@ -3,6 +3,13 @@
 
 namespace ishi {
 
+#include <shapes/shape.h>
+
+class TriangleMesh : public Shape {
+};
+
+void Render(const TriangleMesh &tm);
+
 }  // namespace ishi
 
 #endif

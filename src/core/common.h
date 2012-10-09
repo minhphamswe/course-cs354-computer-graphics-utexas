@@ -27,7 +27,11 @@ inline float Min(float x, float y);
 ///  Return the larger of two floats
 inline float Max(float x, float y);
 
+/// Return the square of a number
+inline float Square(float f);
 
+/// Linearly interpolate between v1 and v2, given position t
+inline float Lerp(float t, float v1, float v2);
 
 inline float Min(float x, float y) {
   return (x < y) ? x : y;
@@ -36,6 +40,15 @@ inline float Min(float x, float y) {
 inline float Max(float x, float y) {
   return (x > y) ? x : y;
 }
+
+inline float Square(float f) {
+  return f * f;
+}
+
+inline float Lerp(float t, float v1, float v2) {
+  return (1.0f - t) * v1 + t * v2;
+}
+
 
 }  // namespace ishi
 

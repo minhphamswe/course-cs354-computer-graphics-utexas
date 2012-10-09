@@ -3,6 +3,8 @@
 #include <core/point.h>
 #include <UnitTest++/UnitTest++.h>
 
+using namespace ishi;
+
 TEST(ApplyIdentityTransform) {
   Vector v = Vector(5.1, 6.2, 7.3);
   Transform t = Transform();

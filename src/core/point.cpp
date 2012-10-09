@@ -1,4 +1,5 @@
-#include <core/geometry.h>
+#include <core/point.h>
+#include <core/vector.h>
 #include <core/common.h>
 
 namespace ishi {

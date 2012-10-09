@@ -17,7 +17,7 @@ bin_PROGRAMS = mocap
 noinst_HEADERS = $(srcdir)/bvh.y \
                  $(srcdir)/bvh.l
 
-mocap_CPPFLAGS = -I$(srcdir)/src
+mocap_CPPFLAGS = -I$(srcdir)/src -Wall -g
 mocap_SOURCES = $(srcdir)/main.cpp \
                 $(srcdir)/joint.cpp \
                 $(srcdir)/bvh_cb_info.cpp \

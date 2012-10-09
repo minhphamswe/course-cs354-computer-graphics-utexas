@@ -1,6 +1,8 @@
 #include <core/point.h>
 #include <UnitTest++/UnitTest++.h>
 
+using namespace ishi;
+
 TEST(PointConstructors) {
   Point p;
   // Default constructor returns origin

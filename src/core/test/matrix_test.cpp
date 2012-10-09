@@ -1,6 +1,8 @@
 #include <core/matrix.h>
 #include <UnitTest++/UnitTest++.h>
 
+using namespace ishi;
+
 TEST(Matrix4x4DefaultConstructor) {
   Matrix4x4 mat;
 

@@ -1,6 +1,8 @@
 #include <core/vector.h>
 #include <UnitTest++/UnitTest++.h>
 
+using namespace ishi;
+
 TEST(VectorConstructor) {
   Vector v;
   // Default constructor returns origin

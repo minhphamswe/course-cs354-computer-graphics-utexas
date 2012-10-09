@@ -1,6 +1,8 @@
 #include <core/geometry.h>
 #include <UnitTest++/UnitTest++.h>
 
+using namespace ishi;
+
 TEST(PointVectorAdditionSubtraction) {
   Point p1, p2, p;
   Vector v1, v2, v;

@@ -35,5 +35,7 @@ AC_TYPE_SIZE_T
 AC_CHECK_FUNCS([gettimeofday strstr])
 
 AC_CONFIG_FILES([Makefile
-                 src/Makefile])
+                 src/Makefile
+                 src/demo/Makefile
+                 src/core/test/Makefile])
 AC_OUTPUT

@@ -7,7 +7,7 @@ bin_PROGRAMS = \
 
 point_test_CPPFLAGS = -I$(top_srcdir)/lib -I$(top_srcdir)/src
 point_test_LDADD = $(top_srcdir)/lib/libUnitTest++.a
-point_test_SOURCES = main.cpp point_test.cpp ../point.cpp
+point_test_SOURCES = main.cpp point_test.cpp ../point.cpp ../vector.cpp
 
 vector_test_CPPFLAGS = -I$(top_srcdir)/lib -I$(top_srcdir)/src
 vector_test_LDADD = $(top_srcdir)/lib/libUnitTest++.a

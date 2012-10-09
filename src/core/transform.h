@@ -1,9 +1,9 @@
 #ifndef CORE_TRANSFORM_H_
 #define CORE_TRANSFORM_H_
 
-namespace ishi {
-
 #include <core/matrix.h>
+
+namespace ishi {
 
 class Point;
 class Vector;
