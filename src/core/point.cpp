@@ -1,6 +1,8 @@
 #include <core/geometry.h>
 #include <core/common.h>
 
+namespace ishi {
+
 Point::Point()
     : x(0), y(0), z(0) {}
 
@@ -61,3 +63,5 @@ float Point::operator[](int i) const {
 float Distance(const Point &p1, const Point &p2) {
   return Length(p2-p1);
 }
+
+}  // namespace ishi

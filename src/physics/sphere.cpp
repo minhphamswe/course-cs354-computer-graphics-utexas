@@ -2,6 +2,8 @@
 #include <physics/sphere.h>
 #include <physics/collision.h>
 
+namespace ishi {
+
 namespace phy {
 
 Sphere::Sphere(float mass, float radius, float cx, float cy)
@@ -10,30 +12,29 @@ Sphere::Sphere(float mass, float radius, float cx, float cy)
 Sphere::Sphere(float mass, float radius, float cx, float cy, float cz)
     : m(mass), c(cx, cy, cz), r(radius) {}
 
-float Sphere::Mass() {
+float Sphere::Mass() const {
   return m;
 }
 
-Point Sphere::Barycenter() {
+Point Sphere::Barycenter() const {
   return c;
 }
 
-Vector Sphere::Velocity() {
+Vector Sphere::Velocity() const {
   return v;
 }
 
-Vector Sphere::Spin() {
+Vector Sphere::Spin() const {
   return s;
 }
 
-CollisionData* Sphere::Collide(Sphere &s) {
+CollisionData* Sphere::Collide(const Sphere &s) const {
   // Determine to see if we actually have a collision or not
   float d = Distance(c, s.c);
   if ((d < r) && (d < s.r)) {
     // No collision
     return 0;
-  }
-  else {
+  } else {
     // Construct and return collision data
     CollisionData *cd = new CollisionData();
     cd->Register(this);
@@ -45,5 +46,7 @@ CollisionData* Sphere::Collide(Sphere &s) {
     return cd;
   }
 }
-
 }
+
+}  // namespace ishi
+

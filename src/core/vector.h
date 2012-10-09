@@ -1,6 +1,8 @@
 #ifndef CORE_VECTOR_H_
 #define CORE_VECTOR_H_
 
+namespace ishi {
+
 class Point;
 
 class Vector {
@@ -60,5 +62,7 @@ float Length(const Vector &v);
 
 /// Return a new vector which is this vector normalized
 Vector Normalize(const Vector &v);
+
+}  // namespace ishi
 
 #endif

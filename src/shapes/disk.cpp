@@ -1,8 +1,11 @@
-#include <cmath>
-
 #include <shapes/disk.h>
+
 #include <core/point.h>
 #include <core/transform.h>
+
+#include <cmath>
+
+namespace ishi {
 
 Disk::Disk(float radius)
     : r(radius), c(Point()) {
@@ -22,3 +25,4 @@ Disk::Disk(float radius, Point center)
   verts.push_back(c);
 }
 
+}  // namespace ishi

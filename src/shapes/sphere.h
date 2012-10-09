@@ -3,6 +3,8 @@
 
 #include <core/point.h>
 
+namespace ishi {
+
 namespace shp {
 
 class Sphere {
@@ -11,9 +13,10 @@ class Sphere {
   Point c;    // center
 
  public:
-  Sphere(Point center, float radius);
+  Sphere(const Point &center, const float &radius);
 };
-
 }
+
+}  // namespace ishi
 
 #endif

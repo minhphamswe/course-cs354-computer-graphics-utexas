@@ -1,10 +1,12 @@
 #ifndef PHYSICS_COLLISION_H_
 #define PHYSICS_COLLISION_H_
 
-#include <vector>
-
 #include <core/vector.h>
 #include <core/point.h>
+
+#include <vector>
+
+namespace ishi {
 
 namespace phy {
 
@@ -28,7 +30,8 @@ struct CollisionData {
 class Collision {
   void Act(CollisionData);
 };
-
 }
+
+}  // namespace ishi
 
 #endif

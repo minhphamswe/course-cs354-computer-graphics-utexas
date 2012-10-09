@@ -34,4 +34,10 @@ mocap_SOURCES = $(srcdir)/main.cpp \
                 $(srcdir)/joint.h \
                 $(srcdir)/y.tab.cpp \
                 $(srcdir)/y.tab.h \
-                $(srcdir)/lex.yy.cpp	
+                $(srcdir)/lex.yy.cpp
+
+.PHONY: check
+
+check: all
+	./check-code $(shell find ./src/core/ ./src/shapes/ ./src/physics/ -name "*.cpp" -a ! -name "lex.yy.cpp" -a ! -name "y.tab.cpp" -a ! -path "*test*" -prune)
+	./check-code $(shell find ./src/core/ ./src/shapes/ ./src/physics/ -name "*.h" -a ! -name "lex.yy.cpp" -a ! -name "y.tab.cpp" -a ! -path "*test*" -prune)

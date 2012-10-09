@@ -1,6 +1,8 @@
 #include <core/vector.h>
 #include <core/common.h>
 
+namespace ishi {
+
 /// Initialize all components set to 0
 Vector::Vector()
     : x(0), y(0), z(0) {}
@@ -86,8 +88,9 @@ Vector Normalize(const Vector& v) {
   if (l) {
     float f = 1/l;
     return Vector(v.x * f, v.y * f, v.z * f);
-  }
-  else {
+  } else {
     return Vector();
   }
 }
+
+}  // namespace ishi

@@ -1,6 +1,8 @@
 #ifndef CORE_MATRIX_H_
 #define CORE_MATRIX_H_
 
+namespace ishi {
+
 // Low-level matrix elementary row operations
 void swap_row(float (*m)[4][8], int r1, int r2);
 void scale_row(float (*m)[4][8], int r, float f);
@@ -39,5 +41,7 @@ Matrix4x4 Inverse(const Matrix4x4 &mat);
 
 /// Multiply two matrices, returning a new matrix
 Matrix4x4 Mul(const Matrix4x4 &m1, const Matrix4x4 &m2);
+
+}  // namespace ishi
 
 #endif

@@ -1,6 +1,8 @@
 #ifndef CORE_TRANSFORM_H_
 #define CORE_TRANSFORM_H_
 
+namespace ishi {
+
 #include <core/matrix.h>
 
 class Point;
@@ -52,5 +54,7 @@ Transform Rotate(float angle, const Vector &axis);
 
 /// Return a transform representing a general scaling in each of the axes
 Transform Scale(float x, float y, float z);
+
+}  // namespace ishi
 
 #endif

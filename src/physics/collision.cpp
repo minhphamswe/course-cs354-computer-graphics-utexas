@@ -1,6 +1,8 @@
 #include <physics/collision.h>
 #include <physics/object.h>
 
+namespace ishi {
+
 namespace phy {
 void CollisionData::Register(Object* obj) {
   objects.push_back(obj);
@@ -10,3 +12,5 @@ void CollisionData::Register(Object* obj) {
   spins.push_back(obj->Spin());
 }
 }
+
+}  // namespace ishi

@@ -5,6 +5,8 @@
 #include <core/vector.h>
 #include <physics/object.h>
 
+namespace ishi {
+
 namespace phy {
 
 class CollisionData;
@@ -24,17 +26,18 @@ class Sphere : public Object {
   /// Initialize a physics sphere in space
   Sphere(float mass, float radius, float cx, float cy, float cz);
 
-  virtual float Mass();
+  virtual float Mass() const;
 
-  virtual Point Barycenter();
+  virtual Point Barycenter() const;
 
   virtual Vector Velocity();
 
-  virtual Vector Spin();
+  virtual Vector Spin() const;
 
-  CollisionData* Collide(Sphere& s);
+  CollisionData* Collide(const Sphere &s) const;
 };
-
 }
+
+}  // namespace ishi
 
 #endif

@@ -1,6 +1,8 @@
 #ifndef CORE_POINT_H_
 #define CORE_POINT_H_
 
+namespace ishi {
+
 class Vector;
 
 class Point {
@@ -31,7 +33,7 @@ class Point {
 
   /// Subtract a point from this point, return a new vector
   Vector operator-(const Point& p) const;
-  
+
   /// Return true if two points occupy the same position
   bool operator==(const Point& p) const;
 
@@ -50,5 +52,7 @@ Point operator*(float f, const Point &p);
 
 /// Return the distance between two points
 float Distance(const Point &p1, const Point &p2);
+
+}  // namespace ishi
 
 #endif

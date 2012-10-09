@@ -1,5 +1,7 @@
 #include <core/matrix.h>
 
+namespace ishi {
+
 void swap_row(float (*m)[4][8], int r1, int r2) {
   float t;
   for (int j = 0; j < 8; j++) {
@@ -164,3 +166,5 @@ Matrix4x4 Mul(const Matrix4x4& m1, const Matrix4x4& m2) {
                   m1.m[i][3] * m2.m[3][j];
   return r;
 }
+
+}  // namespace ishi

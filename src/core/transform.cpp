@@ -3,6 +3,8 @@
 #include <core/vector.h>
 #include <core/point.h>
 
+namespace ishi {
+
 Transform::Transform()
     : m(Matrix4x4()), mInv(Matrix4x4()) {}
 
@@ -77,3 +79,5 @@ Transform Scale(float x, float y, float z) {
 
 }
 */
+
+}  // namespace ishi

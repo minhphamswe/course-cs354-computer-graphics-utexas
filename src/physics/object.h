@@ -4,6 +4,8 @@
 #include <core/vector.h>
 #include <core/point.h>
 
+namespace ishi {
+
 namespace phy {
 /// Physically collidable object
 class Object {
@@ -15,7 +17,8 @@ class Object {
   virtual Vector Velocity() = 0;
   virtual Vector Spin() = 0;
 };
-
 }
+
+}  // namespace ishi
 
 #endif
