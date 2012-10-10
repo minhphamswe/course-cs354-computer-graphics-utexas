@@ -22,6 +22,7 @@ AC_CHECK_LIB([GLU], [main])
 AC_CHECK_LIB([glut], [main])
 # FIXME: Replace `main' with a function in `-lm':
 AC_CHECK_LIB([m], [main])
+AC_CHECK_LIB([rt], [main])
 
 # Checks for header files.
 AC_CHECK_HEADERS([stdint.h sys/time.h unistd.h])
