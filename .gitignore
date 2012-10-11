@@ -5,14 +5,21 @@
 
 # Intermediate build products
 *.o
+y.tab.*
+lex.yy.*
+
 
 # Test executables
 src/debug/cube
 *_test
 src/core/test/testcore
 
-# Build products not for distro
-src/project1/turtle
+# Build products not for distribution
+demo/gl_cube
+demo/gl_cube_fps
+demo/turtle/turtle
+demo/billiards/billiards
+demo/mocap/mocap
 
 # Autoscan generated files
 autoscan.log
@@ -32,6 +39,8 @@ stamp-h1
 Makefile.in
 Makefile
 .deps
+ylwrap
+compile
 
 # Automake standard files (generate with 'automake -acf')
 INSTALL
@@ -55,3 +64,4 @@ src/project*/submit-README.txt
 *.aux
 *.log
 *.synctex.gz
+*.fdb_latexmk
