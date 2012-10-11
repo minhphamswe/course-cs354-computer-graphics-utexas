@@ -4,10 +4,10 @@
 AC_PREREQ([2.65])
 AC_INIT([CS354], [0.01], [minh.pham@utexas.edu])
 AM_INIT_AUTOMAKE
-AC_CONFIG_SRCDIR([src/demo/gl_cube.cpp])
+AC_CONFIG_SRCDIR([demo/gl_cube.cpp])
 AC_CONFIG_HEADERS([config.h])
-AC_CONFIG_SUBDIRS([src/project2
-                   src/project3])
+AC_CONFIG_SUBDIRS([demo/billiards
+                   demo/mocap])
 
 # Checks for programs.
 AC_PROG_CXX
@@ -37,6 +37,6 @@ AC_CHECK_FUNCS([gettimeofday strstr])
 
 AC_CONFIG_FILES([Makefile
                  src/Makefile
-                 src/demo/Makefile
-                 src/core/test/Makefile])
+                 src/core/test/Makefile
+                 demo/Makefile])
 AC_OUTPUT

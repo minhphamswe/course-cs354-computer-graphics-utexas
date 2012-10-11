@@ -1,4 +1,2 @@
-SUBDIRS = demo \
-          core/test \
+SUBDIRS = core/test \
           shapes/test
-          #project1/test
