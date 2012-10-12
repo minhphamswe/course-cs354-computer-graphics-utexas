@@ -69,4 +69,5 @@ exclude = $(srcdir)/y.tab.cpp \
 
 check: all
 	./mocap $(mocap_datadir)/01_01.bvh
-	$(checkdir)/check-code $(filter-out $(exclude),$(mocap_SOURCES))
+
+# $(checkdir)/check-code $(filter-out $(exclude),$(mocap_SOURCES))

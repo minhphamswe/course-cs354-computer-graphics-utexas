@@ -42,30 +42,30 @@ void Resize(int width, int height);
 void Keyboard(unsigned char key, int x, int y);
 void Idle();
 
+void SetLighting();
+
 // Application initialization
 void Init();
 
-SceneGraph sg;
-
 #define PI 3.14159265f
 
-Point eye, center, up;
-int waypoint = 1;
+SceneGraph sg;            // Main scene graph
+
+Point eye, center, up;    // Camera configuration variables
+int waypoint = 1;         // Default camera position (unused)
 
 BBox bbox = BBox(Point(-100, -100, -100), Point(100, 100, 100));
 float maxDist;
 
-Transform orbitLeft = RotateY(0.1f);
-Transform orbitRight = Inverse(orbitLeft);
+Transform orbitLeft = RotateY(-0.1f);        // Orbitting left transform
 
 char filename[1000];
 
-bool showAxis = true;
+bool showAxis = true;       // If true, show axis
+bool showBounds = false;    // If true, show bounding box
+bool animate = false;       // If true, animate character
+
 float axisLen = 1.0f;
-
-bool showBounds = false;
-
-void SetLighting();
 
 void InitGL() {
   // Perform any necessary GL initialization in this function
@@ -101,6 +101,8 @@ void Init() {
   // Compute default camera position
   up = Point(0.0f, 1.0f, 0.0f);
   eye = center + Vector(0.5f*maxDist, 0.75f*maxDist, 1.5f*maxDist);
+
+  sg.SetCurrentFrame(0);
 }
 
 void SetLighting() {
@@ -230,9 +232,22 @@ void Display() {
   SetLighting();
   SetCamera();
   SetDrawMode();
-  DrawFloor(800, 800, 80, 80);
+  //DrawFloor(800, 800, 80, 80);
 
   // TODO: draw scene graph and animate
+
+  // Render scene graph
+  for (unsigned int i = 0; i < sg.roots.size(); i++) {
+    sg.roots[i]->Render();
+  }
+
+  // If animating:
+  if (animate) {
+    // increment frame index && update position for all joints
+    sg.SetCurrentFrame(sg.GetCurrentFrame() + 1);
+    // then sleep until the next frame
+    sleep(sg.GetFrameTime());
+  }
 
   if (showAxis) DrawAxis();
   if (showBounds) DrawBounds();
@@ -297,22 +312,23 @@ void Keyboard(unsigned char key, int x, int y) {
       ComputeLookAt();
       break;
     case 'j':
-      eye = orbitLeft(eye);
+      orbitLeft.Apply(&eye);
       ComputeLookAt();
       break;
     case 'k':
-      eye = orbitRight(eye);
+      orbitLeft.ApplyInvert(&eye);
       ComputeLookAt();
       break;
     case ' ':
       // TODO
       cout << "Start/stop animation" << endl;
+      animate = !animate;
       break;
     case 'a':
-      showAxis=!showAxis;
+      showAxis = !showAxis;
       break;
     case 'b':
-      showBounds=!showBounds;
+      showBounds = !showBounds;
       break;
     case 'q':
     case 27:  // esc
@@ -325,6 +341,8 @@ void Keyboard(unsigned char key, int x, int y) {
 }
 
 void Idle() {
+//   glutGet(GLUT_ELAPSED_TIME);
+//   glutPostRedisplay();
 }
 
 void processCommandLine(int argc, char *argv[]) {

@@ -22,14 +22,35 @@ class Transform {
   /// Initialize a transform with a matrix and its inverse
   Transform(const Matrix4x4 &mat, const Matrix4x4 &matInv);
 
-  /// Transform a point
+  /// Transforming a point and return a new point
   Point operator()(const Point &p) const;
 
-  /// Transform a vector
+  /// Transforming a vector and return a new vector
   Vector operator()(const Vector &v) const;
 
-  /// Concatentate multiple transforms
+  /// Transform a point (in-place)
+  Point& Apply(Point *p) const;
+
+  /// Transform a vector (in-place)
+  Vector& Apply(Vector *v) const;
+
+  /// Invert the transform made to a point and return a new point
+  Point Invert(const Point &p) const;
+
+  /// Invert the transform made to a vector and return a new vector
+  Vector Invert(const Vector &v) const;
+
+  /// Invert the transform made to a point (in-place)
+  Point& ApplyInvert(Point *p) const;
+
+  /// Invert the transform made to a vector (in-place)
+  Vector& ApplyInvert(Vector *v) const;
+
+  /// Concatentate this and another transform, returning a new transform
   Transform operator*(const Transform &t2) const;
+
+  /// Concatentate this and another transform (in-place)
+  Transform& operator*=(const Transform& t2);
 
   friend Transform Inverse(const Transform &t);
 };
