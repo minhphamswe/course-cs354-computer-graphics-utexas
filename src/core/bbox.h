@@ -1,9 +1,9 @@
 #ifndef ISHI_CORE_BBOX_H_
 #define ISHI_CORE_BBOX_H_
 
-namespace ishi {
+#include <core/point.h>
 
-class Point;
+namespace ishi {
 
 /** Represents an axis-aligned bounding box */
 class BBox {

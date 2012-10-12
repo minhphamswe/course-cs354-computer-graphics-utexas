@@ -43,6 +43,12 @@ Point Point::operator+(const Point& p) const {
   return Point(x + p.x, y + p.y, z + p.z);
 }
 
+Point Point::operator/(float f) const {
+  float inv = 1/f;
+  return Point(x * inv, y * inv, z * inv);
+}
+
+
 Point Point::operator*(float f) const {
   return Point(x * f, y * f, z * f);
 }
@@ -55,7 +61,7 @@ bool Point::operator==(const Point& p) const {
   return ((x == p.x) && (y == p.y) && (z == p.z));
 }
 
-float Point::operator[](int i) const {
+float& Point::operator[](int i) {
   Assert(i >= 0);
   Assert(i < 3);
   return (&x)[i];

@@ -1,4 +1,6 @@
 #include <core/transform.h>
+
+#include <core/common.h>
 #include <core/matrix.h>
 #include <core/vector.h>
 #include <core/point.h>
@@ -58,19 +60,53 @@ Transform Translate(const Vector& delta) {
                                0.f, 0.f, 0.f, 1.0f);
   return Transform(mat, matInv);
 }
-/*
-Transform RotateX(float angle) {
 
+Transform RotateX(float angle) {
+  float c = cos(angle);
+  float s = sin(angle);
+
+  Matrix4x4 mat = Matrix4x4(1.f, 0.f, 0.f, 0.f,
+                            0.f, c, -s, 0.f,
+                            0.f, s, c, 0.f,
+                            0.f, 0.f, 0.f, 1.f);
+  Matrix4x4 matInv = Matrix4x4(1.f, 0.f, 0.f, 0.f,
+                               0.f,   c,   s, 0.f,
+                               0.f,  -s,   c, 0.f,
+                               0.f, 0.f, 0.f, 1.f);
+  return Transform(mat, matInv);
 }
 
 Transform RotateY(float angle) {
+  float c = cos(angle);
+  float s = sin(angle);
 
+  Matrix4x4 mat = Matrix4x4(c, 0.f, -s, 0.f,
+                            0.f, 1.f, 0.f, 0.f,
+                            s, 0.f, c, 0.f,
+                            0.f, 0.f, 0.f, 1.f);
+  Matrix4x4 matInv = Matrix4x4(c, 0.f, s, 0.f,
+                               0.f, 1.f, 0.f, 0.f,
+                               -s, 0.f, c, 0.f,
+                               0.f, 0.f, 0.f, 1.f);
+  return Transform(mat, matInv);
 }
 
 Transform RotateZ(float angle) {
+  float c = cos(angle);
+  float s = sin(angle);
 
+  Matrix4x4 mat = Matrix4x4(c, -s, 0.f, 0.f,
+                            s, c, 0.f, 0.f,
+                            0.f, 0.f, 1.f, 0.f,
+                            0.f, 0.f, 0.f, 1.f);
+  Matrix4x4 matInv = Matrix4x4(c, s, 0.f, 0.f,
+                               -s, c, 0.f, 0.f,
+                               0.f, 0.f, 1.f, 0.f,
+                               0.f, 0.f, 0.f, 1.f);
+  return Transform(mat, matInv);
 }
 
+/*
 Transform Rotate(float angle, const Vector& axis) {
 
 }

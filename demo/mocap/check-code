@@ -1,3 +1,13 @@
 #! /bin/bash
 
-./cpplint.py --filter=-readability/todo,-readability/streams,-runtime/threadsafe_fn,-legal,-build/namespaces,-build/header_guard $@
+# Compute the directory of this script
+SOURCE="${BASH_SOURCE[0]}"
+THISDIR="$(dirname "$SOURCE")"
+while [ -h "$SOURCE" ]; do
+    SOURCE="$(readlink "$SOURCE")"
+    [[ $SOURCE != /* ]] && SOURCE="$THISDIR/$SOURCE"
+    THISDIR="$(cd -P "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+done
+THISDIR="$(cd -P "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+$THISDIR/cpplint.py --filter=-readability/todo,-readability/streams,-runtime/threadsafe_fn,-legal,-build/namespaces,-build/header_guard $@

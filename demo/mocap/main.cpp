@@ -5,6 +5,11 @@
   This is simple skeleton GLUT code.
 */
 
+#include <src/core/point.h>
+#include <src/core/vector.h>
+#include <src/core/transform.h>
+#include <src/core/bbox.h>
+
 // C++ library includes
 #include <cstdlib>
 #include <cmath>
@@ -24,6 +29,7 @@
 #include "./geom.h"
 
 using namespace std;
+using namespace ishi;
 
 // window parameters
 int window_width = 800, window_height = 600;
@@ -36,14 +42,21 @@ void Resize(int width, int height);
 void Keyboard(unsigned char key, int x, int y);
 void Idle();
 
+// Application initialization
+void Init();
+
 SceneGraph sg;
 
 #define PI 3.14159265f
 
-Vec3f eye, center, up;
+Point eye, center, up;
 int waypoint = 1;
 
-BoundingBox bbox = {{-100, -100, -100}, {100, 100, 100}};
+BBox bbox = BBox(Point(-100, -100, -100), Point(100, 100, 100));
+float maxDist;
+
+Transform orbitLeft = RotateY(0.1f);
+Transform orbitRight = Inverse(orbitLeft);
 
 char filename[1000];
 
@@ -68,23 +81,26 @@ void InitGL() {
 
   SetLighting();
 
+  Init();
+
   // resize the window
   Resize(window_width, window_height);
 }
 
 void ComputeLookAt() {
-  float maxDist = (bbox.max-bbox.min).max();
-  center = (bbox.max+bbox.min)/2.0f;
-  up = Vec3f::makeVec(0.0f, 1.0f, 0.0f);
-  eye = center+Vec3f::makeVec(0.0f, 0.75f*maxDist, -1.5f*maxDist);
-  if (waypoint == 1) {
-    eye = center+Vec3f::makeVec(0.5f*maxDist, 0.75f*maxDist, 1.5f*maxDist);
-  } else if (waypoint == 2) {
-    eye = center+Vec3f::makeVec(0, 0.1f*maxDist, 1.5f*maxDist);
-  } else if (waypoint == 3) {
-    eye = center+Vec3f::makeVec(1.5f*maxDist, 0.1f*maxDist, 0);
-  }
+  // Recompute world center and bound
+  maxDist = Length(bbox.pMax - bbox.pMin);
+  center = (bbox.pMax + bbox.pMin)/2.0f;
   axisLen = maxDist*0.05f;
+}
+
+void Init() {
+  // Compute world bounds
+  ComputeLookAt();
+
+  // Compute default camera position
+  up = Point(0.0f, 1.0f, 0.0f);
+  eye = center + Vector(0.5f*maxDist, 0.75f*maxDist, 1.5f*maxDist);
 }
 
 void SetLighting() {
@@ -113,26 +129,26 @@ void SetDrawMode() {
 }
 
 void DrawAxis() {
-  Vec3f c = (bbox.min+bbox.max)*0.5f;
-  float L = (bbox.max-bbox.min).max() * 0.2;
+  Point c = (bbox.pMin+bbox.pMax) * 0.5f;
+  float L = Length(bbox.pMax-bbox.pMin) * 0.2;
 
-  Vec3f X = {L, 0, 0}, Y = {0, L, 0}, Z = {0, 0, L};
+  Vector X(L, 0, 0), Y(0, L, 0), Z(0, 0, L);
 
   glLineWidth(2.0);
 
   glBegin(GL_LINES);
 
   glColor3f(1, 0, 0);
-  glVertex3fv(c.x);
-  glVertex3fv((c+X).x);
+  glVertex3f(c.x, c.y, c.z);
+  glVertex3f((c+X).x, (c+X).y, (c+X).z);
 
   glColor3f(0, 1, 0);
-  glVertex3fv(c.x);
-  glVertex3fv((c+Y).x);
+  glVertex3f(c.x, c.y, c.z);
+  glVertex3f((c+Y).x, (c+Y).y, (c+Y).z);
 
   glColor3f(0, 0, 1);
-  glVertex3fv(c.x);
-  glVertex3fv((c+Z).x);
+  glVertex3f(c.x, c.y, c.z);
+  glVertex3f((c+Z).x, (c+Z).y, (c+Z).z);
 
   glEnd();
 }
@@ -167,30 +183,38 @@ void DrawFloor(float W, float H, float w, float h) {
   glEnd();
 }
 
-void DrawRect(const Vec3f & u, const Vec3f & v, const Vec3f & o) {
+void DrawRect(const Point &base, const Vector &ext1, const Vector &ext2) {
+  Point tmp;
   glBegin(GL_LINE_STRIP);
-  glColor3f(0, 0, 1);
-  glVertex3fv(o.x);
-  glVertex3fv((o+u).x);
-  glVertex3fv((o+u+v).x);
-  glVertex3fv((o+v).x);
-  glVertex3fv(o.x);
+    glColor3f(0, 0, 1);
+
+    glVertex3fv(&(base.x));
+    tmp = base + ext1;
+    glVertex3fv(&(tmp.x));
+
+    tmp = base + ext1 + ext2;
+    glVertex3fv(&(tmp.x));
+
+    tmp = base + ext2;
+    glVertex3fv(&(tmp.x));
+    glVertex3fv(&(base.x));
   glEnd();
 }
 
 void DrawBounds() {
-  Vec3f u, v, m1[] = {bbox.min, bbox.max}, m2[] = {bbox.max, bbox.min};
+  Point u, v, m1[] = {bbox.pMin, bbox.pMax}, m2[] = {bbox.pMax, bbox.pMin};
+  Vector uu, vv;
 
   for (int k = 0; k < 2; k++) {
     for (int i = 0; i < 3; i++) {
       for (int j = i+1; j < 3; j++) {
         u = m1[k];
         v = m1[k];
-        u.x[i] = m2[k].x[i];
-        v.x[j] = m2[k].x[j];
-        u = u-m1[k];
-        v = v-m1[k];
-        DrawRect(u, v, m1[k]);
+        u[i] = m2[k][i];
+        v[j] = m2[k][j];
+        uu = u - m1[k];
+        vv = v - m1[k];
+        DrawRect(m1[k], uu, vv);
       }
     }
   }
@@ -250,34 +274,34 @@ void Keyboard(unsigned char key, int x, int y) {
   switch (key) {
     case '1':
       waypoint = 1;
+      eye = center + Vector(0.5f*maxDist, 0.75f*maxDist, 1.5f*maxDist);
       ComputeLookAt();
       break;
     case '2':
       waypoint = 2;
+      eye = center + Vector(0, 0.1f*maxDist, 1.5f*maxDist);
       ComputeLookAt();
       break;
     case '3':
       waypoint = 3;
+      eye = center + Vector(1.5f*maxDist, 0.1f*maxDist, 0);
       ComputeLookAt();
       break;
     case 'z':
-      // TODO
-      cout << "Zoom in" << endl;
+      waypoint = 4;
+      eye = center + ((eye - center) * 0.95);
       ComputeLookAt();
       break;
     case 'Z':
-      // TODO
-      cout << "Zoom out" << endl;
+      eye = center + ((eye - center) * 1.05);
       ComputeLookAt();
       break;
     case 'j':
-      // TODO
-      cout << "Orbit left" << endl;
+      eye = orbitLeft(eye);
       ComputeLookAt();
       break;
     case 'k':
-      // TODO
-      cout << "Orbit right" << endl;
+      eye = orbitRight(eye);
       ComputeLookAt();
       break;
     case ' ':

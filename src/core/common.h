@@ -8,6 +8,8 @@ namespace ishi {
 
 #include <stddef.h>
 #include <stdint.h>
+#include <float.h>
+#include <math.h>
 
 // Useful constants
 #define PI      3.14159265359
@@ -15,11 +17,9 @@ namespace ishi {
 #define TWO_PI  6.28318530718
 #define INV_180 0.00555555555
 
-#ifdef INFINITY
-#undef INFINITY
-#endif
-
+#ifndef INFINITY
 #define INFINITY FLT_MAX
+#endif
 
 ///  Return the smaller of two floats
 inline float Min(float x, float y);

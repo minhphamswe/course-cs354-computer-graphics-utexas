@@ -43,8 +43,11 @@ class Point {
   /// Add a point to this point (used to compute weighted sum of points)
   Point operator+(const Point &p) const;
 
-  /// Get point components by integer index
-  float operator[](int i) const;
+  /// Divide a point by a scalar (used to compute weighted sum of points)
+  Point operator/(float f) const;
+
+  /// Get value of point components by integer index (no editing)
+  float& operator[](int i);
 };
 
 /// Return result by weighing points by a scalar

@@ -10,7 +10,7 @@
 
 namespace ishi {
 
-long Resolution() {
+int64 Resolution() {
 #ifdef WIN32
 #endif
 
@@ -21,8 +21,7 @@ long Resolution() {
 #endif
 }
 
-long long unsigned int Time(const Timer& t) {
-
+int64 Time(const Timer& t) {
 }
 
 }  // namespace ishi

@@ -22,7 +22,6 @@ class TriangleMesh : public Shape {
 
   /// Return the normal vector to the edge e[i]
   Normal Normal(int i);
-  
 };
 
 void Render(const TriangleMesh &tm);

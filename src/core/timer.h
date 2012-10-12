@@ -8,18 +8,18 @@
 namespace ishi {
 
 class Timer {
-private:
-  unsigned long long lastTime;
+ private:
+  int64 lastTime;
   float delta;
 
-public:
+ public:
   explicit Timer(float startTimeSeconds = 0.0f);
 
   /// Return number of ticks per second
-  unsigned long long secondsToCycles(float timeSeconds);
-  float cyclesToSeconds(unsigned long long timeCycles);
+  int64 secondsToCycles(float timeSeconds);
+  float cyclesToSeconds(int64 timeCycles);
 
-  unsigned long long getTimeCycles() const;
+  int64 getTimeCycles() const;
 
   /// Return the second difference between this and another timer
   float SecDiff(const Timer& other) const;
@@ -30,13 +30,13 @@ public:
 int InitTimer();
 
 /// Return time elapsed per tick
-long Resolution();
+int32 Resolution();
 
 /// Advance the timer
 float Tick(const Timer& t);
 
 /// Take the current time
-unsigned long long Time(const Timer& t);
+int64 Time();
 
 
 }  // namespace ishi

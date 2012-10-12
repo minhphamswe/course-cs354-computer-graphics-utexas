@@ -57,6 +57,9 @@ float Dot(const Vector &v1, const Vector &v2);
 /// Compute the cross product of two vectors
 Vector Cross(const Vector &v1, const Vector &v2);
 
+/// Return the square of the length of the vector
+float LengthSquared(const Vector &v);
+
 /// Return the length of the vector
 float Length(const Vector &v);
 
