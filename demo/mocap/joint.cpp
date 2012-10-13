@@ -1,3 +1,4 @@
+#include <src/core/common.h>
 #include <src/core/vector.h>
 #include <src/core/transform.h>
 
@@ -22,13 +23,13 @@ Segment::Segment(const char* name, uint32_t id) {
 
   /* Hierarchy information */
   this->par = NULL;
-  this->locTrans = Transform();
-  this->accTrans = Transform();
+  this->w2o = Transform();
+  this->loc = Transform();
 
   /* Geometric information */
   this->offset = Vector();
-  this->endpoint = Point();
-  this->basepoint = Point();
+  this->endpoint = Point();   // in world coordinate
+  this->basepoint = Point();  // in world coordinate
 
   /* Motion information */
   this->numChannels = 0;
@@ -36,85 +37,62 @@ Segment::Segment(const char* name, uint32_t id) {
 
 void Segment::Update() {
   cout << "Updating " << name << " ID: " << id << endl;
-//   cout << "Offset" << offset.x << offset.y << offset.z << endl;
 
-  // Get accumulated transformation from the parent
+  // Recompute world-to-object transformation
   if (par) {
-    accTrans = par->accTrans;
+    this->w2o = Translate(this->offset) * par->w2o;
   }
+
+//   cout << "Basepoint" << basepoint.x << basepoint.y << basepoint.z << endl;
 
   // Get local transformation from the frame
   vector<float> frame = frameData[frameIndex];
 
-//   cout << "Frame for " << name << " is: " << "(";
-//   for (unsigned int i = 0; i < frame.size(); i++)
-//     cout << frame[i] << ", ";
-//   cout << ")" << endl;
+  Vector trans = Vector(0, 0, 0);   // Translation vector
+  Vector rot = Vector(0, 0, 0);     // Rotation data holder
 
   for (unsigned int i = 0; i < numChannels; i++) {
     // get channel to update by order
     float f = frame[i];         // data
     int c = channelOrder[i];    // which channel it maps to
-//     cout << "Channel Order: " << c << endl;
 
-    locTrans = Transform();
-    if (c == BVH_XPOS_IDX) {
-      cout << "Translate along X by " << f << endl;
-//       locTrans = Translate(Vector(f, 0, 0)) * locTrans;
-      locTrans *= Translate(Vector(f, 0, 0));
-//       this->basepoint = Translate(Vector(f, 0, 0))(this->basepoint);  // This is the base
-//       this->basepoint = locTrans(this->basepoint);
+    if (c == BVH_XPOS_IDX && (channelFlags & BVH_XPOS)) {
+      cout << "Move to point X equals " << f << endl;
+      trans.x = f;
 
-    } else if (c == BVH_YPOS_IDX) {
-      cout << "Translate along Y by " << f << endl;
-      locTrans = Translate(Vector(0, f, 0)) * locTrans;
+    } else if (c == BVH_YPOS_IDX && (channelFlags & BVH_YPOS)) {
+      cout << "Move to point X equals " << f << endl;
+      trans.y = f;
 
-    } else if (c == BVH_ZPOS_IDX) {
-      cout << "Translate along Z by " << f << endl;
-      locTrans = Translate(Vector(0, 0, f)) * locTrans;
+    } else if (c == BVH_ZPOS_IDX && (channelFlags & BVH_ZPOS)) {
+      cout << "Move to point X equals " << f << endl;
+      trans.z = f;
 
     } else if (c == BVH_XROT_IDX) {
-//       cout << "Rotate around X by " << f << endl;
-//       locTrans = RotateX(-f) * locTrans;
+      cout << "Rotate around X by " << f << endl;
+      rot.x = Radian(-f);
+
     } else if (c == BVH_YROT_IDX) {
-//       cout << "Rotate around Y by " << f << endl;
-//       locTrans = RotateY(-f) * locTrans;
+      cout << "Rotate around Y by " << f << endl;
+      rot.y = Radian(-f);
+
     } else if (c == BVH_ZROT_IDX) {
-//       cout << "Rotate around Z by " << f << endl;
-//       locTrans = RotateZ(-f) * locTrans;
+      cout << "Rotate around Z by " << f << endl;
+      rot.z = Radian(-f);
     }
   }
 
-  // Update accumulated transformation
-  accTrans = locTrans * accTrans;
+  if (trans != Vector(0, 0, 0))
+    this->w2o = Translate(trans) * this->w2o * Translate(Point() - basepoint);
 
-  // Recompute base point
-  if (par)
-    this->basepoint = par->endpoint;
-  else
-    this->basepoint = locTrans(this->basepoint);  // This is the base
-  cout << "Basepoint" << basepoint.x << basepoint.y << basepoint  .z << endl;
+  if (rot != Vector(0, 0, 0))
+    this->loc = RotateX(rot.x) * RotateX(rot.y) * RotateZ(rot.z);
 
-  // Recompute offset
-  this->offset = locTrans(this->offset);
-
-//   cout << "Offset" << offset.x << offset.y << offset.z << endl;
-
-  // Recompute end point
-//   if (par)
-//     this->endpoint = par->endpoint + this->offset;
-//   else
-//     this->endpoint = Point(0, 0, 0) + this->offset;
-  this->endpoint = this->basepoint + this->offset;
-  
-  // Apply transformation to geometric details
-  //extent = locTrans(extent);
-//   extent = accTrans(extent);   wrong
-//   p = accTrans(p);
-//   if (par) {
-//     extent = p - par->p;
-//   }
-//   p = locTrans(Point());  wrong
+  // Recompute basepoint, offset
+  this->basepoint = this->w2o(Point());
+  this->offset = this->loc(this->offset);
+//   this->offset = Length(this->offset) * Normalize(rot);
+  this->endpoint = Translate(this->offset)(this->basepoint);
 
   // Do the same for all children (order doesn't matter)
   for (unsigned int i = 0; i < chd.size(); i++) {
@@ -154,19 +132,12 @@ void Segment::Render() {
 
   glPointSize(10);
   glBegin(GL_POINTS);
-    glVertex3f(this->endpoint.x * scale, this->endpoint.y * scale, this->endpoint.z * scale);
+    glVertex3f(this->basepoint.x * scale, this->basepoint.y * scale, this->basepoint.z * scale);
   glEnd();
 
 //   glBegin(GL_LINES);
-
+//     glVertex3f(basepoint.x * scale, basepoint.y * scale, basepoint.z * scale);
 //     glVertex3f(endpoint.x * scale, endpoint.y * scale, endpoint.z * scale);
-// //     if (par)
-// //       glVertex3f(par->p.x * scale, par->p.y * scale, par->p.z * scale);
-//     if (chd.size() > 0)
-//       glVertex3f(chd[0]->endpoint.x * scale, chd[0]->endpoint.y * scale, chd[0]->endpoint.z * scale);
-//     else
-//       glVertex3f(endpoint.x * scale, endpoint.y * scale, endpoint.z * scale);
-// //     glVertex3f(pp.x * scale, pp.y * scale, pp.z * scale);
 //   glEnd();
 
   // Then render all children
@@ -200,17 +171,13 @@ void SceneGraph::SetChild(uint32_t parent, uint32_t child) {
   cout << "setChild:parent=" << parent << " child=" << child << endl;
   nodes[child]->par = nodes[parent];
   nodes[parent]->chd.push_back(nodes[child]);
-//   nodes[parent]->extent = nodes[child]->p - nodes[parent]->p;
 }
 
 void SceneGraph::SetOffset(uint32_t id, float * offset) {
   cout << "setOffset:id=" << id << " offset=(" << offset[0] << ","
   << offset[1] << "," << offset[2] << ")" << endl;
 
-//   if (nodes[id]->par)
-//     nodes[id]->p = nodes[id]->par->p;
   nodes[id]->offset = Vector(offset[0], offset[1], offset[2]);
-//   nodes[id]->locTrans = Translate(nodes[id]->offset);
 }
 
 void SceneGraph::SetNumChannels(uint32_t id, uint16_t num) {
@@ -274,6 +241,10 @@ void SceneGraph::SetCurrentFrame(uint32_t frameNumber) {
 
 float SceneGraph::GetFrameTime() {
   return frameTime;
+}
+
+uint32_t SceneGraph::GetNumFrames() {
+  return numFrames;
 }
 
 

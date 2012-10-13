@@ -27,8 +27,8 @@ class Segment {
   /* Hierarchy information */
   vector<Segment*> chd;   // pointers to child nodes
   Segment *par;           // pointer to parent node
-  Transform locTrans;     // local transformations at this segment
-  Transform accTrans;     // accumulated transformations at this segment
+  Transform loc;          // local transformations at this segment
+  Transform w2o;          // world space to object space transformation
 
   /* Geometric information */
   Vector offset;
@@ -93,6 +93,7 @@ class SceneGraph {
   void AddFrame(float * data);
   void SetCurrentFrame(uint32_t frameNumber);
 
+  uint32_t GetNumFrames();
   float GetFrameTime();
   uint32_t GetCurrentFrame();
 };

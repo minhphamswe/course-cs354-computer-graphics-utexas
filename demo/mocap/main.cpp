@@ -41,6 +41,7 @@ void Display();
 void Resize(int width, int height);
 void Keyboard(unsigned char key, int x, int y);
 void Idle();
+void Sleep(int value);
 
 void SetLighting();
 
@@ -244,9 +245,9 @@ void Display() {
   // If animating:
   if (animate) {
     // increment frame index && update position for all joints
-    sg.SetCurrentFrame(sg.GetCurrentFrame() + 1);
+    sg.SetCurrentFrame((sg.GetCurrentFrame()+1) % sg.GetNumFrames());
     // then sleep until the next frame
-    sleep(sg.GetFrameTime());
+    glutTimerFunc(sg.GetFrameTime()*10000, Sleep, 0);
   }
 
   if (showAxis) DrawAxis();
@@ -320,7 +321,6 @@ void Keyboard(unsigned char key, int x, int y) {
       ComputeLookAt();
       break;
     case ' ':
-      // TODO
       cout << "Start/stop animation" << endl;
       animate = !animate;
       break;
@@ -340,10 +340,11 @@ void Keyboard(unsigned char key, int x, int y) {
   glutPostRedisplay();
 }
 
-void Idle() {
-//   glutGet(GLUT_ELAPSED_TIME);
-//   glutPostRedisplay();
+void Sleep(int value) {
+  glutPostRedisplay();
 }
+
+void Idle() {}
 
 void processCommandLine(int argc, char *argv[]) {
   if (argc>1) {

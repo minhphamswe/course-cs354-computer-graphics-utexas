@@ -1,15 +1,15 @@
-#ifndef CORE_COMMON_H_
-#define CORE_COMMON_H_
-
-namespace ishi {
+#ifndef ISHI_CORE_COMMON_H_
+#define ISHI_CORE_COMMON_H_
 
 #include <assert.h>
-#define Assert assert
-
 #include <stddef.h>
 #include <stdint.h>
 #include <float.h>
-#include <math.h>
+#include <cmath>
+
+namespace ishi {
+
+#define Assert assert
 
 // Useful constants
 #define PI      3.14159265359
@@ -33,6 +33,12 @@ inline float Square(float f);
 /// Linearly interpolate between v1 and v2, given position t
 inline float Lerp(float t, float v1, float v2);
 
+/** Convert degree to radian. */
+inline float Radian(float deg);
+
+/** Convert radian to degree. */
+inline float Degree(float rad);
+
 inline float Min(float x, float y) {
   return (x < y) ? x : y;
 }
@@ -47,6 +53,14 @@ inline float Square(float f) {
 
 inline float Lerp(float t, float v1, float v2) {
   return (1.0f - t) * v1 + t * v2;
+}
+
+inline float Radian(float deg) {
+  return deg * INV_180 * PI;
+}
+
+inline float Degree(float rad) {
+  return rad * INV_PI * 180;
 }
 
 

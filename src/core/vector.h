@@ -44,6 +44,9 @@ class Vector {
   /// Return true if two Vectors are identical
   bool operator==(const Vector& v) const;
 
+  /// Return true if two Vectors are not identical (in direction or magnitude)
+  bool operator!=(const Vector& v) const;
+
   /// Get Vector components by integer index
   float operator[](int i) const;
 };
