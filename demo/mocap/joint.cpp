@@ -124,7 +124,7 @@ void Segment::Render() {
 //   << "(" << pp.x << "," << pp.y << "," << pp.z << ")" << endl;
 //   cout << "Extent is :" << "(" << extent.x << "," << extent.y << "," << extent.z << ")" << endl;
 
-  float scale = 5.f;
+  float s = 5.f;
 
   glColor3f(1.f, 0.f, 0.f);
 
@@ -132,12 +132,12 @@ void Segment::Render() {
 
   glPointSize(10);
   glBegin(GL_POINTS);
-    glVertex3f(this->basepoint.x * scale, this->basepoint.y * scale, this->basepoint.z * scale);
+    glVertex3f(this->basepoint.x * s, this->basepoint.y * s, this->basepoint.z * s);
   glEnd();
 
 //   glBegin(GL_LINES);
-//     glVertex3f(basepoint.x * scale, basepoint.y * scale, basepoint.z * scale);
-//     glVertex3f(endpoint.x * scale, endpoint.y * scale, endpoint.z * scale);
+//     glVertex3f(basepoint.x * s, basepoint.y * s, basepoint.z * s);
+//     glVertex3f(endpoint.x * s, endpoint.y * s, endpoint.z * s);
 //   glEnd();
 
   // Then render all children

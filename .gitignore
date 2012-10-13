@@ -65,3 +65,9 @@ src/project*/submit-README.txt
 *.log
 *.synctex.gz
 *.fdb_latexmk
+
+# Testing tool generated files
+*.gcda
+*.gcno
+cov-html
+coverage.info
