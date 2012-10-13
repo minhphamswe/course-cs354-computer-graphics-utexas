@@ -1,0 +1,201 @@
+\documentclass[13pt]{letter}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage[T1]{fontenc}
+\usepackage[margin=1in, paperwidth=8.5in, paperheight=11in]{geometry}
+\usepackage{tabularx}
+\usepackage{tikz}
+\usepackage{array}
+\linespread{1.5}
+
+\begin{document}
+Student: Minh Pham \\
+EID: mlp2279
+
+\begin{center}
+	\textbf{Homework 1}
+\end{center}
+
+\begin{enumerate}
+	\item (5 points)
+	Vector $v = [x~y~z~0]^T$ is rotated about the x-axis until it lies in the xz plane. The new vector is $v'$. What is $|v'|$ (the length of $v'$)?
+	
+	\textbf{Answer:} \\
+	Rotation does not affect a vector's magnitude (or length, the term used in the question). Therefore, the magnitude of the new vector is equal to that of the original, i.e. $|v'| = |v|$. \\
+	We have: $|v'| = |v| = x^2 + y^2 + z^2$.
+	
+	\vspace{13pt}
+
+	\item (5 points)
+	Using $v'$ from problem 1, $v''$ is the projection of $v'$ onto the z axis. What is $|v''|$?
+	
+	\textbf{Answer:} \\
+	Let $u = \frac{v}{|v|}$ be the unit vector parallel to $v$. Then $u = [\cos\theta_x~\cos\theta_y~\cos\theta_z~0]^T$, with $\cos\theta_x$, $\cos\theta_y$, $\cos\theta_z$ being the angle $v$ form with the positive $x$, $y$, and $z$ axes, respectively. We also have $$\cos^2\theta_x + \cos^2\theta_y + \cos^2\theta_z = 1~~(1)$$ since $u$ is a unit vector. \\
+	Let $u'$ the vector that results from applying the same rotation that we applied to $v$ to $u$. Then $u'$ lies on the xz plane, and form the angles $\cos\theta^{\prime}_x$, $\cos\theta^{\prime}_y$, $\cos\theta^{\prime}_z$ with the $x$, $y$, and $z$ axes, respectively. We have:
+	\begin{enumerate}	
+		\item[] $\cos\theta^{\prime}_x = \cos\theta_x$ since the rotation is done around the $x$ axis, and
+		\item[] $\cos\theta^{\prime}_y = 0$ since the $u'$ is in the xz plane perpendicular to the $y$ axis.
+	\end{enumerate}
+	We can rewrite $u'$ as $u' = [\cos\theta_x~0~\cos\theta^{\prime}_z~0]^T$. Since rotation does not affect the magnitude of a vector, $u'$ is also a unit vector, so:
+	$$\cos^2\theta_x + \cos^2\theta^{'}_z = 1~~(2)$$
+	From equations $(1)$ and $(2)$, we have:
+	$$\cos^2\theta^{'}_z = \cos^2\theta_y + \cos^2\theta_z
+	\leftrightarrow \cos\theta^{'}_z = \sqrt{\cos^2\theta_y + \cos^2\theta_z}
+	$$
+	Let $u''$ be the projection of $u'$ onto the z axis. We have $|u''| = |u'|\cos\theta^{'}_z = |u'|\sqrt{\cos^2\theta_y + \cos^2\theta_z}$. \\
+	Applying the same transformation to $v$ instead of $u$, we have:
+	$$|v''| = |v'|\sqrt{\cos^2\theta_y + \cos^2\theta_z} = (x^2 + y^2 + z^2)\sqrt{\cos^2\theta_y + \cos^2\theta_z}$$
+	
+	\vspace{13pt}
+	
+	\item (10 points)
+	Happy Harry is happy even when he's sleeping. Give a series of 3x3 2D transformation matrices (using homogeneous coordinates) in the proper order to transform Happy Harry from his awake position centered at $(x,~y)$ (figure a) to his sleeping position centered at $(x,~0)$ (figure b).
+	Leave any trigonometric functions unevaluated (leave rotation matrices in terms of sine and cosine).
+
+	\newcolumntype{C}{>{\centering\arraybackslash}X}%
+	\begin{tabularx}{\textwidth}{C C}
+		\begin{tikzpicture}
+			\draw (-0.5,0) -- (3.5,0);	
+			\draw (0,-1) -- (0,3.5);	
+			\draw (2, 2) circle [radius=1.0];
+			\draw (2.4, 2.4) circle [radius=0.25];
+			\draw (1.4, 2.4) -- (1.9, 2.4);
+			\draw (1.5, 1.5) arc (240:300:1.0);
+		\end{tikzpicture} &
+		\begin{tikzpicture}
+			\draw (-0.5,0) -- (1,0);	
+			\draw (3.0,0) -- (3.5,0);	
+			\draw (0,-1) -- (0,3.5);	
+			\draw[rotate=-90] (0, 2) circle [radius=1.0];
+			\draw[rotate=-90] (0.4, 2.4) circle [radius=0.25];
+			\draw[rotate=-90] (-0.6, 2.4) -- (-0.1, 2.4);
+			\draw[rotate=-90] (-0.5, 1.5) arc (240:300:1.0);
+		\end{tikzpicture} \\
+		(a) & (b) \\
+	\end{tabularx}
+
+  \textbf{Answer:} \\
+  To get figure (b) from figure (a), we do as follow, in order:
+  \begin{enumerate}
+    \item Translate the figure from its original position $(x~y)$ to the origin with matrix $T_1$
+    \item Rotate the figure 90 degrees (or $pi/2$ radian) clock-wise with matrix $R$
+    \item Translate the figure to its final position at $(x, 0)$ with matrix $T_2$
+  \end{enumerate}
+  We have the values for the matrices as follow:
+  $$
+  T_2 = \left[
+  \begin{array}{ccc}
+    1 & 0 & x \\
+    0 & 1 & 0 \\
+    0 & 0 & 1
+  \end{array}
+  \right]
+  \hspace{12pt}
+  R = \left[
+  \begin{array}{ccc}
+     \cos{90} &  \sin{90} & 0 \\
+    -\sin{90} &  \cos{90} & 0 \\
+            0 &         0 & 1
+  \end{array}
+  \right]
+  \hspace{12pt}
+  T_1 = \left[
+  \begin{array}{ccc}
+    1 &  0 & -x \\
+    0 &  1 & -y \\
+    0 &  0 &  1
+  \end{array}
+  \right]
+  $$
+  The concatenated matrix that do the above transformations in the order specified is:
+  $$ M = T_2RT_1 \linebreak $$
+  $$ M = \left[
+  \begin{array}{ccc}
+    1 & 0 & x \\
+    0 & 1 & 0 \\
+    0 & 0 & 1
+  \end{array}
+  \right]
+  \left[
+  \begin{array}{ccc}
+     \cos{90} &  \sin{90} & 0 \\
+    -\sin{90} &  \cos{90} & 0 \\
+            0 &         0 & 1
+  \end{array}
+  \right]
+  \left[
+  \begin{array}{ccc}
+    1 &  0 & -x \\
+    0 &  1 & -y \\
+    0 &  0 &  1
+  \end{array}
+  \right] $$
+  $$ M = \left[
+  \begin{array}{ccc}
+     \cos{90} &  \sin{90} & x \\
+    -\sin{90} &  \cos{90} & 0 \\
+            0 &         0 & 1
+  \end{array}
+  \right]
+  \left[
+  \begin{array}{ccc}
+    1 &  0 & -x \\
+    0 &  1 & -y \\
+    0 &  0 &  1
+  \end{array}
+  \right]
+  $$
+  $$ M = \left[
+  \begin{array}{ccc}
+     \cos{90} &  \sin{90} & -x\cos{90} - y\sin{90} + x \\
+    -\sin{90} &  \cos{90} &  x\sin{90} - y\cos{90} \\
+            0 &         0 & 1
+  \end{array}
+  \right] $$
+	\vspace{13pt}
+	
+	\item (5 points)
+	A wireframe cube (see wikipedia: "wire-frame model") is placed at the origin. The camera is placed using \texttt{gluLookAt(0, 0, 5, 0, 0, 0, 0, 1, 0)}. Using pespective projection, sketch what will be rendered on the screen.
+	
+	\textbf{Answer:} \\
+	
+
+	\vspace{13pt}
+
+	\item (10 points)
+	The camera is placed using \texttt{gluLookAt(0, 10, 5, 0, 5, 0, 0, 1, 0)}. What are the coordinate axes $u$, $v$, $n$? Show your work.
+
+  \textbf{Answer:} \\
+  Since the syntax of \texttt{gluLookAt()} is \texttt{gluLookAt(eye_x, )}
+  
+	\vspace{13pt}
+
+	\item 
+	Consider the following code:
+	
+	\begin{verbatim}
+		glutInitWindowSize(500, 500);
+		glMatrixMode(GL_PROJECTION);
+		glLoadIdentity();
+		glFrustum(-1, 1, -1/3.0, 1/3.0, 1, 3);
+		glMatrixMode(GL_MODELVIEW);
+		glLoadIdentity();
+		gluLookAt(0, 0, 2, 0, 0, 0, 0, 1, 0);
+		glColor3f(0, 0, 0);
+		glutWireCube(2);
+	\end{verbatim}
+	\begin{enumerate}
+		\item (5 points)
+		Sketch what will be rendered.
+
+		\item (10 points) 
+		What percentage of the cube’s volume lies inside the view frustum?
+	
+	\end{enumerate}
+	
+	\textbf{Answer:} \\
+\end{enumerate}
+
+\end{document}	
