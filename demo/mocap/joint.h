@@ -47,6 +47,11 @@ class Segment {
   /// Initialize a node
   Segment(const char *name, uint32_t id);
 
+  /// Return true if the segment is the root segment
+  bool IsRoot();
+
+  /// Return true if the segment is an endsite
+  bool IsEndSite();
   void Update();
 
   void DistributeFrame(float* data);

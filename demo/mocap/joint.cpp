@@ -35,8 +35,18 @@ Segment::Segment(const char* name, uint32_t id) {
   this->numChannels = 0;
 }
 
+bool Segment::IsRoot() {
+  return (par == NULL);
+}
+
+bool Segment::IsEndSite() {
+  return (chd.size() == 0);
+}
+
+
+
 void Segment::Update() {
-  cout << "Updating " << name << " ID: " << id << endl;
+//   cout << "Updating " << name << " ID: " << id << endl;
   vector<float> frame = frameData[frameIndex];
 
   Vector trans = Vector(0, 0, 0);   // Translation vector
@@ -50,32 +60,36 @@ void Segment::Update() {
     int c = channelOrder[i];    // which channel it maps to
 
     if (c == BVH_XPOS_IDX && (channelFlags & BVH_XPOS)) {
-      cout << "Move to point X equals " << f << endl;
+//       cout << "Move to point X equals " << f << endl;
       trans.x = f;
     } else if (c == BVH_YPOS_IDX && (channelFlags & BVH_YPOS)) {
-      cout << "Move to point X equals " << f << endl;
+//       cout << "Move to point X equals " << f << endl;
       trans.y = f;
     } else if (c == BVH_ZPOS_IDX && (channelFlags & BVH_ZPOS)) {
-      cout << "Move to point X equals " << f << endl;
+//       cout << "Move to point X equals " << f << endl;
       trans.z = f;
 
     } else if (c == BVH_XROT_IDX && (channelFlags & BVH_XROT)) {
-      cout << "Rotate around X by " << f << endl;
+      if (this->IsRoot())
+        cout << "Rotate around X by " << f << endl;
       this->loc = this->loc * RotateX(Radian(f));
 
     } else if (c == BVH_YROT_IDX && (channelFlags & BVH_YROT)) {
-      cout << "Rotate around Y by " << f << endl;
+      if (this->IsRoot())
+        cout << "Rotate around Y by " << f << endl;
       this->loc = this->loc * RotateY(Radian(f));
 
     } else if (c == BVH_ZROT_IDX && (channelFlags & BVH_ZROT)) {
-      cout << "Rotate around Z by " << f << endl;
+      if (this->IsRoot())
+        cout << "Rotate around Z by " << f << endl;
       this->loc = this->loc * RotateZ(Radian(f));
     }
   }
 
   // Recompute world-to-object transformation
-  this->w2o = Translate(trans + this->offset);
-  this->w2o = this->w2o * this->loc;
+//   this->w2o = Translate(trans + this->offset);
+//   this->w2o = this->w2o * this->loc;
+  this->w2o = Translate(trans + this->offset) * this->loc;
   if (par)
     this->w2o = par->w2o * this->w2o;
 
@@ -160,14 +174,14 @@ void SceneGraph::CreateEndSite(const char * name, uint32_t id) {
 }
 
 void SceneGraph::SetChild(uint32_t parent, uint32_t child) {
-  cout << "setChild:parent=" << parent << " child=" << child << endl;
+//   cout << "setChild:parent=" << parent << " child=" << child << endl;
   nodes[child]->par = nodes[parent];
   nodes[parent]->chd.push_back(nodes[child]);
 }
 
 void SceneGraph::SetOffset(uint32_t id, float * offset) {
-  cout << "setOffset:id=" << id << " offset=(" << offset[0] << ","
-  << offset[1] << "," << offset[2] << ")" << endl;
+//   cout << "setOffset:id=" << id << " offset=(" << offset[0] << ","
+//   << offset[1] << "," << offset[2] << ")" << endl;
 
   nodes[id]->offset = Vector(offset[0], offset[1], offset[2]);
 }
