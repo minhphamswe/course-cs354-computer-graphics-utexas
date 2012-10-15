@@ -37,19 +37,12 @@ Segment::Segment(const char* name, uint32_t id) {
 
 void Segment::Update() {
   cout << "Updating " << name << " ID: " << id << endl;
-
-  // Recompute world-to-object transformation
-  if (par) {
-    this->w2o = Translate(this->offset) * par->w2o;
-  }
-
-//   cout << "Basepoint" << basepoint.x << basepoint.y << basepoint.z << endl;
-
-  // Get local transformation from the frame
   vector<float> frame = frameData[frameIndex];
 
   Vector trans = Vector(0, 0, 0);   // Translation vector
   Vector rot = Vector(0, 0, 0);     // Rotation data holder
+
+  this->loc = Transform();
 
   for (unsigned int i = 0; i < numChannels; i++) {
     // get channel to update by order
@@ -59,44 +52,43 @@ void Segment::Update() {
     if (c == BVH_XPOS_IDX && (channelFlags & BVH_XPOS)) {
       cout << "Move to point X equals " << f << endl;
       trans.x = f;
-
     } else if (c == BVH_YPOS_IDX && (channelFlags & BVH_YPOS)) {
       cout << "Move to point X equals " << f << endl;
       trans.y = f;
-
     } else if (c == BVH_ZPOS_IDX && (channelFlags & BVH_ZPOS)) {
       cout << "Move to point X equals " << f << endl;
       trans.z = f;
 
-    } else if (c == BVH_XROT_IDX) {
+    } else if (c == BVH_XROT_IDX && (channelFlags & BVH_XROT)) {
       cout << "Rotate around X by " << f << endl;
-      rot.x = Radian(-f);
+      this->loc = this->loc * RotateX(Radian(f));
 
-    } else if (c == BVH_YROT_IDX) {
+    } else if (c == BVH_YROT_IDX && (channelFlags & BVH_YROT)) {
       cout << "Rotate around Y by " << f << endl;
-      rot.y = Radian(-f);
+      this->loc = this->loc * RotateY(Radian(f));
 
-    } else if (c == BVH_ZROT_IDX) {
+    } else if (c == BVH_ZROT_IDX && (channelFlags & BVH_ZROT)) {
       cout << "Rotate around Z by " << f << endl;
-      rot.z = Radian(-f);
+      this->loc = this->loc * RotateZ(Radian(f));
     }
   }
 
-  if (trans != Vector(0, 0, 0))
-    this->w2o = Translate(trans) * this->w2o * Translate(Point() - basepoint);
+  // Recompute world-to-object transformation
+  this->w2o = Translate(trans + this->offset);
+  this->w2o = this->w2o * this->loc;
+  if (par)
+    this->w2o = par->w2o * this->w2o;
 
-  if (rot != Vector(0, 0, 0))
-    this->loc = RotateX(rot.x) * RotateX(rot.y) * RotateZ(rot.z);
-
-  // Recompute basepoint, offset
   this->basepoint = this->w2o(Point());
-  this->offset = this->loc(this->offset);
-//   this->offset = Length(this->offset) * Normalize(rot);
-  this->endpoint = Translate(this->offset)(this->basepoint);
+
+  if (chd.size() > 0)
+    this->endpoint = this->w2o(Point()+chd[0]->offset);
+  else
+    this->endpoint = this->basepoint;
 
   // Do the same for all children (order doesn't matter)
   for (unsigned int i = 0; i < chd.size(); i++) {
-    chd[i]->frameIndex = frameIndex;
+    chd[i]->frameIndex = this->frameIndex;
     chd[i]->Update();
   }
 }
@@ -135,10 +127,10 @@ void Segment::Render() {
     glVertex3f(this->basepoint.x * s, this->basepoint.y * s, this->basepoint.z * s);
   glEnd();
 
-//   glBegin(GL_LINES);
-//     glVertex3f(basepoint.x * s, basepoint.y * s, basepoint.z * s);
-//     glVertex3f(endpoint.x * s, endpoint.y * s, endpoint.z * s);
-//   glEnd();
+  glBegin(GL_LINES);
+    glVertex3f(basepoint.x * s, basepoint.y * s, basepoint.z * s);
+    glVertex3f(endpoint.x * s, endpoint.y * s, endpoint.z * s);
+  glEnd();
 
   // Then render all children
   for (unsigned int i = 0; i < chd.size(); i++) {

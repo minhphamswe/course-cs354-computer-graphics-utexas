@@ -2,8 +2,7 @@ bin_PROGRAMS = triangle_test
 
 AM_LDFLAGS = --coverage
 AM_CPPFLAGS = -I$(top_srcdir)/lib -I$(top_srcdir)/src \
-              -g -fprofile-arcs -ftest-coverage \
-              --coverage
+              -g --coverage
 LDADD = $(top_srcdir)/lib/libUnitTest++.a
 
 triangle_test_SOURCES = main.cpp \
