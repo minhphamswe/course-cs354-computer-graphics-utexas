@@ -50,9 +50,7 @@ void Segment::Update() {
   vector<float> frame = frameData[frameIndex];
 
   Vector trans = Vector(0, 0, 0);   // Translation vector
-  Vector rot = Vector(0, 0, 0);     // Rotation data holder
-
-  this->loc = Transform();
+  Transform rot = Transform();      // Rotation data holder
 
   for (unsigned int i = 0; i < numChannels; i++) {
     // get channel to update by order
@@ -70,26 +68,33 @@ void Segment::Update() {
       trans.z = f;
 
     } else if (c == BVH_XROT_IDX && (channelFlags & BVH_XROT)) {
-      if (this->IsRoot())
-        cout << "Rotate around X by " << f << endl;
-      this->loc = this->loc * RotateX(Radian(f));
+      if (f != 0) {
+        if (this->IsRoot())
+          cout << "Rotate around X by " << f << endl;
+        rot = rot * RotateX(Radian(f));
+      }
 
     } else if (c == BVH_YROT_IDX && (channelFlags & BVH_YROT)) {
-      if (this->IsRoot())
-        cout << "Rotate around Y by " << f << endl;
-      this->loc = this->loc * RotateY(Radian(f));
+      if (f != 0) {
+        if (this->IsRoot())
+          cout << "Rotate around Y by " << f << endl;
+        rot = this->loc * RotateY(Radian(f));
+      }
 
     } else if (c == BVH_ZROT_IDX && (channelFlags & BVH_ZROT)) {
-      if (this->IsRoot())
-        cout << "Rotate around Z by " << f << endl;
-      this->loc = this->loc * RotateZ(Radian(f));
+      if (f != 0) {
+        if (this->IsRoot())
+          cout << "Rotate around Z by " << f << endl;
+//         cout << "Multiplying rotation matrix" << endl;
+        rot = rot * RotateZ(Radian(f));
+      }
     }
   }
 
   // Recompute world-to-object transformation
 //   this->w2o = Translate(trans + this->offset);
 //   this->w2o = this->w2o * this->loc;
-  this->w2o = Translate(trans + this->offset) * this->loc;
+  this->w2o = Translate(trans + this->offset) * rot;
   if (par)
     this->w2o = par->w2o * this->w2o;
 
