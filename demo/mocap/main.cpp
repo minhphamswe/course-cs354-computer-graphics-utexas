@@ -242,12 +242,12 @@ void Display() {
     sg.roots[i]->Render();
   }
 
-  // If animating:
+  // If animating
   if (animate) {
     // increment frame index && update position for all joints
     sg.SetCurrentFrame((sg.GetCurrentFrame()+1) % sg.GetNumFrames());
     // then sleep until the next frame
-    glutTimerFunc(sg.GetFrameTime()*10000, Sleep, 0);
+    glutTimerFunc(sg.GetFrameTime()*1000, Sleep, 0);
   }
 
   if (showAxis) DrawAxis();

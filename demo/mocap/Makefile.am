@@ -67,6 +67,11 @@ exclude = $(srcdir)/y.tab.cpp \
           $(srcdir)/types.h \
           $(srcdir)/joint_info.h
 
+valgrind =
+# valgrind --leak-check=yes --gen-suppressions=yes
+# --log-file=log/memcheck.valgrind
+
 check: all
-	./mocap $(mocap_datadir)/01_01.bvh
-	$(checkdir)/check-code $(filter-out $(exclude),$(mocap_SOURCES))
+	$(valgrind) ./mocap $(mocap_datadir)/01_01.bvh
+
+#$(checkdir)/check-code $(filter-out $(exclude),$(mocap_SOURCES))

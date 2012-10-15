@@ -189,10 +189,10 @@ Transform RotateZ(float angle) {
   float s = sin(angle);
 
   Matrix4x4 mat = Matrix4x4(c, -s, 0.f, 0.f,
-                            s, c, 0.f, 0.f,
+                            s,  c, 0.f, 0.f,
                             0.f, 0.f, 1.f, 0.f,
                             0.f, 0.f, 0.f, 1.f);
-  Matrix4x4 matInv = Matrix4x4(c, s, 0.f, 0.f,
+  Matrix4x4 matInv = Matrix4x4(c,  s, 0.f, 0.f,
                                -s, c, 0.f, 0.f,
                                0.f, 0.f, 1.f, 0.f,
                                0.f, 0.f, 0.f, 1.f);
