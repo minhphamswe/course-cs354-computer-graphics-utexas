@@ -61,16 +61,20 @@ Transform Inverse(const Transform &t);
 /// Return a transform representing a translation by a vector
 Transform Translate(const Vector &delta);
 
-/// Return a transform representing a rotation around the X axis
+/// Return a transform representing a rotation around the X axis.
+/// The angle of rotation should be in radian.
 Transform RotateX(float angle);
 
-/// Return a transform representing a rotation around the Y axis
+/// Return a transform representing a rotation around the Y axis.
+/// The angle of rotation should be in radian.
 Transform RotateY(float angle);
 
-/// Return a transform representing a rotation around the Z axis
+/// Return a transform representing a rotation around the Z axis.
+/// The angle of rotation should be in radian.
 Transform RotateZ(float angle);
 
-/// Return a transform representing a rotation around an arbitrary axis
+/// Return a transform representing a rotation around an arbitrary axis.
+/// The angle of rotation should be in radian.
 Transform Rotate(float angle, const Vector &axis);
 
 /// Return a transform representing a general scaling in each of the axes
