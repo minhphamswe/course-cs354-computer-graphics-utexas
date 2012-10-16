@@ -3,7 +3,9 @@ bin_PROGRAMS = \
 	vector_test \
 	point_vector_test \
 	matrix_test \
-	transform_test
+	transform_test \
+	transform_point_test \
+	transform_vector_test
 
 AM_LDFLAGS = --coverage
 AM_CPPFLAGS = -I$(top_srcdir)/lib -I$(top_srcdir)/src \
@@ -16,16 +18,23 @@ point_vector_test_SOURCES = main.cpp point_vector_test.cpp \
                             ../point.cpp \
                             ../vector.cpp
 matrix_test_SOURCES = main.cpp matrix_test.cpp ../matrix.cpp
-transform_test_SOURCES = main.cpp transform_test.cpp ../transform.cpp \
+transform_vector_test_SOURCES = main.cpp transform_vector_test.cpp \
+                                ../transform.cpp \
+				 ../matrix.cpp ../point.cpp ../vector.cpp
+transform_point_test_SOURCES = main.cpp transform_point_test.cpp \
+                               ../transform.cpp \
+		 	        ../matrix.cpp ../point.cpp ../vector.cpp
+transform_test_SOURCES = main.cpp transform_test.cpp \
+                         ../transform.cpp \
                          ../matrix.cpp ../point.cpp ../vector.cpp
+
 
 check: all
 	@echo 'Executing unittests for core ...'
-	valgrind --leak-check=yes ./point_test
-	valgrind --leak-check=yes ./vector_test
-	valgrind --leak-check=yes ./point_vector_test
-	valgrind --leak-check=yes ./matrix_test
-	valgrind --leak-check=yes ./transform_test
+	@for prog in $(bin_PROGRAMS); do \
+		echo 'Executing '$$prog; \
+		./$$prog; \
+	done;
 
 coverage: check
 	@echo 'Generating coverage info for core ...'

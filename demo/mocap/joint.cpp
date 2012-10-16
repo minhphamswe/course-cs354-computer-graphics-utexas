@@ -7,6 +7,7 @@
 #include <stdint.h>
 #include <iostream>
 #include <vector>
+#include <cstdio>
 
 #include "./bvh_defs.h"
 #include "./joint.h"
@@ -24,7 +25,6 @@ Segment::Segment(const char* name, uint32_t id) {
   /* Hierarchy information */
   this->par = NULL;
   this->w2o = Transform();
-  this->loc = Transform();
 
   /* Geometric information */
   this->offset = Vector();
@@ -69,22 +69,22 @@ void Segment::Update() {
 
     } else if (c == BVH_XROT_IDX && (channelFlags & BVH_XROT)) {
       if (f != 0) {
-        if (this->IsRoot())
-          cout << "Rotate around X by " << f << endl;
+//         if (this->IsRoot())
+//           cout << "Rotate around X by " << f << endl;
         rot = rot * RotateX(Radian(f));
       }
 
     } else if (c == BVH_YROT_IDX && (channelFlags & BVH_YROT)) {
       if (f != 0) {
-        if (this->IsRoot())
-          cout << "Rotate around Y by " << f << endl;
-        rot = this->loc * RotateY(Radian(f));
+//         if (this->IsRoot())
+//           cout << "Rotate around Y by " << f << endl;
+        rot = rot * RotateY(Radian(f));
       }
 
     } else if (c == BVH_ZROT_IDX && (channelFlags & BVH_ZROT)) {
       if (f != 0) {
-        if (this->IsRoot())
-          cout << "Rotate around Z by " << f << endl;
+//         if (this->IsRoot())
+//           cout << "Rotate around Z by " << f << endl;
 //         cout << "Multiplying rotation matrix" << endl;
         rot = rot * RotateZ(Radian(f));
       }
@@ -92,11 +92,10 @@ void Segment::Update() {
   }
 
   // Recompute world-to-object transformation
-//   this->w2o = Translate(trans + this->offset);
-//   this->w2o = this->w2o * this->loc;
-  this->w2o = Translate(trans + this->offset) * rot;
   if (par)
-    this->w2o = par->w2o * this->w2o;
+    this->w2o = par->w2o * Translate(trans + this->offset) * rot;
+  else
+    this->w2o = Translate(trans + this->offset) * rot;
 
   this->basepoint = this->w2o(Point());
 
@@ -112,18 +111,24 @@ void Segment::Update() {
   }
 }
 
-void Segment::DistributeFrame(float* data) {
+void Segment::DistributeFrame(float** data) {
+//   if (IsRoot())
+//     printf("Begin distributing from root. Frame is: %d\n",
+//       frameData.size());
+  
   // Distribute to self first
   vector<float> frame;
   for (unsigned int i = 0; i < numChannels; i++) {
-    frame.push_back(*data);
-    data++;
+//     printf("\tData is: %f\n", *data);
+    frame.push_back(**data);
+    (*data)++;
   }
   frameData.push_back(frame);
 
   // Then distribute to the children (in order)
   for (unsigned int i = 0; i < chd.size(); i++) {
     chd[i]->DistributeFrame(data);
+//     data += chd[i]->numChannels;
   }
 }
 
@@ -219,7 +224,8 @@ void SceneGraph::SetFrameIndex(uint32_t id, uint32_t index) {
 
 void SceneGraph::SetFrameTime(float delta) {
 //   cout << "setFrameTime:delta=" << delta << endl;
-  frameTime = delta;
+  frameTime = delta * 1000;
+  invFrameTime = 1/frameTime;
 }
 
 void SceneGraph::SetNumFrames(uint32_t num) {
@@ -236,12 +242,14 @@ void SceneGraph::AddFrame(float * data) {
 //   cout << "addFrame" << endl;
   // Distribute frame data to all nodes, starting at the root
   for (unsigned int i = 0; i < roots.size(); i++) {
-    roots[i]->DistributeFrame(data);
+    roots[i]->DistributeFrame(&data);
   }
 }
 
 void SceneGraph::SetCurrentFrame(uint32_t frameNumber) {
   cout << "setCurrentFrame:frameNumber=" << frameNumber << endl;
+  while (frameNumber > numFrames)
+    frameNumber -= numFrames;
   this->currentFrame = frameNumber;
   // Increment frame number for all children and request update
   for (unsigned int i = 0; i < roots.size(); i++) {
@@ -250,14 +258,13 @@ void SceneGraph::SetCurrentFrame(uint32_t frameNumber) {
   }
 }
 
-float SceneGraph::GetFrameTime() {
+float SceneGraph::MsPerFrame() {
   return frameTime;
 }
 
-uint32_t SceneGraph::GetNumFrames() {
-  return numFrames;
+float SceneGraph::FramePerMs() {
+  return invFrameTime;
 }
-
 
 uint32_t SceneGraph::GetCurrentFrame() {
   return currentFrame;

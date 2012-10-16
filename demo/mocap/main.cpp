@@ -64,7 +64,11 @@ char filename[1000];
 
 bool showAxis = true;       // If true, show axis
 bool showBounds = false;    // If true, show bounding box
+bool showFloor = true;      // If true, draw the floor
 bool animate = false;       // If true, animate character
+
+int lastTime;
+int currentTime;
 
 float axisLen = 1.0f;
 
@@ -233,7 +237,10 @@ void Display() {
   SetLighting();
   SetCamera();
   SetDrawMode();
-  //DrawFloor(800, 800, 80, 80);
+
+  if (showAxis) DrawAxis();
+  if (showBounds) DrawBounds();
+  if (showFloor) DrawFloor(800, 800, 80, 80);
 
   // TODO: draw scene graph and animate
 
@@ -241,17 +248,6 @@ void Display() {
   for (unsigned int i = 0; i < sg.roots.size(); i++) {
     sg.roots[i]->Render();
   }
-
-  // If animating
-  if (animate) {
-    // increment frame index && update position for all joints
-    sg.SetCurrentFrame((sg.GetCurrentFrame()+1) % sg.GetNumFrames());
-    // then sleep until the next frame
-    glutTimerFunc(sg.GetFrameTime()*1000, Sleep, 0);
-  }
-
-  if (showAxis) DrawAxis();
-  if (showBounds) DrawBounds();
 
   glFlush();          // finish the drawing commands
   glutSwapBuffers();  // and update the screen
@@ -303,6 +299,9 @@ void Keyboard(unsigned char key, int x, int y) {
       eye = center + Vector(1.5f*maxDist, 0.1f*maxDist, 0);
       ComputeLookAt();
       break;
+    case 'f':
+      showFloor = !showFloor;
+      break;
     case 'z':
       waypoint = 4;
       eye = center + ((eye - center) * 0.95);
@@ -340,11 +339,20 @@ void Keyboard(unsigned char key, int x, int y) {
   glutPostRedisplay();
 }
 
-void Sleep(int value) {
+void Idle() {
+  currentTime = glutGet(GLUT_ELAPSED_TIME);
+  int frameDelta = (currentTime - lastTime) * sg.FramePerMs();
+
+  // If animating and enough time has passed
+  if (animate && frameDelta > 0) {
+    // increment frame index && update position for all joints
+    sg.SetCurrentFrame((sg.GetCurrentFrame() + frameDelta));
+  }
+  lastTime = currentTime;
+
+  // update the screen
   glutPostRedisplay();
 }
-
-void Idle() {}
 
 void processCommandLine(int argc, char *argv[]) {
   if (argc>1) {

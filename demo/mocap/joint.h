@@ -27,7 +27,6 @@ class Segment {
   /* Hierarchy information */
   vector<Segment*> chd;   // pointers to child nodes
   Segment *par;           // pointer to parent node
-  Transform loc;          // local transformations at this segment
   Transform w2o;          // world space to object space transformation
 
   /* Geometric information */
@@ -54,7 +53,7 @@ class Segment {
   bool IsEndSite();
   void Update();
 
-  void DistributeFrame(float* data);
+  void DistributeFrame(float** data);
 
   void Render();
 };
@@ -65,7 +64,8 @@ class SceneGraph {
 
   uint32_t numFrames;         // how many frames there are in total
   uint32_t frameSize;         // how many data points each frame has
-  float frameTime;            // time between each frame
+  float frameTime;            // time between each frame (in milliseconds)
+  float invFrameTime;         // number of frames per millisecond
   uint32_t currentFrame;      // index of the motion frame this is at
 
  public:
@@ -98,8 +98,13 @@ class SceneGraph {
   void AddFrame(float * data);
   void SetCurrentFrame(uint32_t frameNumber);
 
-  uint32_t GetNumFrames();
-  float GetFrameTime();
+  /// Return the time between frames, in milliseconds
+  float MsPerFrame();
+
+  /// Return the number of frames per millisecond
+  float FramePerMs();
+
+  /// Return the current frame index
   uint32_t GetCurrentFrame();
 };
 

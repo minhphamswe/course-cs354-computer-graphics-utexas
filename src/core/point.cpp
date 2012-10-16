@@ -58,7 +58,9 @@ Point operator*(float f, const Point& p) {
 }
 
 bool Point::operator==(const Point& p) const {
-  return ((x == p.x) && (y == p.y) && (z == p.z));
+  return ((x - p.x > -0.001) && (x - p.x < 0.001) &&
+          (y - p.y > -0.001) && (y - p.y < 0.001) &&
+          (z - p.z > -0.001) && (z - p.z < 0.001));
 }
 
 float& Point::operator[](int i) {
