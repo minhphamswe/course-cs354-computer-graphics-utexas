@@ -69,6 +69,13 @@ float Length(const Vector &v);
 /// Return a new vector which is this vector normalized
 Vector Normalize(const Vector &v);
 
+/// Construct a coordinate system vector given a vector.
+/// Two output vectors will be modified such that the input vector and the
+/// output vectors form an orthonormal basis.
+///
+/// @note The function assumes that the input vector is already normalized.
+void CoordinateSystem(const Vector &v1, Vector *v2, Vector *v3);
+
 }  // namespace ishi
 
 #endif

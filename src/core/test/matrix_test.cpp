@@ -172,3 +172,29 @@ TEST(Matrix4x4Inverse) {
   
   CHECK_ARRAY2D_CLOSE(i.m, Mul(m1, m2).m, 4, 4, 0.00);
 }
+
+/// Verify that we can access the underlying data through pointer arithmetic
+TEST(ToFloatPointerWorks) {
+  int i, j;
+  float *fp;
+  // Construct a floating point array
+  float m[4][4];
+  for (i = 0; i < 4; i++)
+    for (j = 0; j < 4; j++)
+      m[i][j] = -i * 4 + j;
+
+  // Verify that we can access elements in the array with pointer arithmetic
+  fp = (float*) m;
+  for (i = 0; i < 4; i++)
+    for (j = 0; j < 4; j++)
+      CHECK_EQUAL(m[i][j], *(fp + i*4 + j));
+
+  // Construct a transform from the array
+  Matrix4x4 mat = Matrix4x4(m);
+
+  // Verify that we can access elements in the transform with pointer arithmetic
+  fp = (float*) mat.m;
+  for (i = 0; i < 4; i++)
+    for (j = 0; j < 4; j++)
+      CHECK_EQUAL(mat.m[i][j], *(fp + i*4 + j));
+}

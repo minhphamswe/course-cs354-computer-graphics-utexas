@@ -102,4 +102,29 @@ Vector Normalize(const Vector& v) {
   }
 }
 
+/**
+ * Algorithm:
+ * - Construct the first output vector:
+ *   + zero a one component of the input vector (must not be the only
+ *     non-zero component)
+ *   + swap the remaining components of the input vector; negate one of them
+ * - Construct the second output vector:
+ *   + taking the cross product of the input vector with the first output
+ *     (the order depends on how the other two vectors are constructed)
+ */
+void CoordinateSystem(const Vector& v1, Vector* v2, Vector* v3) {
+  if (v1.x > v1.y) {
+    v2->y = 0;
+    v2->x = v1.z;
+    v2->z = -v1.x;
+  } else {
+    v2->x = 0;
+    v2->y = -v1.z;
+    v2->z = v1.y;
+  }
+  v3->x = v1.y*v2->z - v1.z*v2->y;
+  v3->y = v1.z*v2->x - v1.x*v2->z;
+  v3->z = v1.x*v2->y - v1.y*v2->x;
+}
+
 }  // namespace ishi

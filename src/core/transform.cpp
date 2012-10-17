@@ -138,6 +138,10 @@ Vector& Transform::ApplyInvert(Vector* v) const {
   return *v;
 }
 
+Matrix4x4 Transform::Matrix() const {
+  return m;
+}
+
 Transform Inverse(const Transform& t) {
   return Transform(t.mInv, t.m);
 }
@@ -270,5 +274,19 @@ Transform Scale(float x, float y, float z) {
 
 }
 */
+
+Transform AlignX() {
+  return Transform();
+}
+
+Transform AlignY() {
+  return Transform();
+}
+
+
+Transform AlignZ() {
+  return Transform();
+}
+
 
 }  // namespace ishi

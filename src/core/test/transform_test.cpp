@@ -111,3 +111,35 @@ TEST(RotateArbitraryAxisCoincidesRotatePrincipalAxis) {
   CHECK(Rotate(angle, Vector(0.f, 3.4, 0.f))(v) == RotateY(angle)(v));
   CHECK(Rotate(angle, Vector(0.f, 0.f, 5.6))(v) == RotateZ(angle)(v));
 }
+
+/// Verify that align is an identity transform when vectors are parallel or
+/// zero-length
+TEST(AlignParallelVectorsIsIdentity) {
+  // Normal case where vector is parallel to axis
+  CHECK(Vector(-1.2, 0.f, 0.f) == AlignX()(Vector(-1.2, 0.f, 0.f)));
+  CHECK(Vector(1.2, 0.f, 0.f) == AlignX()(Vector(1.2, 0.f, 0.f)));
+
+  CHECK(Vector(0.f, -3.4, 0.f) == AlignY()(Vector(0.f, -3.4, 0.f)));
+  CHECK(Vector(0.f, 3.4, 0.f) == AlignY()(Vector(0.f, 3.4, 0.f)));
+
+  CHECK(Vector(0.f, 0.f, -5.6) == AlignZ()(Vector(0.f, 0.f, -5.6)));
+  CHECK(Vector(0.f, 0.f, 5.6) == AlignZ()(Vector(0.f, 0.f, 5.6)));
+
+  // Special case: degenerate vector
+  CHECK(Vector() == AlignX()(Vector()));
+  CHECK(Vector() == AlignY()(Vector()));
+  CHECK(Vector() == AlignZ()(Vector()));
+}
+
+/// Verify that vector is rotated into the correct position when vectors have
+/// length and are not parallel to the aligned axis
+TEST(AlignNonParallel) {
+  CHECK(Vector(1.2, 0.f, 0.f) == AlignX()(Vector(0.f, 1.2, 0.f)));
+  CHECK(Vector(1.2, 0.f, 0.f) == AlignX()(Vector(0.f, 0.f, 1.2)));
+
+  CHECK(Vector(0.f, 3.4, 0.f) == AlignY()(Vector(3.4, 0.f, 0.f)));
+  CHECK(Vector(0.f, 3.4, 0.f) == AlignY()(Vector(0.f, 0.f, 3.4)));
+
+  CHECK(Vector(0.f, 0.f, 5.6) == AlignZ()(Vector(0.f, 5.6, 0.f)));
+  CHECK(Vector(0.f, 0.f, 5.6) == AlignZ()(Vector(5.6, 0.f, 0.f)));
+}

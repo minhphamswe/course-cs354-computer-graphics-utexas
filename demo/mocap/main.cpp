@@ -75,7 +75,19 @@ int prevX;        // The X coordinate where the mouse was last clicked
 int prevY;        // The Y coordinate where the mouse was last clicked
 int prevButton;   // The last mouse button that was clicked
 
-float axisLen = 1.0f;
+float axisLen = 1.0f;   // The rendered length of the basis normals
+
+// lighting configurations
+GLfloat light_position[] = {0.f, 50.f, 0.f};
+GLfloat light_ambient[] = {0.25, 0.25, 0.25};
+GLfloat light_diffuse[] = {0.25, 0.25, 0.25};
+GLfloat light_specular[] = {1.f, 1.f, 1.f};
+
+// material configurations
+GLfloat mat_ambient[] = {0.5, 0.5, 0.5};
+GLfloat mat_diffuse[] = {0.5, 0.5, 0.5};
+GLfloat mat_specular[] = {1.f, 1.f, 1.f};
+GLfloat mat_shininess[] = {100.f};
 
 void InitGL() {
   // Perform any necessary GL initialization in this function
@@ -112,14 +124,28 @@ void Init() {
   up = Vector(0.0f, 1.0f, 0.0f);
   eye = center + Vector(0.5f*maxDist, 0.75f*maxDist, 1.5f*maxDist);
 
+  // Zero out the position of the scene graph
   sg.SetCurrentFrame(0);
 }
 
 void SetLighting() {
   glShadeModel(GL_FLAT);
-  glDisable(GL_LIGHTING);
-  glDisable(GL_LIGHT0);
-  glDisable(GL_COLOR_MATERIAL);
+  glEnable(GL_LIGHTING);
+  glEnable(GL_LIGHT0);
+  glEnable(GL_COLOR_MATERIAL);
+  glEnable(GL_NORMALIZE);
+
+  // Set light configurations for the global light source
+  glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
+  glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
+  glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
+  glLightfv(GL_LIGHT0, GL_POSITION, light_position);
+
+  // Set material lighting configurations
+  glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
+  glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
+  glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
+  glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
 }
 
 void SetCamera() {

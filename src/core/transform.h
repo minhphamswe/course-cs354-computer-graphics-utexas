@@ -52,6 +52,9 @@ class Transform {
   /// Concatentate this and another transform (in-place)
   Transform& operator*=(const Transform& t2);
 
+  /// Return the transformation matrix as a 4x4 Matrix
+  Matrix4x4 Matrix() const;
+
   friend Transform Inverse(const Transform &t);
 };
 
@@ -79,6 +82,18 @@ Transform Rotate(float angle, const Vector &axis);
 
 /// Return a transform representing a general scaling in each of the axes
 Transform Scale(float x, float y, float z);
+
+/// Return a transform representing a rotation resulting in a vector/point
+/// being colinear to the X axis
+Transform AlignX();
+
+/// Return a transform representing a rotation resulting in a vector/point
+/// being colinear to the Y axis
+Transform AlignY();
+
+/// Return a transform representing a rotation resulting in a vector/point
+/// being colinear to the Z axis
+Transform AlignZ();
 
 }  // namespace ishi
 

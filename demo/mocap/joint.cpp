@@ -3,6 +3,7 @@
 #include <src/core/transform.h>
 
 #include <GL/gl.h>
+#include <GL/glut.h>
 
 #include <stdint.h>
 #include <iostream>
@@ -55,6 +56,7 @@ void Segment::Update() {
     float f = frame[i];         // The data point
     int c = channelOrder[i];    // The channel it applies to
 
+    // Read frame data
     if (c == BVH_XPOS_IDX && (channelFlags & BVH_XPOS)) {
       trans.x = f;
     } else if (c == BVH_YPOS_IDX && (channelFlags & BVH_YPOS)) {
@@ -113,21 +115,35 @@ void Segment::Render() {
   // Render this node
   glColor3f(1.f, 0.f, 0.f);
   glPointSize(5);
-
-  glBegin(GL_POINTS);
-    glVertex3f(this->basepoint.x, this->basepoint.y, this->basepoint.z);
-  glEnd();
-
-  glBegin(GL_LINES);
-    glVertex3f(basepoint.x, basepoint.y, basepoint.z);
-    glVertex3f(endpoint.x, endpoint.y, endpoint.z);
-  glEnd();
+//
+//   glBegin(GL_POINTS);
+//     glVertex3f(this->basepoint.x, this->basepoint.y, this->basepoint.z);
+//   glEnd();
+//
+//   glBegin(GL_LINES);
+//     glVertex3f(basepoint.x, basepoint.y, basepoint.z);
+//     glVertex3f(endpoint.x, endpoint.y, endpoint.z);
+//   glEnd();
+  Vector s = endpoint-basepoint;
+  
+  glMatrixMode(GL_MODELVIEW);
+  glPushMatrix();
+    glMultTransposeMatrixf((float*) w2o.Matrix().m);
+//     glScalef(offset.x, offset.y, offset.z);
+//     glScalef(offset.x, offset.y, offset.z);
+    glScalef(1, Length(s), 1);
+    glMultTransposeMatrixf((float*) Matrix4x4(1, 0, 0, 0,
+                                              1, 1, 1, 0,
+                                              0, 0, 1, 0,
+                                              0, 0, 0, 1).m);
+    glutSolidSphere(0.5, 8, 8);
+//     glVertex3f(0, 0, 0);
+  glPopMatrix();
 
   // Then render all children
   for (unsigned int i = 0; i < chd.size(); i++)
     chd[i]->Render();
 }
-
 
 /* SceneGraph Methods */
 void SceneGraph::CreateRoot(const char * name, uint32_t id) {
