@@ -85,15 +85,15 @@ Transform Scale(float x, float y, float z);
 
 /// Return a transform representing a rotation resulting in a vector/point
 /// being colinear to the X axis
-Transform AlignX();
+Transform AlignX(const Vector &v);
 
 /// Return a transform representing a rotation resulting in a vector/point
 /// being colinear to the Y axis
-Transform AlignY();
+Transform AlignY(const Vector &v);
 
 /// Return a transform representing a rotation resulting in a vector/point
 /// being colinear to the Z axis
-Transform AlignZ();
+Transform AlignZ(const Vector &v);
 
 }  // namespace ishi
 

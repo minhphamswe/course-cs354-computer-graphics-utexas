@@ -69,6 +69,13 @@ float& Point::operator[](int i) {
   return (&x)[i];
 }
 
+
+float Point::operator[](int i) const {
+  Assert(i >= 0);
+  Assert(i < 3);
+  return (&x)[i];
+}
+
 float Distance(const Point &p1, const Point &p2) {
   return Length(p2-p1);
 }

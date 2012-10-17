@@ -243,29 +243,30 @@ Transform Rotate(float angle, const Vector& axis) {
   Vector a = Normalize(axis);
   float c = cos(angle);
   float s = sin(angle);
-  Matrix4x4 mat;
+  float m[4][4];
 
-  mat.m[0][0] = a.x * a.x * (1 - c) + c;
-  mat.m[1][0] = a.x * a.y * (1 - c) + a.z * s;
-  mat.m[2][0] = a.x * a.z * (1 - c) - a.y * s;
-  mat.m[3][0] = 0.f;
+  m[0][0] = a.x * a.x * (1 - c) + c;
+  m[1][0] = a.x * a.y * (1 - c) + a.z * s;
+  m[2][0] = a.x * a.z * (1 - c) - a.y * s;
+  m[3][0] = 0.f;
 
   // Rotate the y axis into this axis and do the rotation
-  mat.m[0][1] = a.y * a.x * (1 - c) - a.z* s;
-  mat.m[1][1] = a.y * a.y * (1 - c) + c;
-  mat.m[2][1] = a.y * a.z * (1 - c) + a.x * s;
-  mat.m[3][1] = 0.f;
+  m[0][1] = a.y * a.x * (1 - c) - a.z* s;
+  m[1][1] = a.y * a.y * (1 - c) + c;
+  m[2][1] = a.y * a.z * (1 - c) + a.x * s;
+  m[3][1] = 0.f;
 
-  mat.m[0][2] = a.z * a.x * (1 - c) + a.y * s;
-  mat.m[1][2] = a.z * a.y * (1 - c) - a.x * s;
-  mat.m[2][2] = a.z * a.z * (1 - c) + c;
-  mat.m[3][2] = 0.f;
+  m[0][2] = a.z * a.x * (1 - c) + a.y * s;
+  m[1][2] = a.z * a.y * (1 - c) - a.x * s;
+  m[2][2] = a.z * a.z * (1 - c) + c;
+  m[3][2] = 0.f;
 
-  mat.m[0][3] = 0.f;
-  mat.m[1][3] = 0.f;
-  mat.m[2][3] = 0.f;
-  mat.m[3][3] = 1.f;
+  m[0][3] = 0.f;
+  m[1][3] = 0.f;
+  m[2][3] = 0.f;
+  m[3][3] = 1.f;
 
+  Matrix4x4 mat = Matrix4x4(m);
   return Transform(mat, Transpose(mat));
 }
 
@@ -275,17 +276,52 @@ Transform Scale(float x, float y, float z) {
 }
 */
 
-Transform AlignX() {
-  return Transform();
+Transform AlignX(const Vector& v) {
+  if (v.x == 0 && v.y == 0 && v.z == 0) {
+    return Transform();
+  }
+
+  Vector v1, v2, v3;
+  v1 = Normalize(v);
+  CoordinateSystem(v1, &v2, &v3);
+
+  Matrix4x4 mat = Matrix4x4(v1.x, v2.x, v3.x, 0,
+                            v1.y, v2.y, v3.y, 0,
+                            v1.z, v2.z, v3.z, 0,
+                            0, 0, 0, 1);
+  return Transform(Transpose(mat), mat);
 }
 
-Transform AlignY() {
-  return Transform();
+Transform AlignY(const Vector& v) {
+  if (v.x == 0 && v.y == 0 && v.z == 0) {
+    return Transform();
+  }
+
+  Vector v1, v2, v3;
+  v1 = Normalize(v);
+  CoordinateSystem(v1, &v2, &v3);
+
+  Matrix4x4 mat = Matrix4x4(v3.x, v1.x, v2.x, 0,
+                            v3.y, v1.y, v2.y, 0,
+                            v3.z, v1.z, v2.z, 0,
+                            0, 0, 0, 1);
+  return Transform(Transpose(mat), mat);
 }
 
+Transform AlignZ(const Vector& v) {
+  if (v.x == 0 && v.y == 0 && v.z == 0) {
+    return Transform();
+  }
 
-Transform AlignZ() {
-  return Transform();
+  Vector v1, v2, v3;
+  v1 = Normalize(v);
+  CoordinateSystem(v1, &v2, &v3);
+
+  Matrix4x4 mat = Matrix4x4(v2.x, v3.x, v1.x, 0,
+                            v2.y, v3.y, v1.y, 0,
+                            v2.z, v3.z, v1.z, 0,
+                            0, 0, 0, 1);
+  return Transform(Transpose(mat), mat);
 }
 
 

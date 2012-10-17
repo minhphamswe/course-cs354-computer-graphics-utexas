@@ -120,23 +120,22 @@ void Segment::Render() {
 //     glVertex3f(this->basepoint.x, this->basepoint.y, this->basepoint.z);
 //   glEnd();
 //
-//   glBegin(GL_LINES);
-//     glVertex3f(basepoint.x, basepoint.y, basepoint.z);
-//     glVertex3f(endpoint.x, endpoint.y, endpoint.z);
-//   glEnd();
+  glBegin(GL_LINES);
+    glVertex3f(basepoint.x, basepoint.y, basepoint.z);
+    glVertex3f(endpoint.x, endpoint.y, endpoint.z);
+  glEnd();
   Vector s = endpoint-basepoint;
   
   glMatrixMode(GL_MODELVIEW);
   glPushMatrix();
     glMultTransposeMatrixf((float*) w2o.Matrix().m);
-//     glScalef(offset.x, offset.y, offset.z);
-//     glScalef(offset.x, offset.y, offset.z);
-    glScalef(1, Length(s), 1);
-    glMultTransposeMatrixf((float*) Matrix4x4(1, 0, 0, 0,
-                                              1, 1, 1, 0,
-                                              0, 0, 1, 0,
-                                              0, 0, 0, 1).m);
-    glutSolidSphere(0.5, 8, 8);
+    glScalef(endpoint.x - basepoint.x, 1, 1);
+    glMultTransposeMatrixf((float*) AlignX(s).Matrix().m);
+    glScalef(1,endpoint.y - basepoint.y, 1);
+    glMultTransposeMatrixf((float*) AlignY(s).Matrix().m);
+    glScalef(1, 1, endpoint.y - basepoint.y);
+    glMultTransposeMatrixf((float*) AlignZ(s).Matrix().m);
+    glutSolidSphere(1.0, 8, 8);
 //     glVertex3f(0, 0, 0);
   glPopMatrix();
 

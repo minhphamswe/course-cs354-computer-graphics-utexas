@@ -67,7 +67,6 @@ bool Vector::operator!=(const Vector& v) const {
   return ((x != v.x) || (y != v.y) || (z != v.z));
 }
 
-
 float Vector::operator[](int i) const {
   Assert(i >= 0);
   Assert(i < 3);
@@ -113,18 +112,15 @@ Vector Normalize(const Vector& v) {
  *     (the order depends on how the other two vectors are constructed)
  */
 void CoordinateSystem(const Vector& v1, Vector* v2, Vector* v3) {
-  if (v1.x > v1.y) {
-    v2->y = 0;
-    v2->x = v1.z;
-    v2->z = -v1.x;
+  float invLen;
+  if (std::abs(v1.x) > std::abs(v1.y)) {
+    invLen = 1.f / std::sqrt(v1.x * v1.x + v1.z * v1.z);  // normalize v2
+    *v2 = Vector(v1.z * invLen, 0.f, -v1.x * invLen);
   } else {
-    v2->x = 0;
-    v2->y = -v1.z;
-    v2->z = v1.y;
+    invLen = 1.f / std::sqrt(v1.y * v1.y + v1.z * v1.z);  // normalize v2
+    *v2 = Vector(0.f, -v1.z * invLen, v1.y * invLen);
   }
-  v3->x = v1.y*v2->z - v1.z*v2->y;
-  v3->y = v1.z*v2->x - v1.x*v2->z;
-  v3->z = v1.x*v2->y - v1.y*v2->x;
+  *v3 = Cross(v1, *v2);
 }
 
 }  // namespace ishi

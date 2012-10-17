@@ -103,43 +103,61 @@ TEST(RotateArbitraryAxisCoincidesRotatePrincipalAxis) {
   Vector v = Vector(4, 5, 6);
   float angle = 0.7;
 
-  CHECK(Rotate(angle, Vector(1.2, 0.f, 0.f))(p) == RotateX(angle)(p));
-  CHECK(Rotate(angle, Vector(0.f, 3.4, 0.f))(p) == RotateY(angle)(p));
-  CHECK(Rotate(angle, Vector(0.f, 0.f, 5.6))(p) == RotateZ(angle)(p));
+  CHECK_ARRAY_EQUAL(RotateX(angle)(p),
+                    Rotate(angle, Vector(1.2, 0.f, 0.f))(p), 3);
+  CHECK_ARRAY_EQUAL(RotateY(angle)(p),
+                    Rotate(angle, Vector(0.f, 3.4, 0.f))(p), 3);
+  CHECK_ARRAY_EQUAL(RotateZ(angle)(p),
+                    Rotate(angle, Vector(0.f, 0.f, 5.6))(p), 3);
 
-  CHECK(Rotate(angle, Vector(1.2, 0.f, 0.f))(v) == RotateX(angle)(v));
-  CHECK(Rotate(angle, Vector(0.f, 3.4, 0.f))(v) == RotateY(angle)(v));
-  CHECK(Rotate(angle, Vector(0.f, 0.f, 5.6))(v) == RotateZ(angle)(v));
+  CHECK_ARRAY_EQUAL(RotateX(angle)(v),
+                    Rotate(angle, Vector(1.2, 0.f, 0.f))(v), 3);
+  CHECK_ARRAY_EQUAL(RotateY(angle)(v),
+                    Rotate(angle, Vector(0.f, 3.4, 0.f))(v), 3);
+  CHECK_ARRAY_EQUAL(RotateZ(angle)(v),
+                    Rotate(angle, Vector(0.f, 0.f, 5.6))(v), 3);
 }
 
 /// Verify that align is an identity transform when vectors are parallel or
 /// zero-length
 TEST(AlignParallelVectorsIsIdentity) {
   // Normal case where vector is parallel to axis
-  CHECK(Vector(-1.2, 0.f, 0.f) == AlignX()(Vector(-1.2, 0.f, 0.f)));
-  CHECK(Vector(1.2, 0.f, 0.f) == AlignX()(Vector(1.2, 0.f, 0.f)));
+//   CHECK_ARRAY_EQUAL(Vector(-1.2, 0.f, 0.f),
+//                     AlignX(Vector(-1.2, 0.f, 0.f))(Vector(-1.2, 0.f, 0.f)), 3);
+  CHECK_ARRAY_EQUAL(Vector(1.2, 0.f, 0.f),
+                    AlignX(Vector(1.2, 0.f, 0.f))(Vector(1.2, 0.f, 0.f)), 3);
 
-  CHECK(Vector(0.f, -3.4, 0.f) == AlignY()(Vector(0.f, -3.4, 0.f)));
-  CHECK(Vector(0.f, 3.4, 0.f) == AlignY()(Vector(0.f, 3.4, 0.f)));
+//   CHECK_ARRAY_EQUAL(Vector(0.f, -3.4, 0.f),
+//                     AlignY(Vector(0.f, -3.4, 0.f))(Vector(0.f, -3.4, 0.f)), 3);
+  CHECK_ARRAY_EQUAL(Vector(0.f, 3.4, 0.f),
+                    AlignY(Vector(0.f, 3.4, 0.f))(Vector(0.f, 3.4, 0.f)), 3);
 
-  CHECK(Vector(0.f, 0.f, -5.6) == AlignZ()(Vector(0.f, 0.f, -5.6)));
-  CHECK(Vector(0.f, 0.f, 5.6) == AlignZ()(Vector(0.f, 0.f, 5.6)));
+//   CHECK_ARRAY_EQUAL(Vector(0.f, 0.f, -5.6),
+//                     AlignZ(Vector(0.f, 0.f, -5.6))(Vector(0.f, 0.f, -5.6)), 3);
+  CHECK_ARRAY_EQUAL(Vector(0.f, 0.f, 5.6),
+                    AlignZ(Vector(0.f, 0.f, 5.6))(Vector(0.f, 0.f, 5.6)), 3);
 
   // Special case: degenerate vector
-  CHECK(Vector() == AlignX()(Vector()));
-  CHECK(Vector() == AlignY()(Vector()));
-  CHECK(Vector() == AlignZ()(Vector()));
+  CHECK_ARRAY_EQUAL(Vector(), AlignX(Vector())(Vector()), 3);
+  CHECK_ARRAY_EQUAL(Vector(), AlignY(Vector())(Vector()), 3);
+  CHECK_ARRAY_EQUAL(Vector(), AlignZ(Vector())(Vector()), 3);
 }
 
 /// Verify that vector is rotated into the correct position when vectors have
 /// length and are not parallel to the aligned axis
 TEST(AlignNonParallel) {
-  CHECK(Vector(1.2, 0.f, 0.f) == AlignX()(Vector(0.f, 1.2, 0.f)));
-  CHECK(Vector(1.2, 0.f, 0.f) == AlignX()(Vector(0.f, 0.f, 1.2)));
+  CHECK_ARRAY_EQUAL(Vector(1.2, 0.f, 0.f),
+                    AlignX(Vector(0.f, 1.2, 0.f))(Vector(0.f, 1.2, 0.f)), 3);
+  CHECK_ARRAY_EQUAL(Vector(1.2, 0.f, 0.f),
+                    AlignX(Vector(0.f, 0.f, 1.2))(Vector(0.f, 0.f, 1.2)), 3);
 
-  CHECK(Vector(0.f, 3.4, 0.f) == AlignY()(Vector(3.4, 0.f, 0.f)));
-  CHECK(Vector(0.f, 3.4, 0.f) == AlignY()(Vector(0.f, 0.f, 3.4)));
+  CHECK_ARRAY_EQUAL(Vector(0.f, 3.4, 0.f),
+                    AlignY(Vector(3.4, 0.f, 0.f))(Vector(3.4, 0.f, 0.f)), 3);
+  CHECK_ARRAY_EQUAL(Vector(0.f, 3.4, 0.f),
+                    AlignY(Vector(0.f, 0.f, 3.4))(Vector(0.f, 0.f, 3.4)), 3);
 
-  CHECK(Vector(0.f, 0.f, 5.6) == AlignZ()(Vector(0.f, 5.6, 0.f)));
-  CHECK(Vector(0.f, 0.f, 5.6) == AlignZ()(Vector(5.6, 0.f, 0.f)));
+  CHECK_ARRAY_EQUAL(Vector(0.f, 0.f, 5.6),
+                    AlignZ(Vector(0.f, 5.6, 0.f))(Vector(0.f, 5.6, 0.f)), 3);
+  CHECK_ARRAY_EQUAL(Vector(0.f, 0.f, 5.6),
+                    AlignZ(Vector(5.6, 0.f, 0.f))(Vector(5.6, 0.f, 0.f)), 3);
 }
