@@ -40,8 +40,10 @@ void InitGL();
 void Display();
 void Resize(int width, int height);
 void Keyboard(unsigned char key, int x, int y);
+void SpecialKeys(int key, int x, int y);
+void Mouse(int button, int state, int x, int y);
+void Motion(int x, int y);
 void Idle();
-void Sleep(int value);
 
 void SetLighting();
 
@@ -52,8 +54,8 @@ void Init();
 
 SceneGraph sg;            // Main scene graph
 
-Point eye, center, up;    // Camera configuration variables
-int waypoint = 1;         // Default camera position (unused)
+Point eye, center;        // Position of camera, focal point
+Vector up;                // The up direction for the camera
 
 BBox bbox = BBox(Point(-100, -100, -100), Point(100, 100, 100));
 float maxDist;
@@ -67,8 +69,11 @@ bool showBounds = false;    // If true, show bounding box
 bool showFloor = true;      // If true, draw the floor
 bool animate = false;       // If true, animate character
 
-int lastTime;
-int currentTime;
+int prevTime;     // The last time (in millisecond) the timer was queried
+
+int prevX;        // The X coordinate where the mouse was last clicked
+int prevY;        // The Y coordinate where the mouse was last clicked
+int prevButton;   // The last mouse button that was clicked
 
 float axisLen = 1.0f;
 
@@ -104,7 +109,7 @@ void Init() {
   ComputeLookAt();
 
   // Compute default camera position
-  up = Point(0.0f, 1.0f, 0.0f);
+  up = Vector(0.0f, 1.0f, 0.0f);
   eye = center + Vector(0.5f*maxDist, 0.75f*maxDist, 1.5f*maxDist);
 
   sg.SetCurrentFrame(0);
@@ -165,7 +170,7 @@ void DrawFloor(float W, float H, float w, float h) {
   int M = static_cast<int>(floor(a+0.5f));
   int N = static_cast<int>(floor(b+0.5f));
   int i = 0, j = 0;
-  Vec3f u = {w, 0, 0}, v = {0, 0, h}, r = {-(N/2)*w, 0, -(M/2)*h};
+  Vec3f u = {{w, 0, 0}}, v = {{0, 0, h}}, r = {{-(N/2)*w, 0, -(M/2)*h}};
   Vec3f p0, p1, p2, p3;
   glEnable(GL_POLYGON_SMOOTH);
   glHint(GL_POLYGON_SMOOTH_HINT, GL_NICEST);
@@ -242,12 +247,8 @@ void Display() {
   if (showBounds) DrawBounds();
   if (showFloor) DrawFloor(800, 800, 80, 80);
 
-  // TODO: draw scene graph and animate
-
   // Render scene graph
-  for (unsigned int i = 0; i < sg.roots.size(); i++) {
-    sg.roots[i]->Render();
-  }
+  sg.root->Render();
 
   glFlush();          // finish the drawing commands
   glutSwapBuffers();  // and update the screen
@@ -279,76 +280,110 @@ void Resize(int width, int height) {
 // and x and y tell where the mouse was when it was hit.
 void Keyboard(unsigned char key, int x, int y) {
   y = window_height - y;
-
-  float sgn = 1.0f;
-  Vec3f v;
-
-  switch (key) {
-    case '1':
-      waypoint = 1;
-      eye = center + Vector(0.5f*maxDist, 0.75f*maxDist, 1.5f*maxDist);
-      ComputeLookAt();
-      break;
-    case '2':
-      waypoint = 2;
-      eye = center + Vector(0, 0.1f*maxDist, 1.5f*maxDist);
-      ComputeLookAt();
-      break;
-    case '3':
-      waypoint = 3;
-      eye = center + Vector(1.5f*maxDist, 0.1f*maxDist, 0);
-      ComputeLookAt();
-      break;
-    case 'f':
-      showFloor = !showFloor;
-      break;
-    case 'z':
-      waypoint = 4;
-      eye = center + ((eye - center) * 0.95);
-      ComputeLookAt();
-      break;
-    case 'Z':
-      eye = center + ((eye - center) * 1.05);
-      ComputeLookAt();
-      break;
-    case 'j':
-      orbitLeft.Apply(&eye);
-      ComputeLookAt();
-      break;
-    case 'k':
-      orbitLeft.ApplyInvert(&eye);
-      ComputeLookAt();
-      break;
-    case ' ':
-      cout << "Start/stop animation" << endl;
-      animate = !animate;
-      break;
-    case 'a':
-      showAxis = !showAxis;
-      break;
-    case 'b':
-      showBounds = !showBounds;
-      break;
-    case 'q':
-    case 27:  // esc
-      exit(0);
-      break;
+  if (key == '1') {
+    eye = center + Vector(0.5f*maxDist, 0.75f*maxDist, 1.5f*maxDist);
+    ComputeLookAt();
+  } else if (key =='2') {
+    eye = center + Vector(0, 0.1f*maxDist, 1.5f*maxDist);
+    ComputeLookAt();
+  } else if (key =='3') {
+    eye = center + Vector(1.5f*maxDist, 0.1f*maxDist, 0);
+    ComputeLookAt();
+  } else if (key =='z') {
+    eye = center + ((eye - center) * 0.95);
+    ComputeLookAt();
+  } else if (key =='Z') {
+    eye = center + ((eye - center) * 1.05);
+    ComputeLookAt();
+  } else if (key =='j') {
+    orbitLeft.Apply(&eye);
+    ComputeLookAt();
+  } else if (key =='k') {
+    orbitLeft.ApplyInvert(&eye);
+    ComputeLookAt();
+  } else if (key ==' ') {
+    animate = !animate;
+  } else if (key =='a') {
+    showAxis = !showAxis;
+  } else if (key =='b') {
+    showBounds = !showBounds;
+  } else if (key =='f') {
+    showFloor = !showFloor;
+  } else if (key =='q' || key ==27 /* esc */) {
+    exit(0);
   }
 
   // let glut know to redraw the screen
   glutPostRedisplay();
 }
 
-void Idle() {
-  currentTime = glutGet(GLUT_ELAPSED_TIME);
-  int frameDelta = (currentTime - lastTime) * sg.FramePerMs();
-
-  // If animating and enough time has passed
-  if (animate && frameDelta > 0) {
-    // increment frame index && update position for all joints
-    sg.SetCurrentFrame((sg.GetCurrentFrame() + frameDelta));
+/// Called whenever a special key is pressed
+void SpecialKeys(int key, int x, int y) {
+  if (key == GLUT_KEY_LEFT) {
+    orbitLeft.Apply(&eye);
+  } else if (key == GLUT_KEY_RIGHT) {
+    orbitLeft.ApplyInvert(&eye);
+  } else if (key == GLUT_KEY_UP) {
+    eye = Rotate(0.057, Cross(up, center - eye))(eye);
+  } else if (key == GLUT_KEY_DOWN) {
+    eye = Rotate(-0.057, Cross(up, center - eye))(eye);
   }
-  lastTime = currentTime;
+  ComputeLookAt();
+  glutPostRedisplay();
+}
+
+/// Called whenever a mouse button is pressed
+void Mouse(int button, int state, int x, int y) {
+  if (button == 3) /* mouse wheel up */ {
+    if (state == GLUT_DOWN) {
+      eye = center + ((eye - center) * 0.95);
+      ComputeLookAt();
+    }
+  } else if (button == 4) /* mouse wheel down */ {
+    if (state == GLUT_DOWN) {
+      eye = center + ((eye - center) * 1.05);
+      ComputeLookAt();
+    }
+  } else if (button == GLUT_LEFT_BUTTON) {
+    if (state == GLUT_DOWN) {
+      prevX = x;
+      prevY = y;
+      prevButton = GLUT_LEFT_BUTTON;
+    } else if (state == GLUT_UP) {
+      prevButton = -1;
+    }
+  }
+  glutPostRedisplay();
+}
+
+void Motion(int x, int y) {
+  if (prevButton == GLUT_LEFT_BUTTON) {
+    float deltaX = (prevX - x) / static_cast<float>(window_width);
+    float deltaY = (prevY - y) / static_cast<float>(window_height);
+    eye = Rotate(-deltaY, Cross(up, center - eye))(eye);
+    eye = RotateY(2 * deltaX)(eye);
+//     Rotate(-deltaY, Cross(up, center - eye)).Apply(&eye);
+//     RotateY(2 * deltaX).Apply(&eye);
+    ComputeLookAt();
+    prevX = x;
+    prevY = y;
+  }
+  glutPostRedisplay();
+}
+
+/// Called whenever the program is not busy doing something else
+void Idle() {
+  // Calculate elapsed frames since last tick
+  int currentTime = glutGet(GLUT_ELAPSED_TIME);
+  int frameDelta = (currentTime - prevTime) * sg.FramePerMs();
+
+  if (animate && frameDelta > 0)
+    // If animating and enough time has passed:
+    // raise frame index && update position for all joints
+    sg.SetCurrentFrame((sg.GetCurrentFrame() + frameDelta));
+
+  // Save tick time
+  prevTime = currentTime;
 
   // update the screen
   glutPostRedisplay();
@@ -370,11 +405,13 @@ void showMenu() {
   cout << "q - quit" << endl;
   cout << "a - show/hide axis" << endl;
   cout << "b - show/hide bounds" << endl;
+  cout << "f - show/hide floor" << endl;
   cout << "[1-3] - move to waypoint" << endl;
   cout << "z - zoom in" << endl;
   cout << "Z - zoom out" << endl;
   cout << "j - rotate left" << endl;
   cout << "k - rotate right" << endl;
+  cout << "[MOUSE WHEEL] - zoom in/out" << endl;
   cout << "[SPACE] - start/stop" << endl;
 }
 
@@ -389,6 +426,9 @@ int main(int argc, char *argv[]) {
   glutDisplayFunc(Display);
   glutReshapeFunc(Resize);
   glutKeyboardFunc(Keyboard);
+  glutSpecialFunc(SpecialKeys);
+  glutMouseFunc(Mouse);
+  glutMotionFunc(Motion);
   glutIdleFunc(Idle);
 
   processCommandLine(argc, argv);

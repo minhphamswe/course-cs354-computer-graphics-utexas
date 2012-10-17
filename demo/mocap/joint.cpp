@@ -27,67 +27,49 @@ Segment::Segment(const char* name, uint32_t id) {
   this->w2o = Transform();
 
   /* Geometric information */
-  this->offset = Vector();
-  this->endpoint = Point();   // in world coordinate
-  this->basepoint = Point();  // in world coordinate
+  this->offset = Vector();    // in local coordinates
+  this->endpoint = Point();   // in world coordinates
+  this->basepoint = Point();  // in world coordinates
 
   /* Motion information */
   this->numChannels = 0;
 }
 
+/// The root node is defined as the node without a parent
 bool Segment::IsRoot() {
   return (par == NULL);
 }
 
+/// The end note is defined as the node without any child
 bool Segment::IsEndSite() {
   return (chd.size() == 0);
 }
 
-
-
 void Segment::Update() {
-//   cout << "Updating " << name << " ID: " << id << endl;
-  vector<float> frame = frameData[frameIndex];
-
-  Vector trans = Vector(0, 0, 0);   // Translation vector
-  Transform rot = Transform();      // Rotation data holder
+  vector<float> frame = frameData[frameIndex];  // Data for this frame
+  Vector trans = Vector(0, 0, 0);               // Translation vector
+  Transform rot = Transform();                  // Rotation data holder
 
   for (unsigned int i = 0; i < numChannels; i++) {
-    // get channel to update by order
-    float f = frame[i];         // data
-    int c = channelOrder[i];    // which channel it maps to
+    // Get channel to update by order
+    float f = frame[i];         // The data point
+    int c = channelOrder[i];    // The channel it applies to
 
     if (c == BVH_XPOS_IDX && (channelFlags & BVH_XPOS)) {
-//       cout << "Move to point X equals " << f << endl;
       trans.x = f;
     } else if (c == BVH_YPOS_IDX && (channelFlags & BVH_YPOS)) {
-//       cout << "Move to point X equals " << f << endl;
       trans.y = f;
     } else if (c == BVH_ZPOS_IDX && (channelFlags & BVH_ZPOS)) {
-//       cout << "Move to point X equals " << f << endl;
       trans.z = f;
-
     } else if (c == BVH_XROT_IDX && (channelFlags & BVH_XROT)) {
-      if (f != 0) {
-//         if (this->IsRoot())
-//           cout << "Rotate around X by " << f << endl;
+      if (f != 0)
         rot = rot * RotateX(Radian(f));
-      }
-
     } else if (c == BVH_YROT_IDX && (channelFlags & BVH_YROT)) {
-      if (f != 0) {
-//         if (this->IsRoot())
-//           cout << "Rotate around Y by " << f << endl;
+      if (f != 0)
         rot = rot * RotateY(Radian(f));
-      }
-
     } else if (c == BVH_ZROT_IDX && (channelFlags & BVH_ZROT)) {
-      if (f != 0) {
-//         if (this->IsRoot())
-//           cout << "Rotate around Z by " << f << endl;
-//         cout << "Multiplying rotation matrix" << endl;
+      if (f != 0)
         rot = rot * RotateZ(Radian(f));
-      }
     }
   }
 
@@ -97,8 +79,10 @@ void Segment::Update() {
   else
     this->w2o = Translate(trans + this->offset) * rot;
 
+  // Recompute basepoint
   this->basepoint = this->w2o(Point());
 
+  // Recompute endpoint
   if (chd.size() > 0)
     this->endpoint = this->w2o(Point()+chd[0]->offset);
   else
@@ -112,150 +96,109 @@ void Segment::Update() {
 }
 
 void Segment::DistributeFrame(float** data) {
-//   if (IsRoot())
-//     printf("Begin distributing from root. Frame is: %d\n",
-//       frameData.size());
-  
   // Distribute to self first
   vector<float> frame;
   for (unsigned int i = 0; i < numChannels; i++) {
-//     printf("\tData is: %f\n", *data);
     frame.push_back(**data);
     (*data)++;
   }
   frameData.push_back(frame);
 
   // Then distribute to the children (in order)
-  for (unsigned int i = 0; i < chd.size(); i++) {
+  for (unsigned int i = 0; i < chd.size(); i++)
     chd[i]->DistributeFrame(data);
-//     data += chd[i]->numChannels;
-  }
 }
 
 void Segment::Render() {
-  // Render self
-//   cout << "Rendering " << name << endl;
-//   Point pp = p + extent;
-//   cout << "Drawing line from (" << p.x << "," << p.y << "," << p.z << ") to"
-//   << "(" << pp.x << "," << pp.y << "," << pp.z << ")" << endl;
-//   cout << "Extent is :" << "(" << extent.x << "," << extent.y << "," << extent.z << ")" << endl;
-
-  float s = 5.f;
-
+  // Render this node
   glColor3f(1.f, 0.f, 0.f);
+  glPointSize(5);
 
-//   cout << "This endpoint: " << this->endpoint.x << this->endpoint.y << this->endpoint.z << endl;
-
-  glPointSize(10);
   glBegin(GL_POINTS);
-    glVertex3f(this->basepoint.x * s, this->basepoint.y * s, this->basepoint.z * s);
+    glVertex3f(this->basepoint.x, this->basepoint.y, this->basepoint.z);
   glEnd();
 
   glBegin(GL_LINES);
-    glVertex3f(basepoint.x * s, basepoint.y * s, basepoint.z * s);
-    glVertex3f(endpoint.x * s, endpoint.y * s, endpoint.z * s);
+    glVertex3f(basepoint.x, basepoint.y, basepoint.z);
+    glVertex3f(endpoint.x, endpoint.y, endpoint.z);
   glEnd();
 
   // Then render all children
-  for (unsigned int i = 0; i < chd.size(); i++) {
+  for (unsigned int i = 0; i < chd.size(); i++)
     chd[i]->Render();
-  }
 }
 
 
 /* SceneGraph Methods */
 void SceneGraph::CreateRoot(const char * name, uint32_t id) {
-//   cout << "createRoot:name=" << name << " id=" << id << endl;
-  // Allocate new scene node
   nodes.insert(nodes.begin() + id, new Segment(name, id));
-  roots.push_back(nodes[id]);
+  root = nodes[id];
 }
 
 void SceneGraph::CreateJoint(const char * name, uint32_t id) {
-//   cout << "createJoint:name=" << name << " id=" << id << endl;
-  // Allocate new scene node
   nodes.insert(nodes.begin() + id, new Segment(name, id));
 }
 
 void SceneGraph::CreateEndSite(const char * name, uint32_t id) {
-//   cout << "createEndSite:name=" << name << " id=" << id;
-  // Allocate new scene node
   nodes.insert(nodes.begin() + id, new Segment(name, id));
 }
 
 void SceneGraph::SetChild(uint32_t parent, uint32_t child) {
-//   cout << "setChild:parent=" << parent << " child=" << child << endl;
   nodes[child]->par = nodes[parent];
   nodes[parent]->chd.push_back(nodes[child]);
 }
 
 void SceneGraph::SetOffset(uint32_t id, float * offset) {
-//   cout << "setOffset:id=" << id << " offset=(" << offset[0] << ","
-//   << offset[1] << "," << offset[2] << ")" << endl;
-
   nodes[id]->offset = Vector(offset[0], offset[1], offset[2]);
 }
 
 void SceneGraph::SetNumChannels(uint32_t id, uint16_t num) {
-//   cout << "setNumChannels:id=" << id << " num=" << num << endl;
   nodes[id]->numChannels = num;
 }
 
 void SceneGraph::SetChannelFlags(uint32_t id, uint16_t flags) {
-//   cout << "setChannelFlags:id=" << id << " flags=" << flags << endl;
   nodes[id]->channelFlags = flags;
 }
 
 void SceneGraph::SetChannelOrder(uint32_t id, int * order) {
-//   cout  << "setChannelOrder:id=" << id << " order: "
-//   << order[0] << order[1] << order[2] << endl;
   for (unsigned int i = 0; i < nodes[id]->numChannels; i++) {
     nodes[id]->channelOrder.push_back(*order);
     order++;
   }
-//   cout << "Node channel order: "
-//   << nodes[id]->channelOrder[0] << nodes[id]->channelOrder[1] << nodes[id]->channelOrder[2] << endl;
 }
 
 void SceneGraph::SetFrameIndex(uint32_t id, uint32_t index) {
-//   cout << "setFrameIndex:id=" << id << " index=" << index << endl;
   nodes[id]->frameIndex = index;
 }
 
 void SceneGraph::SetFrameTime(float delta) {
-//   cout << "setFrameTime:delta=" << delta << endl;
   frameTime = delta * 1000;
   invFrameTime = 1/frameTime;
 }
 
 void SceneGraph::SetNumFrames(uint32_t num) {
-//   cout << "setNumFrames:num=" << num << endl;
   numFrames = num;
+  printf("Number of frames: %d\n", num);
 }
 
 void SceneGraph::SetFrameSize(uint32_t size) {
-//   cout << "setFrameSize:size=" << size << endl;
   frameSize = size;
 }
 
 void SceneGraph::AddFrame(float * data) {
-//   cout << "addFrame" << endl;
   // Distribute frame data to all nodes, starting at the root
-  for (unsigned int i = 0; i < roots.size(); i++) {
-    roots[i]->DistributeFrame(&data);
-  }
+  root->DistributeFrame(&data);
 }
 
 void SceneGraph::SetCurrentFrame(uint32_t frameNumber) {
-  cout << "setCurrentFrame:frameNumber=" << frameNumber << endl;
-  while (frameNumber > numFrames)
+  // Frame should loop around if the number of frames is exceeded
+  while (frameNumber >= numFrames)
     frameNumber -= numFrames;
   this->currentFrame = frameNumber;
-  // Increment frame number for all children and request update
-  for (unsigned int i = 0; i < roots.size(); i++) {
-    roots[i]->frameIndex = frameNumber;
-    roots[i]->Update();
-  }
+
+  // Change frame number for all children and request update
+  root->frameIndex = frameNumber;
+  root->Update();
 }
 
 float SceneGraph::MsPerFrame() {

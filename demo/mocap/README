@@ -1,2 +1,7 @@
 Extra Features:
-* f key now toggles drawing floor
+
+- 'f' key now toggles drawing floor.
+- Mouse wheel now also zoom.
+- Left/Right arrow keys orbit left/right.
+- Up/Down arrow keys orbit up/down.
+- Click and drag left mouse button to orbit around center.

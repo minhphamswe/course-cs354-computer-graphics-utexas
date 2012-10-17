@@ -2,6 +2,7 @@
 #include <core/vector.h>
 #include <core/point.h>
 #include <UnitTest++/UnitTest++.h>
+#include <cstdio>
 
 using namespace ishi;
 
@@ -76,4 +77,37 @@ TEST(InversesCancel) {
       }
     }
   }
+}
+
+/// Verify that rotation around axis gives the same result if the direction
+/// of the axis is the same (regardless of scale)
+TEST(RotateArbitraryAxisScaleInvariant) {
+  Point p = Point(1, 2, 3);
+  Vector v = Vector(4, 5, 6);
+  float angle = 0.7;
+
+  CHECK(Rotate(angle, Vector(1.2, 0.f, 0.f))(p) == Rotate(angle, Vector(1.f, 0.f, 0.f))(p));
+  CHECK(Rotate(angle, Vector(0.f, 3.4, 0.f))(p) == Rotate(angle, Vector(0.f, 1.f, 0.f))(p));
+  CHECK(Rotate(angle, Vector(0.f, 0.f, 5.6))(p) == Rotate(angle, Vector(0.f, 0.f, 1.f))(p));
+
+  CHECK(Rotate(angle, Vector(1.2, 0.f, 0.f))(v) == Rotate(angle, Vector(1.f, 0.f, 0.f))(v));
+  CHECK(Rotate(angle, Vector(0.f, 3.4, 0.f))(v) == Rotate(angle, Vector(0.f, 1.f, 0.f))(v));
+  CHECK(Rotate(angle, Vector(0.f, 0.f, 5.6))(v) == Rotate(angle, Vector(0.f, 0.f, 1.f))(v));
+}
+
+/// Verify that rotation around an arbitrary axis gives the same result
+/// as rotation around X, Y, and Z if the axis of rotation is parallel to the
+/// X, Y, and Z, respectively.
+TEST(RotateArbitraryAxisCoincidesRotatePrincipalAxis) {
+  Point p = Point(1, 2, 3);
+  Vector v = Vector(4, 5, 6);
+  float angle = 0.7;
+
+  CHECK(Rotate(angle, Vector(1.2, 0.f, 0.f))(p) == RotateX(angle)(p));
+  CHECK(Rotate(angle, Vector(0.f, 3.4, 0.f))(p) == RotateY(angle)(p));
+  CHECK(Rotate(angle, Vector(0.f, 0.f, 5.6))(p) == RotateZ(angle)(p));
+
+  CHECK(Rotate(angle, Vector(1.2, 0.f, 0.f))(v) == RotateX(angle)(v));
+  CHECK(Rotate(angle, Vector(0.f, 3.4, 0.f))(v) == RotateY(angle)(v));
+  CHECK(Rotate(angle, Vector(0.f, 0.f, 5.6))(v) == RotateZ(angle)(v));
 }

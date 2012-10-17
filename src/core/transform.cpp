@@ -199,11 +199,73 @@ Transform RotateZ(float angle) {
   return Transform(mat, matInv);
 }
 
-/*
-Transform Rotate(float angle, const Vector& axis) {
 
+/**
+ * Algorithm:
+ * To rotate a vector v around an arbitrary axis, we can do the following:
+ * - Let:
+ *   + vector a be the normalized axis of rotation
+ *   + vector v_c be the projection of v onto a => v_c = Dot(v, a) * a
+ *   + vector v1 be (v - v_c) => v1 is perpendicular to a
+ *   + vector v2 be (v1 x a)  => v2 is perpendicular to a and v1, and
+ *     |v2| = |v1|
+ * - Then we get a new coordinate system formed from a, v1, and v2.
+ * - Since |v1| = |v2| and a, v1, v2 are pairwise perpendicular, we can
+ *   perform a rotation around a and we obtain:
+ *   + vector v1' = v1*cos(theta) - v2*sin(theta)
+ *   + vector v'  = v_c + v1' is the result of rotating around the arbitrary
+ * axis a to v
+ *
+ * Calculating matrices:
+ * We apply the algorithm above to rotate the vectors i = (1, 0, 0),
+ * j = (0, 1, 0), and k = (0, 0, 1):
+ *  v | n | v[n] |   v_c[n] |   v1[n]   |              v2[n]
+ * ---+---+------+----------+-----------+---------------------------------
+ *  i | 0 |  1   | a.x*a.x  | 1-a.x*a.x | (0-a.x*a.y)*a.z-(0-a.x*a.z)*a.y
+ *    | 1 |  0   | a.x*a.y  | 0-a.x*a.y | (0-a.x*a.z)*a.x-(1-a.x*a.x)*a.z
+ *    | 2 |  0   | a.x*a.z  | 0-a.x*a.z | (1-a.x*a.x)*a.y-(0-a.x*a.y)*a.x
+ * ---+---+------+----------+-----------+---------------------------------
+ *  j | 0 |  0   | a.y*a.x  | 0-a.y*a.x | (1-a.y*a.y)*a.z-(0-a.y*a.z)*a.y
+ *    | 1 |  1   | a.y*a.y  | 1-a.y*a.y | (0-a.y*a.z)*a.x-(0-a.y*a.x)*a.z
+ *    | 2 |  0   | a.y*a.z  | 0-a.y*a.z | (0-a.y*a.x)*a.y-(1-a.y*a.y)*a.x
+ * ---+---+------+----------+-----------+---------------------------------
+ *  k | 0 |  0   | a.z*a.x  | 0-a.z*a.x | (0-a.z*a.y)*a.z-(1-a.z*a.z)*a.y
+ *    | 1 |  0   | a.z*a.y  | 0-a.z*a.y | (1-a.z*a.z)*a.x-(0-a.z*a.x)*a.z
+ *    | 2 |  1   | a.z*a.z  | 1-a.z*a.z | (0-a.z*a.x)*a.y-(0-a.z*a.y)*a.x
+ * ---+---+------+----------+-----------+---------------------------------
+ */
+Transform Rotate(float angle, const Vector& axis) {
+  // Normalize the axis
+  Vector a = Normalize(axis);
+  float c = cos(angle);
+  float s = sin(angle);
+  Matrix4x4 mat;
+
+  mat.m[0][0] = a.x * a.x * (1 - c) + c;
+  mat.m[1][0] = a.x * a.y * (1 - c) + a.z * s;
+  mat.m[2][0] = a.x * a.z * (1 - c) - a.y * s;
+  mat.m[3][0] = 0.f;
+
+  // Rotate the y axis into this axis and do the rotation
+  mat.m[0][1] = a.y * a.x * (1 - c) - a.z* s;
+  mat.m[1][1] = a.y * a.y * (1 - c) + c;
+  mat.m[2][1] = a.y * a.z * (1 - c) + a.x * s;
+  mat.m[3][1] = 0.f;
+
+  mat.m[0][2] = a.z * a.x * (1 - c) + a.y * s;
+  mat.m[1][2] = a.z * a.y * (1 - c) - a.x * s;
+  mat.m[2][2] = a.z * a.z * (1 - c) + c;
+  mat.m[3][2] = 0.f;
+
+  mat.m[0][3] = 0.f;
+  mat.m[1][3] = 0.f;
+  mat.m[2][3] = 0.f;
+  mat.m[3][3] = 1.f;
+
+  return Transform(mat, Transpose(mat));
 }
 
+/*
 Transform Scale(float x, float y, float z) {
 
 }

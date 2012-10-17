@@ -55,6 +55,7 @@ class Segment {
 
   void DistributeFrame(float** data);
 
+  /// Called to render all nodes from this node down
   void Render();
 };
 
@@ -69,7 +70,7 @@ class SceneGraph {
   uint32_t currentFrame;      // index of the motion frame this is at
 
  public:
-  vector<Segment*> roots;   // list of root nodes only
+  Segment *root;              // point to root of the scene graph tree
 
  public:
   /// Initialize a SceneGraph
