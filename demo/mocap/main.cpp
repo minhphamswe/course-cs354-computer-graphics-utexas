@@ -5,6 +5,7 @@
   This is simple skeleton GLUT code.
 */
 
+#include <src/core/color.h>
 #include <src/core/point.h>
 #include <src/core/vector.h>
 #include <src/core/transform.h>
@@ -19,6 +20,7 @@
 #include <sstream>
 #include <cstdio>
 #include <cstring>
+#include <vector>
 
 #include "./common.h"
 
@@ -52,7 +54,8 @@ void Init();
 
 #define PI 3.14159265f
 
-SceneGraph sg;            // Main scene graph
+vector<SceneGraph> sg;    // Vector of scene graphs
+vector<Color> sgc;        // Vector of scene graph colors
 
 Point eye, center;        // Position of camera, focal point
 Vector up;                // The up direction for the camera
@@ -61,8 +64,6 @@ BBox bbox = BBox(Point(-100, -100, -100), Point(100, 100, 100));
 float maxDist;
 
 Transform orbitLeft = RotateY(-0.1f);        // Orbitting left transform
-
-char filename[1000];
 
 bool showAxis = true;       // If true, show axis
 bool showBounds = false;    // If true, show bounding box
@@ -125,7 +126,8 @@ void Init() {
   eye = center + Vector(0.5f*maxDist, 0.75f*maxDist, 1.5f*maxDist);
 
   // Zero out the position of the scene graph
-  sg.SetCurrentFrame(0);
+  for (unsigned int i = 0; i < sg.size(); i++)
+    sg[i].SetCurrentFrame(0);
 }
 
 void SetLighting() {
@@ -274,7 +276,10 @@ void Display() {
   if (showFloor) DrawFloor(800, 800, 80, 80);
 
   // Render scene graph
-  sg.root->Render();
+  for (unsigned int i = 0; i < sg.size(); i++) {
+    glColor3f(sgc[i].r, sgc[i].g, sgc[i].b);
+    sg[i].root->Render();
+  }
 
   glFlush();          // finish the drawing commands
   glutSwapBuffers();  // and update the screen
@@ -388,8 +393,6 @@ void Motion(int x, int y) {
     float deltaY = (prevY - y) / static_cast<float>(window_height);
     eye = Rotate(-deltaY, Cross(up, center - eye))(eye);
     eye = RotateY(2 * deltaX)(eye);
-//     Rotate(-deltaY, Cross(up, center - eye)).Apply(&eye);
-//     RotateY(2 * deltaX).Apply(&eye);
     ComputeLookAt();
     prevX = x;
     prevY = y;
@@ -401,12 +404,16 @@ void Motion(int x, int y) {
 void Idle() {
   // Calculate elapsed frames since last tick
   int currentTime = glutGet(GLUT_ELAPSED_TIME);
-  int frameDelta = (currentTime - prevTime) * sg.FramePerMs();
+  int frameDelta;
 
-  if (animate && frameDelta > 0)
-    // If animating and enough time has passed:
-    // raise frame index && update position for all joints
-    sg.SetCurrentFrame((sg.GetCurrentFrame() + frameDelta));
+  for (unsigned int i = 0; i < sg.size(); i++) {
+    frameDelta = (currentTime - prevTime) * sg[i].FramePerMs();
+
+    if (animate && frameDelta > 0)
+      // If animating and enough time has passed:
+      // raise frame index && update position for all joints
+      sg[i].SetCurrentFrame((sg[i].GetCurrentFrame() + frameDelta));
+  }
 
   // Save tick time
   prevTime = currentTime;
@@ -417,8 +424,19 @@ void Idle() {
 
 void processCommandLine(int argc, char *argv[]) {
   if (argc>1) {
-    snprintf(&(filename[0]), strlen(argv[1])+1, "%s", argv[1]);
-    BVHLoader::loadBVH(filename, &sg);
+    for (int i = 1; i < argc; i++) {
+      char filename[500];
+      SceneGraph *s = new SceneGraph;
+
+      snprintf(&(filename[0]), strlen(argv[i])+1, "%s", argv[i]);
+      BVHLoader::loadBVH(filename, s);
+      sg.push_back(*s);
+
+      float r = static_cast<float>((i + 15) % 3) / 3;
+      float g = static_cast<float>((i + 16) % 3) / 3;
+      float b = static_cast<float>((i + 17) % 3) / 3;
+      sgc.push_back(Color(r, g, b));
+    }
     ComputeLookAt();
   } else {
     printf("Filename argument required.\n");

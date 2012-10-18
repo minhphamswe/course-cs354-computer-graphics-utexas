@@ -14,7 +14,8 @@
 	extern "C"
 	{
 		extern int yylex(void);
-	}	
+	}
+	extern void RESET_FL(void);
 	extern void BEGIN_FL(void);
 	extern bvh_cb_info * bci;
 	float * frameflt=0;
@@ -213,6 +214,16 @@ int load_bvh(const char * filename)
 		yyparse();
 	}
 	while(!feof(yyin));
+
+	lb=0;
+	rb=0;
+	numframes=0;
+	frameidx=0;
+	framecnt=0;
+	framesz=0;
+	frameflt=0;
+	RESET_FL();
+	
 	return 0;
 }
 

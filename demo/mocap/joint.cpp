@@ -113,30 +113,34 @@ void Segment::DistributeFrame(float** data) {
 
 void Segment::Render() {
   // Render this node
-  glColor3f(1.f, 0.f, 0.f);
-  glPointSize(5);
-//
-//   glBegin(GL_POINTS);
-//     glVertex3f(this->basepoint.x, this->basepoint.y, this->basepoint.z);
-//   glEnd();
-//
+  Vector dir = Inverse(w2o)(endpoint-basepoint);
+  float scale = 1.25 * Length(dir);
+
+  // Draw wireframe "muscle"
   glBegin(GL_LINES);
     glVertex3f(basepoint.x, basepoint.y, basepoint.z);
     glVertex3f(endpoint.x, endpoint.y, endpoint.z);
   glEnd();
-  Vector s = endpoint-basepoint;
-  
+
+  // Save the modelview transformation state
   glMatrixMode(GL_MODELVIEW);
   glPushMatrix();
-    glMultTransposeMatrixf((float*) w2o.Matrix().m);
-    glScalef(endpoint.x - basepoint.x, 1, 1);
-    glMultTransposeMatrixf((float*) AlignX(s).Matrix().m);
-    glScalef(1,endpoint.y - basepoint.y, 1);
-    glMultTransposeMatrixf((float*) AlignY(s).Matrix().m);
-    glScalef(1, 1, endpoint.y - basepoint.y);
-    glMultTransposeMatrixf((float*) AlignZ(s).Matrix().m);
-    glutSolidSphere(1.0, 8, 8);
-//     glVertex3f(0, 0, 0);
+    // Go to joint location
+    glMultTransposeMatrixf(reinterpret_cast<float*>(w2o.Matrix().m));
+
+    // Stretch sphere to the "muscle" length
+    if (!IsEndSite() && !IsRoot()) {
+      glMultTransposeMatrixf(
+        reinterpret_cast<float*>(Inverse(AlignZ(dir)).Matrix().m));
+      glTranslatef(0, 0, scale/2.5);
+      glScalef(scale/4, scale/4, scale);
+      glMultTransposeMatrixf(reinterpret_cast<float*>(AlignZ(dir).Matrix().m));
+    }
+
+    // Draw sphere
+    glutSolidSphere(INV_PI, 16, 16);
+
+  // Restore the modelview transformation state
   glPopMatrix();
 
   // Then render all children

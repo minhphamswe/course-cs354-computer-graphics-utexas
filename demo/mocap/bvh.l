@@ -69,6 +69,10 @@ ROOT { BEGIN(SG);return ROOT; }
 }
 <MO>{colon} {return COLON;}
 %%
+void RESET_FL(void)
+{
+	BEGIN(INITIAL);
+}
 void BEGIN_FL(void)
 {
 	BEGIN(FL);

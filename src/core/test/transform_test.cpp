@@ -67,13 +67,18 @@ TEST(InversesCancel) {
         angle = i;
         delta = Vector(k, i, j);
 
-        // test rotation
+        // Test rotation
         CHECK((RotateX(angle) * Inverse(RotateX(angle)))(p) == p);
         CHECK((RotateY(angle) * Inverse(RotateY(angle)))(p) == p);
         CHECK((RotateZ(angle) * Inverse(RotateZ(angle)))(p) == p);
 
-        // test translation
+        // Test translation
         CHECK((Translate(delta) * Inverse(Translate(delta)))(p) == p);
+
+        // Test alignment
+        CHECK(p == (AlignX(delta) * Inverse(AlignX(delta)))(p));
+        CHECK(p == (AlignY(delta) * Inverse(AlignY(delta)))(p));
+        CHECK(p == (AlignZ(delta) * Inverse(AlignZ(delta)))(p));
       }
     }
   }
