@@ -11,3 +11,6 @@ Extra Features:
   + segments are drawn with elongated spheres
   + wire-frame "tendons" provide illusion of muscle connectivity
   + lighting and shading is enabled
+
+- Improved mechanics
+  + Added multiple character support
