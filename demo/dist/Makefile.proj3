@@ -1,0 +1,11 @@
+# Self-destructing Makefile. This file will be gone by the time it's done
+
+.PHONY: all submit
+
+all:
+	tar -xvzf mocap-0.1.tar.gz
+	rm mocap-0.1.tar.gz
+	cp -r ./mocap-0.1/* ./ && rm -rf ./mocap-0.1 && ./configure && make
+
+submit:
+	turnin --submit edwardsj project3 *
