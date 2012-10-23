@@ -1,11 +1,14 @@
 #include "./texture.h"
 
-#include <jpeglib.h>
+#include <jpeglib.hpp>
 #include <jerror.h>
 
+#include <stdio.h>
+#include <cstddef>
 #include <iostream>
 #include <cstring>
 #include <cstdio>
+#include <string>
 
 #include "./common.h"
 

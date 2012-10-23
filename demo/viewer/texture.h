@@ -1,11 +1,11 @@
 #ifndef __TEXTURE_H__
 #define __TEXTURE_H__
 
+#include <jpeglib.hpp>
+
 #include <cstring>
 #include <cstdio>
 #include <string>
-
-#include <jpeglib.h>
 
 #include "./common.h"
 

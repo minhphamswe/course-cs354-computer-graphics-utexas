@@ -71,10 +71,13 @@ exclude = $(srcdir)/y.tab.cpp \
           $(srcdir)/types.h \
           $(srcdir)/joint_info.h
 
-valgrind =
-# valgrind --leak-check=yes --gen-suppressions=yes
-# --log-file=log/memcheck.valgrind
-
 check: all
-	$(valgrind) ./mocap $(mocap_datadir)/18_04.bvh $(mocap_datadir)/19_04.bvh
+	./mocap $(mocap_datadir)/18_04.bvh $(mocap_datadir)/19_04.bvh
 	$(checkdir)/check-code $(filter-out $(exclude),$(mocap_SOURCES))
+
+valgrind_gensupp = --gen-suppressions=yes --demangle=no
+memcheck_supp = --suppressions=$(srcdir)/lib_drm_intel.supp
+memcheck_opts = --leak-check=full --track-origins=yes
+
+verify: all
+	valgrind $(valgrind_gensupp)--tool=memcheck $(memcheck_supp) $(memcheck_opts) ./mocap $(mocap_datadir)/01_01.bvh
