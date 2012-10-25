@@ -1,11 +1,10 @@
-namespace ishi {
-
 #include <shapes/shape.h>
 #include <shapes/trianglemesh.h>
 
-void Shape::Render() const {
-  Render(tm);
-}
+namespace ishi {
 
+BBox Shape::WorldBound() const {
+  return *ObjectToWorld(ObjectBound());
+}
 
 }  // namespace ishi

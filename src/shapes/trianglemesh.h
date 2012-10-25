@@ -3,7 +3,6 @@
 
 #include <shapes/shape.h>
 
-
 namespace ishi {
 
 class Point;

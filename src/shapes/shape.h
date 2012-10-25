@@ -1,22 +1,32 @@
 #ifndef ISHI_SHAPES_SHAPE_H_
 #define ISHI_SHAPES_SHAPE_H_
 
+#include <core/transform.h>
+#include <core/bbox.h>
+
 namespace ishi {
 
-#include <shapes/trianglemesh.h>
-
+/**
+ * The Shape class is a container for geometric information and geometric
+ * methods (and those only).
+ */
 class Shape {
- private:
-  TriangleMesh tm;
+ public:
+  Transform *ObjectToWorld;
+  Transform *WorldToObject;
 
  public:
+  Shape(const Transform *o2w, const Transform *w2o);
   virtual ~Shape();
 
-  /// Render the shape
-  virtual void Render() const;
+  /// Return the bounding box of the shape in object space
+  /// @note This method must be overridden by derived classes
+  virtual BBox ObjectBound() const = 0;
 
-  /// Return the mesh underlying the shape
-  virtual TriangleMesh& Mesh() const;
+  /// Return the bounding box of the shape, in world space
+  /// @note A default implementation is provided, but shapes should override
+  /// this method if it can compute a tighter bounding box
+  virtual BBox WorldBound() const;
 };
 
 }  // namespace ishi
