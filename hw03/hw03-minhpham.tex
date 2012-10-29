@@ -2,65 +2,109 @@
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
+\usepackage[margin=1in, paperwidth=8.5in, paperheight=11in]{geometry}
+\linespread{1.5}
 
 \begin{document}
 
-\begin{center}
-	Student: Minh Pham \\
-	EID: mlp2279 \\
-	CSID: minhpham
-\end{center}
+Student: Minh Pham \\
+EID: mlp2279 \\
+CSID: minhpham
 
 \begin{center}
 	\textbf{Homework 3} \\
-	Due Tuesday October 30 at the beginning of class
 \end{center}
 
 \begin{enumerate}
 	\item (5 points)
 	A 2D triangle has vertices $(0, 0)$, $(2, 1)$, $(−1, 1)$.
 	What are the barycentric coordinates of the point $(0.8, 0.7)$?
-2. (5 points) Suppose a triangle has the following RGB colors at its vertices: c0 = (1, 0, 0), c1 =
-(1, 0.8, 0.4), c2 = (0.6, 0.3, 0.9). Given a point with barycentric coordinates (0.2, 0.5, 0.3), what will
-the color be at that point using linear interpolation?
-3. (5 points) Suppose a triangle has the following vertex normals: n0 = (1, 0, 0), c1 = (0, 1, 1), c2 = (2, 1, 0).
-Given a point with barycentric coordinates (0.2, 0.5, 0.3), what will the normal be at that point using
-linear interpolation?
-1
-4. A light source located at (0, 0, 10) emits white light for specular, diffuse and ambient reflections. A
-triangle has vertices v0 = (0, 0, 0), v1 = (1, 0, 0), v2√ (1/2, 1, 0). Each vertex has an associated normal,
-=
-√
-which are n0 = (0, 0, 1), n1 = (0, 0, 1), n2 = (0, 2/2, 2/2). The triangle has material properties
-kd = [1, 0, 0] , ks = [0, 1, 0] and a specular coefficient of 10. A point p is located at barycentric
-coordinates (0.2, 0.6, 0.2) with respect to the triangle. The viewer’s eye is at (5, 0, 10). Using the
-Phong reflection model and assuming no distance attenuation, answer the following questions. You
-may write code to solve the equations if you wish, but you must show all steps, including the values
-of the relevant vectors. Be sure to always normalize your vectors!
-(a) (5 points) What is the diffuse reflection term at vertex v1 ?
-(b) (5 points) What is the specular reflection term at vertex v1 ?
-(c) (5 points) Assuming phong reflection, what is the diffuse reflection term at point p?
-2
-(d) (5 points) Assuming phong reflection, what is the specular reflection term at point p?
-(e) (5 points) If we move the light source very slightly up along the positive y axis, what will happen
-to the diffuse and specular terms for vertex v1 ? Why? You don’t need to do the calculations, just
-describe what will happen.
-5. (5 points) Consider a texture that is square and is a smooth, linear gradient from red to green moving
-left to right. That is, all pixels (0, y) are red, all pixels (w − 1, y) are green (where w is the width of
+	
+	\textbf{Answer:} \\
+	Let $(\lambda_1, \lambda_2, \lambda_3)$ be the barycentric coordinate of the point $(0.8, 0.7)$.
+
+	Then we have:
+	$$\lambda_1 * 0 + \lambda_2 * 2 + \lambda_3 * -1 = 0.8 \leftrightarrow \lambda_2 * 2 + \lambda_3 * -1 = 0.8 $$
+	$$\lambda_1 * 0 + \lambda_2 * 1 + \lambda_3 * 1 = 0.7  \leftrightarrow \lambda_2 * 1 + \lambda_3 * 1 = 0.7  $$
+	
+	Solving this system of equations, we get:
+	$$	\lambda_2 = 0.5$$
+	$$\lambda_3 = 0.2$$
+	
+	Since $\lambda_1 + \lambda_2 + \lambda_3 = 1$, $\lambda_1 = 0.3$
+	
+	The final answer is: $(\textbf{0.3, 0.5, 0.2})$
+	
+	\item (5 points)
+	Suppose a triangle has the following RGB colors at its vertices: $c0 = (1, 0, 0)$, $c1 = (1, 0.8, 0.4)$, $c2 = (0.6, 0.3, 0.9)$.
+	Given a point with barycentric coordinates $(0.2, 0.5, 0.3)$, what will the color be at that point using linear interpolation?
+	
+	\textbf{Answer:} \\
+	For RGB color, we can linearly interpolate the value of each component by weighing the value of the same component at each vertex by the corresponding barycentric coordinate.
+	
+	In other words, at the point $(0.2, 0.5, 0.3)$, we have:
+	$$ R = 0.2 * 1 + 0.5 * 1 + 0.3 * 0.6 = 0.88   $$
+	$$ G = 0.2 * 0 + 0.5 * 0.8 + 0.3 * 0.3 = 0.49 $$
+	$$ B = 0.2 * 0 + 0.5 * 0.4 + 0.3 * 0.9 = 0.47 $$
+	
+	The final answer is: $(\textbf{0.88, 0.49, 0.47})$	
+	
+	\item (5 points)
+	Suppose a triangle has the following vertex normals: $n0 = (1, 0, 0)$, $c1 = (0, 1, 1)$, $c2 = (2, 1, 0)$.
+	Given a point with barycentric coordinates $(0.2, 0.5, 0.3)$, what will the normal be at that point using linear interpolation?
+	
+	\textbf{Answer:} \\
+	
+	First we normalize the unnormalized normals:	
+	$$n1 = c1 / \sqrt{2} = (0, 1/\sqrt{2}, 1/\sqrt{2})$$
+	$$n2 = c2 / \sqrt{5} = (2/\sqrt{5}, 1/\sqrt{5}, 0)$$
+	
+	After that we weigh each normalized normal by each corresponding barycentric coordinate to get the normal at the point of interest.
+
+	Doing the weighing component-wise, the calculation is as follow:
+	$$ x = 0.2 * 1 + 0.5 * 0          + 0.3 * 2/\sqrt{5} = 0.4683 $$
+	$$ y = 0.2 * 0 + 0.5 * 1/\sqrt{2} + 0.3 * 1/\sqrt{5} = 0.4877 $$
+	$$ z = 0.2 * 0 + 0.5 * 1/\sqrt{2} + 0.3 * 0          = 0.3536 $$
+	
+	The final answer is: $(\textbf{0.4683, 0.4877, 0.3536})$
+
+	\item
+	A light source located at $(0, 0, 10)$ emits white light for specular, diffuse and ambient reflections.
+	A triangle has vertices $v0 = (0, 0, 0)$, $v1 = (1, 0, 0)$, $v2 = (1/2, 1, 0)$. Each vertex has an associated normal,
+	which are $n0 = (0, 0, 1)$, $n1 = (0, 0, 1)$, $n2 = (0, \sqrt{2}/2, \sqrt{2}/2)$.
+	The triangle has material properties $kd = [1, 0, 0]'$ , $ks = [0, 1, 0]'$ and a specular coefficient of 10.
+	A point p is located at barycentric coordinates $(0.2, 0.6, 0.2)$ with respect to the triangle.
+	The viewer’s eye is at $(5, 0, 10)$.
+	
+	Using the Phong reflection model and assuming no distance attenuation, answer the following questions.
+	You may write code to solve the equations if you wish, but you must show all steps, including the values of the relevant vectors.
+	Be sure to always normalize your vectors!
+	\begin{enumerate}
+		\item (5 points) What is the diffuse reflection term at vertex v1 ?
+		\item (5 points) What is the specular reflection term at vertex v1 ?
+		\item (5 points) Assuming phong reflection, what is the diffuse reflection term at point p?
+		\item (5 points) Assuming phong reflection, what is the specular reflection term at point p?
+		\item (5 points) If we move the light source very slightly up along the positive y axis, what will happen to the diffuse and specular terms for vertex v1 ? Why? You don’t need to do the calculations, just describe what will happen.
+	\end{enumerate}
+	
+	\textbf{Answer:} \\
+	
+	\item (5 points)
+	Consider a texture that is square and is a smooth, linear gradient from red to green moving left to right.
+	That is, all pixels $(0, y)$ are red, all pixels $(w − 1, y)$ are green (where w is the width of
 the texture), and all pixels in-between vary linearly in color. Give the color in RGB for the following
 texture coordinates.
-(a)
-(b)
-(c)
-(d)
-(0, 0.5)
-(0.5, 0.5)
-(0.75, 0.5)
-(0.75, 0.75)
-6. (5 points) Consider the texture from the previous question. Let a triangle have vertices that have
-texture coordinates vt0 = (0, 0), vt1 = (1, 0), vt2 = (0, 0. Let point p be at barycentric coordinates
-(0.5, 0.5, 0) with respect to the triangle. What is the color at p?
-3
+	\begin{enumerate}
+		\item (0, 0.5)
+		\item (0.5, 0.5)
+		\item (0.75, 0.5)
+		\item (0.75, 0.75)
+	\end{enumerate}
+
+	\item (5 points)
+	Consider the texture from the previous question. Let a triangle have vertices that have texture coordinates $vt0 = (0, 0)$, $vt1 = (1, 0)$, $vt2 = (0.5, 1)$. 
+	Let point p be at barycentric coordinates (0.5, 0.5, 0) with respect to the triangle.
+	What is the color at p?
 \end{enumerate}
 
 \end{document}
