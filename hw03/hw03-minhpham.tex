@@ -88,6 +88,52 @@ CSID: minhpham
 	\end{enumerate}
 	
 	\textbf{Answer:} \\
+	Since the only light source emits white light for specular, diffuse, and ambient reflections, we have the diffuse term from source $L_d$, and the specular term from source $L_s$ as follow:
+	$$ L_d = (1, 1, 1); L_s = (1, 1, 1) $$
+	We also have the specular coefficient $\alpha = 10$.
+	\begin{enumerate}
+		\item
+		The vector from the light source to the point $v1$ is:
+		$$ l = normalize(light - v1) = normalize((0, 0, 10) - (1, 0, 0)) = (-1/\sqrt{101}, 0, 10/\sqrt{101})$$
+		
+		The diffuse reflection term at vertex $v1$ is:
+		
+		$$ I_{v1} = kd*L_d*max((l \cdot n1), 0)$$
+		$$ I_{v1} = (1, 0, 0) * (1, 1, 1) * max(((-1/\sqrt{101}, 0, 10/\sqrt{101}) \cdot (0, 0, 1)), 0) $$
+		$$ I_{v1} = (10/\sqrt{101}, 0, 0) $$
+		
+		\item
+		The vector from eye to the point $v1$ is:
+		$$ v = normalize(eye - v1) = normalize((5, 0, 10) - (1, 0, 0)) = (2/\sqrt{29}, 0, 5/\sqrt{29}) $$
+		
+		The perfect reflector vector is:
+		$$ r = 2*(l \cdot n1)*n1 - l $$
+		$$ r = 2*((-1/\sqrt{101}, 0, 10/\sqrt{101}) \cdot (0, 0, 1))*(0, 0, 1) - (-1/\sqrt{101}, 0, 10/\sqrt{101}) $$
+		$$ r = (1/\sqrt{101}, 0, 10/\sqrt{101}) $$
+		
+		
+		\item
+	The position of the point p in world space can be found by weighing the position of the triangle vertices using p's barycentric coodinates as weights.
+	We have:
+	$$P = 0.2*(0, 0, 0) + 0.6*(1, 0, 0) + 0.2*(1/2, 1, 0) = (0.7, 0.2, 0)$$
+	
+	The normal at point p can be found by linearly interpolating the normal at the triangle vertices using the point's barycentric coordinates as weights.
+	We have the normal at point p:
+	$$ n = normalize(0.2*(0, 0, 1) + 0.6*(0, 0, 1) + 0.2*(0, \sqrt{2}/2, \sqrt{2}/2)) $$
+	$$ n = (0, 0.1414, 0.9414)$$
+	
+	The vector from the eye to the point p is:
+	$$ v = normalize(eye - P) $$
+	$$ v = normalize((5, 0, 10) - (0.7, 0.2, 0)) $$
+	$$ v = (0.394961, -0.0183703, 0.918514) $$
+	
+	The vector from the light source to the point p is:
+	$$ l = normalize(light - P) $$
+	$$ l = normalize((0, 0, 10) - (0.7, 0.2, 0)) $$
+	$$ l= (-0.0698152, -0.0199472, 0.99736) $$
+	
+	\end{enumerate}
+	
 	
 	\item (5 points)
 	Consider a texture that is square and is a smooth, linear gradient from red to green moving left to right.
@@ -102,7 +148,8 @@ texture coordinates.
 	\end{enumerate}
 
 	\item (5 points)
-	Consider the texture from the previous question. Let a triangle have vertices that have texture coordinates $vt0 = (0, 0)$, $vt1 = (1, 0)$, $vt2 = (0.5, 1)$. 
+	Consider the texture from the previous question. Let a triangle have vertices that have texture coordinates $vt0 = (0, 0)$, $vt1 
+	= (1, 0)$, $vt2 = (0.5, 1)$. 
 	Let point p be at barycentric coordinates (0.5, 0.5, 0) with respect to the triangle.
 	What is the color at p?
 \end{enumerate}
