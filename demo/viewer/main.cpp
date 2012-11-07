@@ -112,7 +112,7 @@ void SetProjection() {
 }
 
 void SetDrawMode() {
-  glPolygonMode(GL_FRONT, GL_FILL);
+  glPolygonMode(GL_FRONT, GL_LINE);
   glPolygonMode(GL_BACK, GL_FILL);
 }
 

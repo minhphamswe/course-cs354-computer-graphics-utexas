@@ -23,6 +23,7 @@ class TriangleMesh : public Shape {
   std::vector<Point> vertices;
   std::vector<Vector> normals;
   std::vector<Point*> triangles;
+  std::vector<Point*> quads;
 
  public:
   const Transform *ObjectToWorld;
@@ -39,7 +40,7 @@ class TriangleMesh : public Shape {
   void AddVertex(float px, float py, float pz);
 
   /// Add a polygon that points to vertices at the given indices to the mesh
-  void AddPolygon(int v1, int v2, int v3);
+  void AddPolygon(const std::vector< int > vertIndices);
 
   /// Compute the normal at each vertex
   void ComputeNormal();

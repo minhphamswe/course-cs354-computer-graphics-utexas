@@ -41,7 +41,7 @@ void Mesh::AddTextureVertex(const Vec3f& v) {
 void Mesh::AddPolygon(const std::vector<int>& p, const std::vector<int>& pt) {
   // TODO
 //   printf("Texture Polygon Indices: (%d, %d, %d)\n", pt[0], pt[1], pt[2]);;
-  mesh.AddPolygon(p[0], p[1], p[2]);
+  mesh.AddPolygon(p);
 
   // updates the poly2mat map
   _polygon2material.push_back(_cur_mtl);
