@@ -7,6 +7,7 @@ namespace ishi {
 
 class Point;
 class Vector;
+class BBox;
 
 class Transform {
  private:
@@ -22,11 +23,14 @@ class Transform {
   /// Initialize a transform with a matrix and its inverse
   Transform(const Matrix4x4 &mat, const Matrix4x4 &matInv);
 
-  /// Transforming a point and return a new point
+  /// Transform a point and return a new point
   Point operator()(const Point &p) const;
 
-  /// Transforming a vector and return a new vector
+  /// Transform a vector and return a new vector
   Vector operator()(const Vector &v) const;
+
+  /// Transform a bounding box and return a new bounding box
+  BBox operator()(const BBox &bb) const;
 
   /// Transform a point (in-place)
   Point& Apply(Point *p) const;

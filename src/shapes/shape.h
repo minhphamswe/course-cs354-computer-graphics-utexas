@@ -12,8 +12,10 @@ namespace ishi {
  */
 class Shape {
  public:
-  Transform *ObjectToWorld;
-  Transform *WorldToObject;
+  const Transform *ObjectToWorld;
+  const Transform *WorldToObject;
+  int shapeID;                // ID of this shape. Used for vertex list
+  static int nextShapeID;     // The next ID to be assigned
 
  public:
   Shape(const Transform *o2w, const Transform *w2o);

@@ -2,8 +2,10 @@
 
 #include <core/common.h>
 #include <core/matrix.h>
-#include <core/vector.h>
+
 #include <core/point.h>
+#include <core/vector.h>
+#include <core/bbox.h>
 
 namespace ishi {
 
@@ -38,6 +40,13 @@ Vector Transform::operator()(const Vector& v) const {
                 m.m[1][0] * x + m.m[1][1] * y + m.m[1][2] * z,
                 m.m[2][0] * x + m.m[2][1] * y + m.m[2][2] * z);
 }
+
+BBox Transform::operator() (const BBox& bb) const {
+  Point pMin = (*this)(bb.pMin);
+  Point pMax = (*this)(bb.pMax);
+  return BBox(pMin, pMax);
+}
+
 
 Point& Transform::Apply(Point *p) const {
   float x = p->x, y = p->y, z = p->z;

@@ -2,18 +2,16 @@
 
 namespace ishi {
 
-Triangle::Triangle(const Transform* o2w, const Transform* w2o): Shape(o2w, w2o)
-{
-
-}
+Triangle::Triangle(Transform* o2w, Point* pt1, Point* pt2, Point* pt3 )
+    : ObjectToWorld(o2w) , p1(pt1), p2(pt2), p3(pt3) {}
 
 /**
  * Transform the points constituting the triangle to world space first,
  * then compute the bounding box directly to world space.
  */
-BBox Triangle::BoundingBox() {
+BBox Triangle::ObjectBound() {
   BBox b = BBox(*ObjectToWorld(*p1), *p2);
-  return ishi::Shape::BoundingBox();
+  return b;
 }
 
 }  // namespace ishi

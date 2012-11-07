@@ -25,7 +25,21 @@ viewer_SOURCES = $(srcdir)/main.cpp \
                  $(srcdir)/io.h \
                  $(srcdir)/bb.h \
                  $(srcdir)/vec.h \
-                 $(srcdir)/jpeglib.hpp
+                 $(srcdir)/jpeglib.hpp \
+                 $(srcdir)/src/core/point.cpp \
+                 $(srcdir)/src/core/point.h \
+                 $(srcdir)/src/core/vector.cpp \
+                 $(srcdir)/src/core/vector.h \
+                 $(srcdir)/src/core/bbox.cpp \
+                 $(srcdir)/src/core/bbox.h \
+                 $(srcdir)/src/core/matrix.cpp \
+                 $(srcdir)/src/core/matrix.h \
+                 $(srcdir)/src/core/transform.cpp \
+                 $(srcdir)/src/core/transform.h \
+                 $(srcdir)/src/shapes/shape.cpp \
+                 $(srcdir)/src/shapes/shape.h \
+                 $(srcdir)/src/shapes/trianglemesh.cpp \
+                 $(srcdir)/src/shapes/trianglemesh.h
 
 check_exclude = $(srcdir)/vec.h $(srcdir)/bb.h
 

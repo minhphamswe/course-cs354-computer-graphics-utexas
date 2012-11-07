@@ -1,6 +1,11 @@
 #ifndef __MESH_H__
 #define __MESH_H__
 
+#include <src/core/point.h>
+#include <src/core/vector.h>
+#include <src/core/transform.h>
+#include <src/shapes/trianglemesh.h>
+
 #include <vector>
 #include <string>
 
@@ -75,6 +80,7 @@ class Mesh {
 
  private:
   // TODO add necessary data structures here
+  ishi::TriangleMesh mesh;
 
   std::vector<Material> _materials;
   std::vector<int> _polygon2material;

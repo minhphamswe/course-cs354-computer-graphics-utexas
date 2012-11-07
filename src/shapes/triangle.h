@@ -8,12 +8,14 @@ namespace ishi {
 
 class Triangle : public Shape {
  private:
+  Transform *ObjectToWorld;
   Point *p1, *p2, *p3;
 
  public:
-  Triangle(const Transform* o2w, const Transform* w2o);
+  Triangle(Transform* o2w, Point* pt1, Point* pt2, Point* pt3);
 
-  virtual BBox BoundingBox();
+  virtual BBox ObjectBound() const;
+
 };
 
 }  // namespace ishi
