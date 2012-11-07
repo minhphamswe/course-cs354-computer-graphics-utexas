@@ -78,9 +78,11 @@ class Mesh {
 
   void compute_normals();
 
+ public:
+  ishi::TriangleMesh mesh;
+
  private:
   // TODO add necessary data structures here
-  ishi::TriangleMesh mesh;
 
   std::vector<Material> _materials;
   std::vector<int> _polygon2material;

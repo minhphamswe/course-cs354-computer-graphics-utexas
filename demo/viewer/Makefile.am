@@ -39,7 +39,9 @@ viewer_SOURCES = $(srcdir)/main.cpp \
                  $(srcdir)/src/shapes/shape.cpp \
                  $(srcdir)/src/shapes/shape.h \
                  $(srcdir)/src/shapes/trianglemesh.cpp \
-                 $(srcdir)/src/shapes/trianglemesh.h
+                 $(srcdir)/src/shapes/trianglemesh.h \
+                 $(srcdir)/src/rendering/renderer.cpp \
+                 $(srcdir)/src/rendering/renderer.h
 
 check_exclude = $(srcdir)/vec.h $(srcdir)/bb.h
 

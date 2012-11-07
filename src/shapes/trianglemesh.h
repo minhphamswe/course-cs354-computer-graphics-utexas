@@ -5,10 +5,15 @@
 #include <core/vector.h>
 #include <core/bbox.h>
 #include <shapes/shape.h>
+// #include <rendering/GLRenderer.h>
+#include <rendering/renderer.h>
+#include <rendering/GLRenderer.h>
 
 #include <vector>
 
 namespace ishi {
+
+// class GLRenderer;
 
 class TriangleMesh : public Shape {
  private:
@@ -46,6 +51,8 @@ class TriangleMesh : public Shape {
   Vector Normal(int i);
 
   virtual BBox ObjectBound() const;
+
+  friend class GLRenderer;
 };
 
 }  // namespace ishi

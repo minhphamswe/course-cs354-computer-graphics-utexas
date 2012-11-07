@@ -3,6 +3,7 @@
 
 #include <core/transform.h>
 #include <core/bbox.h>
+#include <rendering/renderer.h>
 
 namespace ishi {
 
@@ -29,6 +30,12 @@ class Shape {
   /// @note A default implementation is provided, but shapes should override
   /// this method if it can compute a tighter bounding box
   virtual BBox WorldBound() const;
+
+  virtual void accept(Renderer &r) {
+    r.visit(*this);
+  }
+
+//   friend Renderer;
 };
 
 }  // namespace ishi
