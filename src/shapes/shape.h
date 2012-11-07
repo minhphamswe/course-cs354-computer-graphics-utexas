@@ -33,7 +33,7 @@ class Shape {
   /// this method if it can compute a tighter bounding box
   virtual BBox WorldBound() const;
 
-  virtual void accept(Renderer &r);
+  virtual void accept(Renderer &r) = 0;
 
 //   friend Renderer;
 };

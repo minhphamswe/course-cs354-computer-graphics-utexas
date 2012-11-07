@@ -6,6 +6,7 @@
 namespace ishi {
 
 class Shape;
+class TriangleMesh;
 
 class Renderer {
  public:
@@ -13,6 +14,7 @@ class Renderer {
   virtual ~Renderer();
 
   virtual void visit(const Shape &s) = 0;
+  virtual void visit(const TriangleMesh &s) = 0;
 };
 
 }  // namespace ishi

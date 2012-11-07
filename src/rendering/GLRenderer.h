@@ -5,6 +5,7 @@
 
 namespace ishi {
 
+class Shape;
 class TriangleMesh;
 
 class GLRenderer : public Renderer {
