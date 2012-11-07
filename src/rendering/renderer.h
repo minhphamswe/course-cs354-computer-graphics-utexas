@@ -8,13 +8,16 @@ namespace ishi {
 class Shape;
 class TriangleMesh;
 
+/**
+ * Interface for all renders. Implemented using the Visitor pattern.
+ */
 class Renderer {
  public:
   Renderer();
   virtual ~Renderer();
 
-  virtual void visit(const Shape &s) = 0;
-  virtual void visit(const TriangleMesh &s) = 0;
+  virtual void Render(const Shape &s) = 0;
+  virtual void Render(const TriangleMesh &s) = 0;
 };
 
 }  // namespace ishi

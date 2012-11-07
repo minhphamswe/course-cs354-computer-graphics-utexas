@@ -34,8 +34,6 @@ class Shape {
   virtual BBox WorldBound() const;
 
   virtual void accept(Renderer &r) = 0;
-
-//   friend Renderer;
 };
 
 }  // namespace ishi

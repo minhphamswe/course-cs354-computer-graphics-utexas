@@ -16,10 +16,4 @@ BBox Shape::WorldBound() const {
   return (*ObjectToWorld)(ObjectBound());
 }
 
-// void Shape::accept (Renderer& r) {
-//   printf("Shape accepting renderer.\n");
-//   r.visit(*this);
-// }
-
-
 }  // namespace ishi

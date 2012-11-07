@@ -1,3 +1,4 @@
+#include <src/core/transform.h>
 #include <src/rendering/GLRenderer.h>
 
 #include <string>
@@ -17,6 +18,10 @@ using namespace ishi;
 
 Mesh mesh;
 
+GLRenderer gl_renderer = GLRenderer();
+Point center;
+Transform t;
+
 GLuint* texture_ids;
 
 // window parameters
@@ -24,6 +29,15 @@ int window_width = 800, window_height = 600;
 float window_aspect = window_width / static_cast<float>(window_height);
 
 bool scene_lighting;
+
+void ComputeLookAt() {
+  BBox bb = mesh.mesh.ObjectBound();
+  center = (bb.pMax + bb.pMin) / 2;
+  printf("Center is: (%f %f %f)\n", center.x, center.y, center.z);
+  gluLookAt(2, 2, 5,
+            center.x, center.y, center.z,
+            0, 1, 0);
+}
 
 void Display() {
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -36,13 +50,11 @@ void Display() {
   // mesh.bb() may be useful.
   glMatrixMode(GL_MODELVIEW);
   glLoadIdentity();
-  gluLookAt(2, 2, 5,
-            0, 0, 0,
-            0, 1, 0);
-
+  ComputeLookAt();
   // TODO set up lighting, material properties and render mesh.
   // Be sure to call glEnable(GL_RESCALE_NORMAL) so your normals
   // remain normalized throughout transformations.
+  mesh.mesh.accept(gl_renderer);
 
   // You can leave the axis in if you like.
   glDisable(GL_LIGHTING);
@@ -116,9 +128,9 @@ void Init() {
 }
 
 void DrawAxis() {
-  const Vec3f c = {0, 0, 0};
+  const Vec3f c = {{0, 0, 0}};
   const float L = 1;
-  const Vec3f X = {L, 0, 0}, Y = {0, L, 0}, Z = {0, 0, L};
+  const Vec3f X = {{L, 0, 0}}, Y = {{0, L, 0}}, Z = {{0, 0, L}};
 
   glBegin(GL_LINES);
   glColor3f(1, 0, 0);
@@ -192,12 +204,6 @@ int main(int argc, char *argv[]) {
 
     ParseObj(filename, mesh);
     mesh.compute_normals();
-
-    
-    GLRenderer gl_renderer = GLRenderer();
-    Renderer &renderer = gl_renderer;
-    TriangleMesh &tri_mesh = mesh.mesh;
-    tri_mesh.accept(renderer);
 
     texture_ids = new GLuint[mesh.num_materials()];
     glGenTextures(mesh.num_materials(), texture_ids);

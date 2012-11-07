@@ -50,6 +50,9 @@ class TriangleMesh : public Shape {
   /// Return the normal vector at the index i
   Vector Normal(int i);
 
+  /// Return the number of vertices in the triangle mesh
+  int NumVerts(int i);
+
   virtual BBox ObjectBound() const;
 
   virtual void accept(Renderer& r);
