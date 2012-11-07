@@ -387,6 +387,7 @@ void Mouse(int button, int state, int x, int y) {
   glutPostRedisplay();
 }
 
+/// Called whenever a mouse button is pressed the mouse is moved
 void Motion(int x, int y) {
   if (prevButton == GLUT_LEFT_BUTTON) {
     float deltaX = (prevX - x) / static_cast<float>(window_width);

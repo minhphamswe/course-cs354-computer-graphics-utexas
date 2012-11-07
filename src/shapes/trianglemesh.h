@@ -25,8 +25,8 @@ class TriangleMesh : public Shape {
   std::vector<Point*> triangles;
 
  public:
-  Transform *ObjectToWorld;
-  Transform *WorldToObject;
+  const Transform *ObjectToWorld;
+  const Transform *WorldToObject;
 
  public:
   TriangleMesh();

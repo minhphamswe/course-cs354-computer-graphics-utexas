@@ -24,6 +24,13 @@ void TriangleMesh::AddVertex(float px, float py, float pz) {
 
   // Update the bounding box
   bbox = Union(bbox, p);
+
+  // Update the Object-to-World transformation matrix
+  Point center = (bbox.pMin + bbox.pMax)/2;
+  printf("Address before: %x\n", &o2w);
+  o2w = Translate(Point() - center);
+  w2o = Inverse(o2w);
+  printf("Address after: %x\n", &o2w);
 }
 
 void TriangleMesh::AddPolygon(int v1, int v2, int v3) {
