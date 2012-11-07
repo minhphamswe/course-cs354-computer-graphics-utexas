@@ -7,6 +7,8 @@
 
 namespace ishi {
 
+// class Renderer;
+
 /**
  * The Shape class is a container for geometric information and geometric
  * methods (and those only).
@@ -31,9 +33,7 @@ class Shape {
   /// this method if it can compute a tighter bounding box
   virtual BBox WorldBound() const;
 
-  virtual void accept(Renderer &r) {
-    r.visit(*this);
-  }
+  virtual void accept(Renderer &r);
 
 //   friend Renderer;
 };

@@ -1,4 +1,5 @@
 #include <shapes/shape.h>
+#include <rendering/renderer.h>
 
 namespace ishi {
 
@@ -12,5 +13,10 @@ Shape::~Shape() { }
 BBox Shape::WorldBound() const {
   return (*ObjectToWorld)(ObjectBound());
 }
+
+void Shape::accept (Renderer& r) {
+  r.visit(*this);
+}
+
 
 }  // namespace ishi

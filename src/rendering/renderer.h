@@ -9,9 +9,10 @@ class Shape;
 
 class Renderer {
  public:
-  Renderer() {}
+  Renderer();
+  virtual ~Renderer();
 
-  virtual void visit(const Shape &s);
+  virtual void visit(const Shape &s) = 0;
 };
 
 }  // namespace ishi

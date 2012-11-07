@@ -1,8 +1,6 @@
 #ifndef ISHI_RENDERING_GLRENDERER_H_
 #define ISHI_RENDERING_GLRENDERER_H_
 
-#include <shapes/shape.h>
-// #include <shapes/trianglemesh.h>
 #include <rendering/renderer.h>
 
 namespace ishi {
@@ -10,8 +8,12 @@ namespace ishi {
 class TriangleMesh;
 
 class GLRenderer : public Renderer {
+ public:
+  GLRenderer();
+  ~GLRenderer();
 
-  virtual void visit(TriangleMesh &tm) {};
+  virtual void visit(const Shape& s);
+  virtual void visit(const TriangleMesh &tm);
 };
 
 }  // namespace ishi

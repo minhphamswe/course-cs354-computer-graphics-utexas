@@ -193,8 +193,11 @@ int main(int argc, char *argv[]) {
     ParseObj(filename, mesh);
     mesh.compute_normals();
 
-    GLRenderer renderer = GLRenderer();
-    mesh.mesh.accept(renderer);
+    
+    GLRenderer gl_renderer = GLRenderer();
+    Renderer &renderer = gl_renderer;
+    TriangleMesh &tri_mesh = mesh.mesh;
+    tri_mesh.accept(renderer);
 
     texture_ids = new GLuint[mesh.num_materials()];
     glGenTextures(mesh.num_materials(), texture_ids);

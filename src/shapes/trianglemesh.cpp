@@ -69,4 +69,8 @@ BBox TriangleMesh::ObjectBound() const {
   return bbox;
 }
 
+void TriangleMesh::accept(Renderer& r) {
+  r.visit(*this);
+}
+
 }  // namespace ishi
