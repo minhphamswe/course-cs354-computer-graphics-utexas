@@ -13,8 +13,8 @@ class GLRenderer : public Renderer {
   GLRenderer();
   ~GLRenderer();
 
-  virtual void Render(const Shape& s);
-  virtual void Render(const TriangleMesh &tm);
+  virtual void Render(const Shape& s) const;
+  virtual void Render(const TriangleMesh &tm) const;
 };
 
 }  // namespace ishi

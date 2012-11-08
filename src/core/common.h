@@ -21,48 +21,52 @@ namespace ishi {
 #define INFINITY FLT_MAX
 #endif
 
-///  Return the smaller of two floats
 inline float Min(float x, float y);
-
-///  Return the larger of two floats
 inline float Max(float x, float y);
-
-/// Return the square of a number
 inline float Square(float f);
-
-/// Linearly interpolate between v1 and v2, given position t
 inline float Lerp(float t, float v1, float v2);
-
-/** Convert degree to radian. */
 inline float Radian(float deg);
-
-/** Convert radian to degree. */
 inline float Degree(float rad);
+inline float Clamp(float val, float min, float max);
 
+/// Return the smaller of two numbers
 inline float Min(float x, float y) {
   return (x < y) ? x : y;
 }
 
+/// Return the larger of two numbers
 inline float Max(float x, float y) {
   return (x > y) ? x : y;
 }
 
+/// Return the square of a number
 inline float Square(float f) {
   return f * f;
 }
 
+/// Linearly interpolate between v1 and v2, using t as the parameter
 inline float Lerp(float t, float v1, float v2) {
   return (1.0f - t) * v1 + t * v2;
 }
 
+/// Convert degree to radian
 inline float Radian(float deg) {
   return deg * INV_180 * PI;
 }
 
+/// Convert radian to degree
 inline float Degree(float rad) {
   return rad * INV_PI * 180;
 }
 
+/// Clamp value to between min and max
+inline float Clamp(float val, float min, float max) {
+  if (val > max)
+    return max;
+  else if (val < min)
+    return min;
+  return val;
+}
 
 }  // namespace ishi
 

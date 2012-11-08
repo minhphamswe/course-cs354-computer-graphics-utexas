@@ -4,6 +4,8 @@
 #include <core/vector.h>
 #include <core/transform.h>
 
+#include <vector>
+
 namespace ishi {
 
 TriangleMesh::TriangleMesh()
@@ -122,7 +124,7 @@ BBox TriangleMesh::ObjectBound() const {
   return bbox;
 }
 
-void TriangleMesh::accept(Renderer& r) {
+void TriangleMesh::accept(const Renderer& r) {
   r.Render(*this);
 }
 

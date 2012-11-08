@@ -35,7 +35,7 @@ Point prevEye;          // Location of eye when arcball is initiated
 int prevX;              // The X coordinate where the mouse was last clicked
 int prevY;              // The Y coordinate where the mouse was last clicked
 int prevButton;         // The last mouse button that was clicked
-float sensitivity = 1;  // Sensitivity of arcball rotation
+float sensitivity = 2;  // Sensitivity of arcball rotation
 
 // The vector from center of arcball to previous point of contact
 Vector prevContact;
@@ -78,6 +78,7 @@ void MouseMotion(int x, int y);
 void Keyboard(unsigned char key, int x, int y);
 
 void ComputeLookAt() {
+  printf("Calling ComputeLookAt\n");
   BBox bb = mesh.mesh.ObjectBound();
 
   // Recompute camera positions
@@ -281,7 +282,7 @@ void DrawAxis() {
 Vector ArcballContact (int x, int y) {
   float cx = 2 * x / static_cast<float>(window_width) - 1;
   float cy = 2 * y / static_cast<float>(window_height) - 1;
-  float cz = sqrt(3.0 - cx*cx - cy*cy);
+  float cz = sqrt(Clamp(1.0 - cx*cx - cy*cy, 0.0, 1.0));
 
 //   float radius = sqrt(3.0) / 3;
 //   printf("Contact vector: %f %f %f\n", cx, cy, cz);
@@ -294,24 +295,38 @@ Vector ArcballContact (int x, int y) {
 /// Called whenever a mouse button is pressed
 void MouseButton(int button, int state, int x, int y) {
   // TODO implement arc ball and zoom
-  if (button == 3) /* mouse wheel up */ {
-    if (state == GLUT_DOWN) {
+
+  if (state == GLUT_DOWN) {   // On button pressed:
+    if (button == 3) {                          /* mouse scroll up */
       eye = center + ((eye - center) * 0.95);
-    }
-  } else if (button == 4) /* mouse wheel down */ {
-    if (state == GLUT_DOWN) {
+    } else if (button == 4) {                   /* mouse scroll down */
       eye = center + ((eye - center) * 1.05);
+    } else if (button == GLUT_LEFT_BUTTON) {    /* left mouse button */
+      if (state == GLUT_DOWN) {
+  //       prevX = x;
+  //       prevY = y;
+        prevEye = eye;
+        prevButton = GLUT_LEFT_BUTTON;
+        glMatrixMode(GL_MODELVIEW);
+        glPushMatrix();
+        glPushMatrix();
+        prevContact = ArcballContact(x, y);
+        printf("PrevContact is %f %f %f\n", prevContact.x, prevContact.y, prevContact.z);
+      } else if (state == GLUT_UP) {
+        prevButton = -1;
+      } 
     }
-  } else if (button == GLUT_LEFT_BUTTON) {
-    if (state == GLUT_DOWN) {
-//       prevX = x;
-//       prevY = y;
-      prevEye = eye;
-      prevButton = GLUT_LEFT_BUTTON;
-      prevContact = ArcballContact(x, y);
-//       printf("PrevContact is %f %f %f\n", prevContact.x, prevContact.y, prevContact.z);
-    } else if (state == GLUT_UP) {
-      prevButton = -1;
+  } else {    // On button released:
+    if (button == GLUT_LEFT_BUTTON) {           /* left mouse button */
+      float top_matrix[16];
+      float *top_matrix_ptr = &top_matrix[0];
+      glGetFloatv(GL_MODELVIEW_MATRIX, top_matrix_ptr);
+      glPopMatrix();
+      glPopMatrix();
+      glLoadMatrixf(top_matrix_ptr);
+//       glMultMatrixf(top_matrix_ptr);
+//       glPushMatrix();
+//       glPushMatrix();
     }
   }
   glutPostRedisplay();
@@ -327,16 +342,32 @@ void MouseMotion(int x, int y) {
 //     eye = RotateY(2 * deltaX)(eye);
     Vector contact = ArcballContact(x, y);
     Vector axis = Cross(prevContact, contact);
-    float angle = Length(contact - prevContact);
+
+    glBegin(GL_LINES);
+      glVertex3f(0, 0, 0);
+      glVertex3f(axis.x*50, axis.y*50, axis.z*50);
+    glEnd();
+//     float angle = Length(contact - prevContact);
+    float angle = Length(contact - Dot(contact, prevContact) * contact);
     angle *= sensitivity;
 //     printf("Contact is %f %f %f\n", contact.x, contact.y, contact.z);
 //     printf("Axis: %f %f %f \t Angle: %f\n", axis.x, axis.y, axis.z, angle);
 //     eye = Rotate(angle, axis)(prevEye);
     glMatrixMode(GL_MODELVIEW);
-//     glRotatef(-angle, axis.x, axis.y, axis.z);
-    glMultTransposeMatrixf(reinterpret_cast<float*>(Rotate(angle, axis).Matrix().m));
+    glPopMatrix();
+    glPushMatrix();
+    glRotatef(Degree(angle), axis.x, axis.y, axis.z) ;
+//     glMultTransposeMatrixf(reinterpret_cast<float*>(Rotate(angle, axis).Matrix().m));
+//     glLoadTransposeMatrixf(reinterpret_cast<float*>(Rotate(angle, axis).Matrix().m));
+    int depth;
+    glGetIntegerv(GL_MODELVIEW_STACK_DEPTH, &depth);
+    printf("Modelview Stack Depth: %d\n", depth);
+    
+//     glPushMatrix();
+//     glPopMatrix();
+//     glPushMatrix();
 
-    prevContact = contact;
+//     prevContact = contact;
 //     ComputeLookAt();
 //     prevX = x;
 //     prevY = y;

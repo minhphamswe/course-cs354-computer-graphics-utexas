@@ -17,11 +17,11 @@ GLRenderer::GLRenderer() {}
 
 GLRenderer::~GLRenderer() {}
 
-void GLRenderer::Render(const Shape& s) {
+void GLRenderer::Render(const Shape& s) const {
 //   printf("GL Renderer visited a Shape\n");
 }
 
-void GLRenderer::Render(const TriangleMesh& tm) {
+void GLRenderer::Render(const TriangleMesh& tm) const {
 //   printf("Visiting a TriangleMesh\n");
   Point *pt;
 
@@ -34,7 +34,8 @@ void GLRenderer::Render(const TriangleMesh& tm) {
     tm.o2w.Matrix().m));
 
   // Draw the triangles in the mesh
-  glBegin(GL_TRIANGLES);
+//   glBegin(GL_TRIANGLES);
+  glBegin(GL_LINES);
   for (int i = 0; i < tm.triangles.size(); i++) {
     pt = tm.triangles[i];
     glVertex3f(pt->x, pt->y, pt->z);
@@ -42,7 +43,8 @@ void GLRenderer::Render(const TriangleMesh& tm) {
   glEnd();
 
   // Draw the quads in the mesh
-  glBegin(GL_QUADS);
+//   glBegin(GL_QUADS);
+  glBegin(GL_LINES);
   for (int i = 0; i < tm.quads.size(); i++) {
     pt = tm.quads[i];
     glVertex3f(pt->x, pt->y, pt->z);
@@ -52,5 +54,4 @@ void GLRenderer::Render(const TriangleMesh& tm) {
   // Restore the modelview transformation state
   glPopMatrix();
 }
-
 }

@@ -26,6 +26,8 @@ viewer_SOURCES = $(srcdir)/main.cpp \
                  $(srcdir)/bb.h \
                  $(srcdir)/vec.h \
                  $(srcdir)/jpeglib.hpp \
+                 $(srcdir)/src/core/common.h \
+                 $(srcdir)/src/core/geometry.h \
                  $(srcdir)/src/core/point.cpp \
                  $(srcdir)/src/core/point.h \
                  $(srcdir)/src/core/vector.cpp \

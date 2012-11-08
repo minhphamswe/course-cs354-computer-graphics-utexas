@@ -16,8 +16,8 @@ class Renderer {
   Renderer();
   virtual ~Renderer();
 
-  virtual void Render(const Shape &s) = 0;
-  virtual void Render(const TriangleMesh &s) = 0;
+  virtual void Render(const Shape &s) const = 0;
+  virtual void Render(const TriangleMesh &s) const = 0;
 };
 
 }  // namespace ishi

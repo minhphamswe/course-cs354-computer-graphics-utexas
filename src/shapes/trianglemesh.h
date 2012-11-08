@@ -56,7 +56,7 @@ class TriangleMesh : public Shape {
 
   virtual BBox ObjectBound() const;
 
-  virtual void accept(Renderer& r);
+  virtual void accept(const Renderer& r);
 
   friend class GLRenderer;
 };
