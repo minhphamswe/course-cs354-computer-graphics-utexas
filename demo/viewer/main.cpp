@@ -101,24 +101,34 @@ void UpdateCamera() {
 
 /// Called by Display() to update lighting
 void UpdateLighting() {
-  printf("UpdateLighting called\n");
+//   printf("UpdateLighting called\n");
 
-//   if (!scene_lighting)
-//     light_position = arcball.Invert(eye);
-//   else
+  if (!scene_lighting) {
+    printf("This.\n");
+    light_position = arcball.Invert(eye);
+//     glEnable(GL_LIGHT0);
+//     glDisable(GL_LIGHT1);
+    glLightfv(GL_LIGHT0, GL_POSITION, &(light_position.x));
+  } else {
+    printf("That.\n");
 //     light_position = eye;
+//     glEnable(GL_LIGHT1);
+//     glDisable(GL_LIGHT0);
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
+    glLightfv(GL_LIGHT0, GL_POSITION, &(eye.x));
+  }
 
-  glLightfv(GL_LIGHT0, GL_POSITION, &(light_position.x));
 }
 
 /// Called by Init() to initialize lighting
 void InitLighting() {
-  printf("InitLighting called\n");
+//   printf("InitLighting called\n");
 //   glShadeModel(GL_FLAT);
 
   glShadeModel(GL_SMOOTH);
   glEnable(GL_LIGHTING);
   glEnable(GL_LIGHT0);
+//   glEnable(GL_LIGHT1);
   glEnable(GL_COLOR_MATERIAL);
   glEnable(GL_NORMALIZE);
 
@@ -128,6 +138,11 @@ void InitLighting() {
   glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
   glLightfv(GL_LIGHT0, GL_POSITION, &(light_position.x));
 
+//   glLightfv(GL_LIGHT1, GL_AMBIENT, light_ambient);
+//   glLightfv(GL_LIGHT1, GL_DIFFUSE, light_diffuse);
+//   glLightfv(GL_LIGHT1, GL_SPECULAR, light_specular);
+//   glLightfv(GL_LIGHT1, GL_POSITION, &(eye.x));
+
   // Set material lighting configurations
   glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
   glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
@@ -136,14 +151,14 @@ void InitLighting() {
 }
 
 void SetProjection() {
-  printf("SetProjection called\n");
+//   printf("SetProjection called\n");
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
   gluPerspective(fovY, window_aspect, 1, 1500);
 }
 
 void Display() {
-  printf("Display called\n");
+//   printf("Display called\n");
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
   // These have to go together
