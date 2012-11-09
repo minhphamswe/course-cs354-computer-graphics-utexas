@@ -40,6 +40,7 @@ void GLRenderer::Render(const TriangleMesh& tm) const {
   for (int i = 0; i < tm.triangles.size(); i++) {
     p = tm.Vertex(tm.triangles[i]);
     n = tm.Normal(tm.triangles[i]);
+//     glTexCoord2f();
     glNormal3f(n.x, n.y, n.z);
     glVertex3f(p.x, p.y, p.z);
   }

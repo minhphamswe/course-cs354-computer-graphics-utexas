@@ -20,10 +20,14 @@ class TriangleMesh : public Shape {
   Transform o2w;
   Transform w2o;
   BBox bbox;
-  std::vector<Point> vertices;
-  std::vector<Vector> normals;
-  std::vector<int> triangles;
-  std::vector<int> quads;
+  std::vector<Point> vertices;          // Vertex coordinates
+  std::vector<Vector> normals;          // Vertex normals
+  std::vector<int> triangles;           // Vertex indices for triangles
+  std::vector<int> quads;               // Vertex indices for quads
+
+  std::vector<Point> textures;          // Texture coordinates
+  std::vector<int> triangle_textures;   // Texture indices for triangles
+  std::vector<int> quad_textures;       // Texture indices for quads
 
  public:
   const Transform *ObjectToWorld;
@@ -39,8 +43,13 @@ class TriangleMesh : public Shape {
   /// Add a new vertex with the given coordinates to the mesh
   void AddVertex(float px, float py, float pz);
 
+  void AddTextureVertex(float tx, float ty, float tz);
+
   /// Add a polygon that points to vertices at the given indices to the mesh
-  void AddPolygon(const std::vector< int > vertIndices);
+  void AddPolygon(const std::vector<int> vertIndices);
+
+  /// Add a polygon that points to textures at the given indices to the mesh
+  void AddPolygonTexture(const std::vector<int> textIndices);
 
   /// Compute the normal at each vertex
   void ComputeNormal();

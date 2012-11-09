@@ -28,7 +28,7 @@ void Mesh::AddVertex(const ishi::Vector& v) {
 // This will be called by the obj parser
 void Mesh::AddTextureVertex(const ishi::Vector& v) {
   // TODO
-//   printf("Texture Vertex: (%f, %f, %f)\n", v[0], v[1], v[2]);
+  printf("Texture Vertex: (%f, %f, %f)\n", v[0], v[1], v[2]);
 }
 
 // p is the list of indices of vertices for this polygon.  For example,
@@ -41,6 +41,7 @@ void Mesh::AddPolygon(const std::vector<int>& p, const std::vector<int>& pt) {
   // TODO
 //   printf("Texture Polygon Indices: (%d, %d, %d)\n", pt[0], pt[1], pt[2]);;
   mesh.AddPolygon(p);
+  mesh.AddPolygonTexture(pt);
 
   // updates the poly2mat map
   _polygon2material.push_back(_cur_mtl);

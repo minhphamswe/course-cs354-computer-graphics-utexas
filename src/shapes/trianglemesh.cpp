@@ -35,6 +35,11 @@ void TriangleMesh::AddVertex(float px, float py, float pz) {
 //   printf("Address after: %x\n", &o2w);
 }
 
+void ishi::TriangleMesh::AddTextureVertex(float tx, float ty, float tz) {
+  Point t(tx, ty, tz);
+  textures.push_back(t);
+}
+
 void TriangleMesh::AddPolygon(const std::vector<int> vertIndices) {
 //   printf("Adding polygon ...\n");
   Assert(vertIndices.size() >= 3);
@@ -84,6 +89,36 @@ void TriangleMesh::AddPolygon(const std::vector<int> vertIndices) {
   }
 }
 
+void TriangleMesh::AddPolygonTexture(const std::vector<int> textIndices) {
+  Assert(textIndices.size() >= 3);
+
+  int v1, v2, v3, v4;
+
+  if (textIndices.size() == 3) {
+    v1 = textIndices[0];
+    v2 = textIndices[1];
+    v3 = textIndices[2];
+
+    // Add vertices to the triangle vertex list
+    triangle_textures.push_back(v1);
+    triangle_textures.push_back(v2);
+    triangle_textures.push_back(v3);
+
+  } else if (textIndices.size() == 4) {
+    v1 = textIndices[0];
+    v2 = textIndices[1];
+    v3 = textIndices[2];
+    v4 = textIndices[3];
+
+    // Add vertices to the triangle vertex list
+    quad_textures.push_back(v1);
+    quad_textures.push_back(v2);
+    quad_textures.push_back(v3);
+    quad_textures.push_back(v4);
+  }
+}
+
+
 void TriangleMesh::ComputeNormal() {
 //   printf("Computing Normal ...");
   // We assume at this point all the normals have been added to the normal
@@ -108,7 +143,7 @@ Vector TriangleMesh::Normal(int i) const {
   return normals[i];
 }
 
-int TriangleMesh::NumVerts(int i) {
+int TriangleMesh::NumVerts() {
   return vertices.size();
 }
 
