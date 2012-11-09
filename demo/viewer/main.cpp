@@ -55,7 +55,7 @@ float window_aspect = window_width / static_cast<float>(window_height);
 bool scene_lighting;
 
 // Lighting configurations
-GLfloat light_position[] = {120.f, 150.f, 120.f};
+Vector light_position = Vector(120.f, 150.f, 120.f);
 GLfloat light_ambient[] = {0.3f, 0.3f, 0.3f};
 GLfloat light_diffuse[] = {0.7f, 0.7f, 0.7f};
 GLfloat light_specular[] = {1.0f, 1.0f, 1.0f};
@@ -116,7 +116,7 @@ void SetLighting() {
   glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
   glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
   glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
-  glLightfv(GL_LIGHT0, GL_POSITION, light_position);
+  glLightfv(GL_LIGHT0, GL_POSITION, &(light_position.x));
 
   // Set material lighting configurations
   glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
