@@ -58,21 +58,21 @@ void GLRenderer::Render(const TriangleMesh& tm) const {
 
 
   // TODO: Remove debug
-  glBegin(GL_LINES);
-  for (int i = 0; i < tm.triangles.size(); i++) {
-    p = tm.Vertex(tm.triangles[i]);
-    n = tm.Normal(tm.triangles[i]);
-    glVertex3f(p.x, p.y, p.z);
-    glVertex3f(p.x + n.x, p.y + n.y, p.z + n.z);
-  }
-
-  for (int i = 0; i < tm.quads.size(); i++) {
-    p = tm.Vertex(tm.quads[i]);
-    n = tm.Normal(tm.quads[i]);
-    glVertex3f(p.x, p.y, p.z);
-    glVertex3f(p.x + n.x, p.y + n.y, p.z + n.z);
-  }
-  glEnd();
+//   glBegin(GL_LINES);
+//   for (int i = 0; i < tm.triangles.size(); i++) {
+//     p = tm.Vertex(tm.triangles[i]);
+//     n = tm.Normal(tm.triangles[i]);
+//     glVertex3f(p.x, p.y, p.z);
+//     glVertex3f(p.x + n.x, p.y + n.y, p.z + n.z);
+//   }
+//
+//   for (int i = 0; i < tm.quads.size(); i++) {
+//     p = tm.Vertex(tm.quads[i]);
+//     n = tm.Normal(tm.quads[i]);
+//     glVertex3f(p.x, p.y, p.z);
+//     glVertex3f(p.x + n.x, p.y + n.y, p.z + n.z);
+//   }
+//   glEnd();
 
   // Restore the modelview transformation state
   glPopMatrix();

@@ -31,10 +31,10 @@ float fovY = 40.0;  // The field of view in the Y direction
 // The co-tangent of fovY, used to calculate distance from eye to center
 float distFactor = cos(Radian(fovY)) / sin(Radian(fovY));
 
-Point prevEye;          // Location of eye when arcball is initiated
 int prevX;              // The X coordinate where the mouse was last clicked
 int prevY;              // The Y coordinate where the mouse was last clicked
 int prevButton;         // The last mouse button that was clicked
+
 Transform arcball;      // Arcball rotation transform
 Transform orientation;  // Orientation of the model
 
@@ -43,8 +43,6 @@ Vector prevContact;     // Previous point of contact to Origin
 Vector contact;         // Current point of contact to Origin
 Vector axis;            // Axis of rotation
 float sensitivity = 1;  // Sensitivity of arcball rotation
-
-bool showAxis = true;   // If true, draw the main axes at origin
 
 GLuint* texture_ids;
 
@@ -55,7 +53,7 @@ float window_aspect = window_width / static_cast<float>(window_height);
 bool scene_lighting;
 
 // Lighting configurations
-Vector light_position = Vector(120.f, 150.f, 120.f);
+Point light_position = Point(120.f, 150.f, 120.f);
 GLfloat light_ambient[] = {0.3f, 0.3f, 0.3f};
 GLfloat light_diffuse[] = {0.7f, 0.7f, 0.7f};
 GLfloat light_specular[] = {1.0f, 1.0f, 1.0f};
@@ -82,7 +80,6 @@ void MouseMotion(int x, int y);
 void Keyboard(unsigned char key, int x, int y);
 
 void ComputeLookAt() {
-  printf("Calling ComputeLookAt\n");
   BBox bb = mesh.mesh.ObjectBound();
 
   // Recompute camera positions
@@ -90,27 +87,29 @@ void ComputeLookAt() {
   float dist = diagExtent * distFactor;
 
   eye = center + Vector(dist, dist, dist);
-  printf("Eye is: %f %f %f\n", eye.x, eye.y, eye.z);
 }
 
+/// Called by Init() to set up the calculate the projection matrix
 void SetCamera() {
-  // TODO call gluLookAt such that mesh fits nicely in viewport.
-  // mesh.bb() may be useful.
-//   printf("Setting camera\n");
-//   printf("Eye: (%f %f %f)\n", eye.x, eye.y, eye.z);
-//   printf("Center is: (%f %f %f)\n", center.x, center.y, center.z);
   gluLookAt(eye.x, eye.y, eye.z,
             center.x, center.y, center.z,
             up.x, up.y, up.z);
 }
 
+/// Called by Display() to recalculate lighting
 void SetLighting() {
-  glShadeModel(GL_FLAT);
-//   glShadeModel(GL_SMOOTH);
+//   glShadeModel(GL_FLAT);
+
+  glShadeModel(GL_SMOOTH);
   glEnable(GL_LIGHTING);
   glEnable(GL_LIGHT0);
   glEnable(GL_COLOR_MATERIAL);
   glEnable(GL_NORMALIZE);
+
+  if (!scene_lighting)
+    light_position = arcball.Invert(eye);
+  else
+    light_position = eye;
 
   // Set light configurations for the global light source
   glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
@@ -168,43 +167,15 @@ void DrawFloor() {
 void Display() {
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+  // These have to go together
   SetProjection();
-
-//   glMatrixMode(GL_MODELVIEW);
-//   glLoadIdentity();
+  SetCamera();
 
   SetLighting();
-  SetCamera();
 
   // TODO set up lighting, material properties and render mesh.
   // Be sure to call glEnable(GL_RESCALE_NORMAL) so your normals
   // remain normalized throughout transformations.
-
-//   float scale = 50;
-//   glMatrixMode(GL_MODELVIEW);
-//   glPushMatrix();
-//   glLoadIdentity();
-//   glBegin(GL_LINES);
-//     glColor3f(1, 0, 0);
-//     glVertex3f(0, 0, 0);
-//     glVertex3f(axis.x*scale, axis.y*scale, axis.z*scale);
-// 
-//     glColor3f(0, 1, 0);
-//     glVertex3f(0, 0, 0);
-//     glVertex3f(prevContact.x*scale, prevContact.y*scale, prevContact.z*scale);
-// 
-//     glColor3f(1, 0, 1);
-//     glVertex3f(0, 0, 0);
-//     glVertex3f(contact.x*scale, contact.y*scale, contact.z*scale);
-// 
-//     glColor3f(0, 1, 1);
-//     glVertex3f(0, 0, 0);
-//     glVertex3f(eye.x*scale, eye.y*scale, eye.z*scale);
-//   glEnd();
-//   glPopMatrix();
-  
-//   if (showAxis) DrawAxis();
-//   DrawFloor();
 
   // Render the mesh
   mesh.mesh.accept(gl_renderer);
@@ -222,7 +193,6 @@ void Init() {
   glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-//   glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
   glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
   glEnable(GL_RESCALE_NORMAL);
@@ -230,37 +200,15 @@ void Init() {
   // resize the window
   window_aspect = window_width/static_cast<float>(window_height);
 
-  SetLighting();
+//   SetLighting();
   SetProjection();
 
   // Compute the initial position of the camera
   up = Vector(0, 1, 0);
   ComputeLookAt();
-}
 
-void DrawAxis() {
-  const Vec3f c = {{0, 0, 0}};
-  const float L = 1;
-  const Vec3f X = {{L, 0, 0}}, Y = {{0, L, 0}}, Z = {{0, 0, L}};
-
-  // Disable lighting
-  glDisable(GL_LIGHTING);
-  glLineWidth(4);
-
-  glBegin(GL_LINES);
-    glColor3f(1, 0, 0);
-    glVertex3fv(c.x);
-    glVertex3fv((c+X).x);
-    glColor3f(0, 1, 0);
-    glVertex3fv(c.x);
-    glVertex3fv((c+Y).x);
-    glColor3f(0, 0, 1);
-    glVertex3fv(c.x);
-    glVertex3fv((c+Z).x);
-  glEnd();
-
-  // Re-enable lighting
-  glEnable(GL_LIGHTING);
+  // Set light positions
+  light_position = eye;
 }
 
 /// Called to obtain the vector of contact on the arcball
@@ -274,11 +222,6 @@ Vector ArcballContact(int x, int y) {
   else
     cz = sqrt(sq_cz);
 
-//   float radius = sqrt(3.0) / 3;
-//   printf("Contact vector: %f %f %f\n", cx, cy, cz);
-//   Vector ret = Vector(cx * radius, cy * radius, cz * radius);
-//   printf("Contact vector length: %f\n", Length(ret));
-//   return ret;
   return orientation.Invert(Normalize(Vector(cx, -cy, cz)));
 }
 
@@ -289,38 +232,24 @@ void MouseButton(int button, int state, int x, int y) {
   if (state == GLUT_DOWN) {   // On button pressed:
     if (button == 3) {                          /* mouse scroll up */
       eye = center + ((eye - center) * 0.95);
+
     } else if (button == 4) {                   /* mouse scroll down */
       eye = center + ((eye - center) * 1.05);
+
     } else if (button == GLUT_LEFT_BUTTON) {    /* left mouse button */
-  //       prevX = x;
-  //       prevY = y;
-        prevEye = eye;
-        prevButton = GLUT_LEFT_BUTTON;
+      // Save button pressed and contact vector
+      prevButton = GLUT_LEFT_BUTTON;
 
-        float top_matrix[4][4];
-        float *top_matrix_ptr = &top_matrix[0][0];
-        glGetFloatv(GL_MODELVIEW_MATRIX, top_matrix_ptr);
+      // Save top modelview matrix
+      float top_matrix[4][4];
+      float *top_matrix_ptr = &top_matrix[0][0];
+      glGetFloatv(GL_MODELVIEW_MATRIX, top_matrix_ptr);
+      orientation = Transform(Transpose(Matrix4x4(top_matrix)));
 
-        orientation = Transform(Transpose(Matrix4x4(top_matrix)));
-//         glMatrixMode(GL_MODELVIEW);
-//         glPushMatrix();
-//         glPushMatrix();
-        prevContact = ArcballContact(x, y);
-//         printf("PrevContact is %f %f %f\n", prevContact.x, prevContact.y, prevContact.z);
+      prevContact = ArcballContact(x, y);
     }
   } else {    // On button released:
-    if (button == GLUT_LEFT_BUTTON) {           /* left mouse button */
-//       arcball = arcball;
-//       float top_matrix[16];
-//       float *top_matrix_ptr = &top_matrix[0];
-//       glGetFloatv(GL_MODELVIEW_MATRIX, top_matrix_ptr);
-//       glPopMatrix();
-//       glPopMatrix();
-//       glLoadMatrixf(top_matrix_ptr);
-//       glMultMatrixf(top_matrix_ptr);
-//       glPushMatrix();
-//       glPushMatrix();
-    }
+    if (button == GLUT_LEFT_BUTTON) {}          /* left mouse button */
     prevButton = -1;
   }
   glutPostRedisplay();
@@ -328,53 +257,29 @@ void MouseButton(int button, int state, int x, int y) {
 
 /// Called whenever a mouse button is pressed the mouse is moved
 void MouseMotion(int x, int y) {
-  // TODO implement arc ball and zoom
+  // TODO implement zoom
   if (prevButton == GLUT_LEFT_BUTTON) {
-//     float deltaX = (prevX - x) / static_cast<float>(window_width);
-//     float deltaY = (prevY - y) / static_cast<float>(window_height);
-//     eye = Rotate(-deltaY, Cross(up, center - eye))(eye);
-//     eye = RotateY(2 * deltaX)(eye);
+    // Calculate new contact vector
     contact = ArcballContact(x, y);
+
+    // Calculate new rotation transformation matrix
     axis = Cross(prevContact, contact);
-
-//     float angle = Length(contact - prevContact);
     float angle = Length(contact - Dot(contact, prevContact) * contact);
-//     angle *= sensitivity;
-//     printf("Contact is %f %f %f\n", contact.x, contact.y, contact.z);
-//     printf("Axis: %f %f %f \t Angle: %f\n", axis.x, axis.y, axis.z, angle);
-//     eye = Rotate(angle, axis)(prevEye);
-    glMatrixMode(GL_MODELVIEW);
-//     glPopMatrix();
-//     glPushMatrix();
-//     glRotatef(Degree(angle), axis.x, axis.y, axis.z) ;
     arcball = orientation * Rotate(angle, axis);
-//     arcball = Rotate(angle, axis) * orientation;
-//     glMultTransposeMatrixf(reinterpret_cast<float*>(arcball.Matrix().m));
-    glLoadTransposeMatrixf(reinterpret_cast<float*>(arcball.Matrix().m));
-//     int depth;
-//     glGetIntegerv(GL_MODELVIEW_STACK_DEPTH, &depth);
-//     printf("Modelview Stack Depth: %d\n", depth);
-    
-//     glPushMatrix();
-//     glPopMatrix();
-//     glPushMatrix();
 
-//     prevContact = contact;
-//     ComputeLookAt();
-//     prevX = x;
-//     prevY = y;
+    // Load transformation matrix into modelview matrix
+    glMatrixMode(GL_MODELVIEW);
+    glLoadTransposeMatrixf(reinterpret_cast<float*>(arcball.Matrix().m));
   }
   glutPostRedisplay();
 }
 
 /// Called whenever a normal key is pressed
 void Keyboard(unsigned char key, int x, int y) {
-  switch (key) {
-    case 'q':
-    case 27:  // esc
-      exit(0);
-      break;
-  }
+  if (key == 'q' || key == 27)
+    exit(0);
+  else if (key == 'l')
+    scene_lighting = !scene_lighting;
 }
 
 int main(int argc, char *argv[]) {
