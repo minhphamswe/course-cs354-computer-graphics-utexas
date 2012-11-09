@@ -68,9 +68,12 @@ GLfloat mat_shininess[] = {120.f};
 // Forward declarations of functions
 void Init();
 
-void ComputeLookAt();
-void SetCamera();
-void SetLighting();
+void InitCamera();
+void InitLighting();
+
+void UpdateCamera();
+void UpdateLighting();
+
 void SetProjection();
 
 Vector ArcballContact(int x, int y);
@@ -79,7 +82,7 @@ void MouseButton(int button, int state, int x, int y);
 void MouseMotion(int x, int y);
 void Keyboard(unsigned char key, int x, int y);
 
-void ComputeLookAt() {
+void InitCamera() {
   BBox bb = mesh.mesh.ObjectBound();
 
   // Recompute camera positions
@@ -90,14 +93,27 @@ void ComputeLookAt() {
 }
 
 /// Called by Init() to set up the calculate the projection matrix
-void SetCamera() {
+void UpdateCamera() {
   gluLookAt(eye.x, eye.y, eye.z,
             center.x, center.y, center.z,
             up.x, up.y, up.z);
 }
 
-/// Called by Display() to recalculate lighting
-void SetLighting() {
+/// Called by Display() to update lighting
+void UpdateLighting() {
+  printf("UpdateLighting called\n");
+
+//   if (!scene_lighting)
+//     light_position = arcball.Invert(eye);
+//   else
+//     light_position = eye;
+
+  glLightfv(GL_LIGHT0, GL_POSITION, &(light_position.x));
+}
+
+/// Called by Init() to initialize lighting
+void InitLighting() {
+  printf("InitLighting called\n");
 //   glShadeModel(GL_FLAT);
 
   glShadeModel(GL_SMOOTH);
@@ -105,11 +121,6 @@ void SetLighting() {
   glEnable(GL_LIGHT0);
   glEnable(GL_COLOR_MATERIAL);
   glEnable(GL_NORMALIZE);
-
-  if (!scene_lighting)
-    light_position = arcball.Invert(eye);
-  else
-    light_position = eye;
 
   // Set light configurations for the global light source
   glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
@@ -125,53 +136,21 @@ void SetLighting() {
 }
 
 void SetProjection() {
+  printf("SetProjection called\n");
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
   gluPerspective(fovY, window_aspect, 1, 1500);
 }
 
-/// Called by Display to draw the floor. Draw a checkerboard floor.
-void DrawFloor() {
-  // Save the modelling transform state
-  glMatrixMode(GL_MODELVIEW);
-  glPushMatrix();
-
-  // Set modelling transform state to origin
-  glLoadIdentity();
-
-  int numSquares = 20;  // number of squares on each side
-  int squareSize = 10;  // length of the side of each square
-
-  // Draw the floor
-  glBegin(GL_QUADS);
-  for (int i = -numSquares/2; i < numSquares/2; i++) {
-    for (int j = -numSquares/2; j < numSquares/2; j++) {
-      // select color
-      if ((i + j) % 2 == 0)
-        glColor3f(0.f, 0.f, 0.f);   // black
-      else
-        glColor3f(1.f, 1.f, 1.f);   // white
-
-      glVertex3f(i * squareSize, 0, j * squareSize);
-      glVertex3f(i * squareSize, 0, (j+1) * squareSize);
-      glVertex3f((i+1) * squareSize, 0, (j+1) * squareSize);
-      glVertex3f((i+1) * squareSize, 0, j * squareSize);
-    }
-  }
-  glEnd();
-
-  // Restore the modelling transform state
-  glPopMatrix();
-}
-
 void Display() {
+  printf("Display called\n");
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
   // These have to go together
   SetProjection();
-  SetCamera();
+  UpdateCamera();
 
-  SetLighting();
+  UpdateLighting();
 
   // TODO set up lighting, material properties and render mesh.
   // Be sure to call glEnable(GL_RESCALE_NORMAL) so your normals
@@ -205,10 +184,11 @@ void Init() {
 
   // Compute the initial position of the camera
   up = Vector(0, 1, 0);
-  ComputeLookAt();
+  InitCamera();
 
   // Set light positions
   light_position = eye;
+  InitLighting();
 }
 
 /// Called to obtain the vector of contact on the arcball
@@ -230,13 +210,17 @@ void MouseButton(int button, int state, int x, int y) {
   // TODO implement arc ball and zoom
 
   if (state == GLUT_DOWN) {   // On button pressed:
+    printf("1\n");
     if (button == 3) {                          /* mouse scroll up */
+      printf("2\n");
       eye = center + ((eye - center) * 0.95);
 
     } else if (button == 4) {                   /* mouse scroll down */
+      printf("3\n");
       eye = center + ((eye - center) * 1.05);
 
     } else if (button == GLUT_LEFT_BUTTON) {    /* left mouse button */
+      printf("4\n");
       // Save button pressed and contact vector
       prevButton = GLUT_LEFT_BUTTON;
 
@@ -249,7 +233,8 @@ void MouseButton(int button, int state, int x, int y) {
       prevContact = ArcballContact(x, y);
     }
   } else {    // On button released:
-    if (button == GLUT_LEFT_BUTTON) {}          /* left mouse button */
+    if (button == GLUT_LEFT_BUTTON) {           /* left mouse button */
+    }
     prevButton = -1;
   }
   glutPostRedisplay();
