@@ -4,9 +4,9 @@
 #include <core/point.h>
 #include <core/vector.h>
 #include <core/bbox.h>
-#include <shapes/shape.h>
-// #include <rendering/GLRenderer.h>
-#include <rendering/renderer.h>
+#include <core/shape.h>
+
+#include <core/renderer.h>
 #include <rendering/GLRenderer.h>
 
 #include <vector>

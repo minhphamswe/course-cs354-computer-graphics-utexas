@@ -1,7 +1,7 @@
 #ifndef ISHI_RENDERING_GLRENDERER_H_
 #define ISHI_RENDERING_GLRENDERER_H_
 
-#include <rendering/renderer.h>
+#include <core/renderer.h>
 
 namespace ishi {
 

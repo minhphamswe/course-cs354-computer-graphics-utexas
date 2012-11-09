@@ -3,7 +3,7 @@
 
 #include <core/transform.h>
 #include <core/bbox.h>
-#include <rendering/renderer.h>
+#include <core/renderer.h>
 
 namespace ishi {
 

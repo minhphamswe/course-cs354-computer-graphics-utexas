@@ -1,5 +1,5 @@
-#include <rendering/renderer.h>
-#include <shapes/shape.h>
+#include <core/renderer.h>
+#include <core/shape.h>
 #include <stdio.h>
 
 namespace ishi {

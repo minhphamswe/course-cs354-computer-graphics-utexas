@@ -1,5 +1,5 @@
-#include <shapes/shape.h>
-#include <rendering/renderer.h>
+#include <core/shape.h>
+#include <core/renderer.h>
 
 // #include <stdio.h>
 

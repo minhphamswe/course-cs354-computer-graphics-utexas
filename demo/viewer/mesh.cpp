@@ -28,7 +28,8 @@ void Mesh::AddVertex(const ishi::Vector& v) {
 // This will be called by the obj parser
 void Mesh::AddTextureVertex(const ishi::Vector& v) {
   // TODO
-  printf("Texture Vertex: (%f, %f, %f)\n", v[0], v[1], v[2]);
+//   printf("Texture Vertex: (%f, %f, %f)\n", v[0], v[1], v[2]);
+  mesh.AddTextureVertex(v[0], v[1], v[2]);
 }
 
 // p is the list of indices of vertices for this polygon.  For example,

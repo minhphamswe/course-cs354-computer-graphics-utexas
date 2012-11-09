@@ -6,7 +6,7 @@
 #include <rendering/GLRenderer.h>
 
 #include <core/point.h>
-#include <shapes/shape.h>
+#include <core/shape.h>
 #include <shapes/trianglemesh.h>
 
 #include <GL/gl.h>
