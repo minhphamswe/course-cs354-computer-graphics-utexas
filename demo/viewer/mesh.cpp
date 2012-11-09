@@ -10,24 +10,23 @@
 #include "./mesh.h"
 
 using namespace std;
-using namespace ishi;
 
 Mesh::Mesh() {
-  mesh = TriangleMesh();
+  mesh = ishi::TriangleMesh();
   _cur_mtl = -1;
 }
 
 // This will be called by the obj parser
-void Mesh::AddVertex(const Vec3f& v) {
+void Mesh::AddVertex(const ishi::Vector& v) {
   // TODO
   mesh.AddVertex(v[0], v[1], v[2]);
 
   // updates the bounding box
-  _bb(v);
+//   _bb(v);
 }
 
 // This will be called by the obj parser
-void Mesh::AddTextureVertex(const Vec3f& v) {
+void Mesh::AddTextureVertex(const ishi::Vector& v) {
   // TODO
 //   printf("Texture Vertex: (%f, %f, %f)\n", v[0], v[1], v[2]);
 }

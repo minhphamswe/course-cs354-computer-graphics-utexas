@@ -1,35 +1,37 @@
-#include <string>
 #include "./material.h"
+
+#include <src/core/vector.h>
+#include <string>
 #include "./texture.h"
 
 Material::Material()
-    : _ambient(Vec3f::makeVec(.1, .1, .1)),
-      _diffuse(Vec3f::makeVec(.3, .3, .3)),
-      _specular(Vec3f::makeVec(.1, .1, .1)), _specular_coeff(10),
+    : _ambient(ishi::Vector(.1, .1, .1)),
+      _diffuse(ishi::Vector(.3, .3, .3)),
+      _specular(ishi::Vector(.1, .1, .1)), _specular_coeff(10),
       _texture_id(-1) {
 }
 
-Material::Material(const string& name)
+Material::Material(const std::string& name)
     : _name(name),
-      _ambient(Vec3f::makeVec(.1, .1, .1)),
-      _diffuse(Vec3f::makeVec(.3, .3, .3)),
-      _specular(Vec3f::makeVec(.1, .1, .1)), _specular_coeff(10),
+      _ambient(ishi::Vector(.1, .1, .1)),
+      _diffuse(ishi::Vector(.3, .3, .3)),
+      _specular(ishi::Vector(.1, .1, .1)), _specular_coeff(10),
       _texture_id(-1) {
 }
 
-void Material::set_ambient(const Vec3f& ambient) {
+void Material::set_ambient(const ishi::Vector& ambient) {
   _ambient = ambient;
 }
-void Material::set_diffuse(const Vec3f& diffuse) {
+void Material::set_diffuse(const ishi::Vector& diffuse) {
   _diffuse = diffuse;
 }
-void Material::set_specular(const Vec3f& specular) {
+void Material::set_specular(const ishi::Vector& specular) {
   _specular = specular;
 }
 void Material::set_specular_coeff(const float& coeff) {
   _specular_coeff = coeff;
 }
-void Material::set_texture(const string& texture) {
+void Material::set_texture(const std::string& texture) {
   _texture = texture;
 }
 

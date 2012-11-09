@@ -19,8 +19,8 @@ class Mesh {
  public:
   Mesh();
 
-  void AddVertex(const Vec3f& v);
-  void AddTextureVertex(const Vec3f& v);
+  void AddVertex(const ishi::Vector& v);
+  void AddTextureVertex(const ishi::Vector& v);
   void AddPolygon(const std::vector<int>& p, const std::vector<int>& pt);
 
   void new_material(int material_idx, const std::string& name) {
@@ -39,15 +39,15 @@ class Mesh {
     _cur_mtl = cur_mtl;
   }
 
-  void set_ambient(int material_idx, const Vec3f& ambient) {
+  void set_ambient(int material_idx, const ishi::Vector& ambient) {
     _materials[material_idx].set_ambient(ambient);
   }
 
-  void set_diffuse(int material_idx, const Vec3f& diffuse) {
+  void set_diffuse(int material_idx, const ishi::Vector& diffuse) {
     _materials[material_idx].set_diffuse(diffuse);
   }
 
-  void set_specular(int material_idx, const Vec3f& specular) {
+  void set_specular(int material_idx, const ishi::Vector& specular) {
     _materials[material_idx].set_specular(specular);
   }
 

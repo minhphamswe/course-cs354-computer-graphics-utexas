@@ -1,3 +1,5 @@
+#include <src/core/vector.h>
+
 #include <string>
 #include <vector>
 #include <sstream>
@@ -103,13 +105,13 @@ void ParseMaterial(const string& fn, Mesh& mesh) {
       mesh.new_material(++cnt, values[0]);
     } else if (t == "Ka") {
       mesh.set_ambient(cnt,
-          Vec3f::makeVec(atof(values[0]), atof(values[1]), atof(values[2])));
+          ishi::Vector(atof(values[0]), atof(values[1]), atof(values[2])));
     } else if (t == "Kd") {
       mesh.set_diffuse(cnt,
-          Vec3f::makeVec(atof(values[0]), atof(values[1]), atof(values[2])));
+          ishi::Vector(atof(values[0]), atof(values[1]), atof(values[2])));
     } else if (t == "Ks") {
       mesh.set_specular(cnt,
-          Vec3f::makeVec(atof(values[0]), atof(values[1]), atof(values[2])));
+          ishi::Vector(atof(values[0]), atof(values[1]), atof(values[2])));
     } else if (t == "Ns") {
       mesh.set_specular_coeff(cnt, atof(values[0]));
     } else if (t == "map_Ka" || t == "map_Kd") {
@@ -157,14 +159,14 @@ void ParseObj(const string& fn, Mesh& mesh) {
       vector<string> values;
       Parse(line, &t, &values);
       if (t == "v") {
-        mesh.AddVertex(Vec3f::makeVec(
+        mesh.AddVertex(ishi::Vector(
             atof(values[0]), atof(values[1]), atof(values[2])));
       } else if (t == "vt") {
         float v[3];
         for (int i = 0; i < 3; ++i) {
           v[i] = atof(values[i]);
         }
-        mesh.AddTextureVertex(Vec3f::makeVec(v[0], v[1], v[2]));
+        mesh.AddTextureVertex(ishi::Vector(v[0], v[1], v[2]));
       } else if (t == "f") {
         vector<int> vertices(values.size());
         vector<int> texture(values.size(), -1);

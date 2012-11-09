@@ -117,7 +117,6 @@ void UpdateLighting() {
     glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
     glLightfv(GL_LIGHT0, GL_POSITION, &(eye.x));
   }
-
 }
 
 /// Called by Init() to initialize lighting
