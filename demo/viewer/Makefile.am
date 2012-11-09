@@ -40,6 +40,8 @@ viewer_SOURCES = $(srcdir)/main.cpp \
                  $(srcdir)/src/core/transform.h \
                  $(srcdir)/src/core/shape.cpp \
                  $(srcdir)/src/core/shape.h \
+                 $(srcdir)/src/core/imaterial.cpp \
+                 $(srcdir)/src/core/imaterial.h \
                  $(srcdir)/src/core/renderer.cpp \
                  $(srcdir)/src/core/renderer.h \
                  $(srcdir)/src/shapes/trianglemesh.cpp \

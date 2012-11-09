@@ -10,7 +10,9 @@ namespace ishi {
 
 TriangleMesh::TriangleMesh()
     : o2w(), w2o(), bbox(), ObjectToWorld(&o2w), WorldToObject(&w2o),
-      Shape(ObjectToWorld, WorldToObject) {}
+      Shape(ObjectToWorld, WorldToObject) {
+  materials = std::vector<Texture>();
+}
 
 TriangleMesh::~TriangleMesh() {}
 
@@ -35,7 +37,7 @@ void TriangleMesh::AddVertex(float px, float py, float pz) {
 //   printf("Address after: %x\n", &o2w);
 }
 
-void ishi::TriangleMesh::AddTextureVertex(float tx, float ty, float tz) {
+void TriangleMesh::AddTextureVertex(float tx, float ty, float tz) {
   Point t(tx, ty, tz);
   textures.push_back(t);
 }
@@ -123,7 +125,7 @@ void TriangleMesh::ComputeNormal() {
 //   printf("Computing Normal ...");
   // We assume at this point all the normals have been added to the normal
   // list, so all we need to do is normalize all the normals
-  for (int i = 0; i < normals.size(); i++) {
+  for (uint32_t i = 0; i < normals.size(); i++) {
     normals[i] = Normalize(normals[i]);
   }
 
@@ -154,5 +156,15 @@ BBox TriangleMesh::ObjectBound() const {
 void TriangleMesh::accept(const Renderer& r) {
   r.Render(*this);
 }
+
+void TriangleMesh::AddMaterial(const Texture& material) {
+  materials.push_back(material);
+}
+
+void TriangleMesh::LoadMaterialMapping(const std::vector<int> mapping) {
+  for (uint32_t i = 0; i < mapping.size(); i++)
+    material_mapping.push_back(mapping[i]);
+}
+
 
 }  // namespace ishi

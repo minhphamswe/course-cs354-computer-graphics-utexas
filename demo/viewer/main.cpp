@@ -324,7 +324,7 @@ int main(int argc, char *argv[]) {
     glGenTextures(mesh.num_materials(), texture_ids);
 
     for (int i = 0; i < mesh.num_materials(); ++i) {
-      Material& material = mesh.material(i);
+      ::Material& material = mesh.material(i);
       material.LoadTexture(texture_ids[i]);
     }
   }

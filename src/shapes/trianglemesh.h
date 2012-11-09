@@ -5,6 +5,7 @@
 #include <core/vector.h>
 #include <core/bbox.h>
 #include <core/shape.h>
+#include <core/imaterial.h>
 
 #include <core/renderer.h>
 #include <rendering/GLRenderer.h>
@@ -13,13 +14,12 @@
 
 namespace ishi {
 
-// class GLRenderer;
-
 class TriangleMesh : public Shape {
  private:
-  Transform o2w;
-  Transform w2o;
-  BBox bbox;
+  Transform o2w;    // Object to world transformation
+  Transform w2o;    // World to object transformation
+  BBox bbox;        // Object bounding box
+
   std::vector<Point> vertices;          // Vertex coordinates
   std::vector<Vector> normals;          // Vertex normals
   std::vector<int> triangles;           // Vertex indices for triangles
@@ -28,6 +28,9 @@ class TriangleMesh : public Shape {
   std::vector<Point> textures;          // Texture coordinates
   std::vector<int> triangle_textures;   // Texture indices for triangles
   std::vector<int> quad_textures;       // Texture indices for quads
+
+  std::vector<int> material_mapping;    // Mapping from polygon to material
+  std::vector<ishi::Texture> materials;      // Collection of materials
 
  public:
   const Transform *ObjectToWorld;
@@ -43,13 +46,8 @@ class TriangleMesh : public Shape {
   /// Add a new vertex with the given coordinates to the mesh
   void AddVertex(float px, float py, float pz);
 
-  void AddTextureVertex(float tx, float ty, float tz);
-
   /// Add a polygon that points to vertices at the given indices to the mesh
   void AddPolygon(const std::vector<int> vertIndices);
-
-  /// Add a polygon that points to textures at the given indices to the mesh
-  void AddPolygonTexture(const std::vector<int> textIndices);
 
   /// Compute the normal at each vertex
   void ComputeNormal();
@@ -66,6 +64,18 @@ class TriangleMesh : public Shape {
   virtual BBox ObjectBound() const;
 
   virtual void accept(const Renderer& r);
+
+  /// Add a new texture coordinate to the mesh
+  void AddTextureVertex(float tx, float ty, float tz);
+
+  /// Add a polygon that points to textures at the given indices to the mesh
+  void AddPolygonTexture(const std::vector<int> textIndices);
+
+  /// Load mapping from polygon to material
+  void LoadMaterialMapping(const std::vector<int> mapping);
+
+  /// Add a new material
+  void AddMaterial(const Texture &material);
 
   friend class GLRenderer;
 };
