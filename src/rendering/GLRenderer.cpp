@@ -34,8 +34,8 @@ void GLRenderer::Render(const TriangleMesh& tm) const {
     tm.o2w.Matrix().m));
 
   // Draw the triangles in the mesh
-//   glBegin(GL_TRIANGLES);
-  glBegin(GL_LINES);
+  glBegin(GL_TRIANGLES);
+//   glBegin(GL_LINES);
   for (int i = 0; i < tm.triangles.size(); i++) {
     pt = tm.triangles[i];
     glVertex3f(pt->x, pt->y, pt->z);
@@ -43,8 +43,8 @@ void GLRenderer::Render(const TriangleMesh& tm) const {
   glEnd();
 
   // Draw the quads in the mesh
-//   glBegin(GL_QUADS);
-  glBegin(GL_LINES);
+  glBegin(GL_QUADS);
+//   glBegin(GL_LINES);
   for (int i = 0; i < tm.quads.size(); i++) {
     pt = tm.quads[i];
     glVertex3f(pt->x, pt->y, pt->z);
