@@ -42,53 +42,45 @@ void TriangleMesh::AddPolygon(const std::vector<int> vertIndices) {
   int v1, v2, v3, v4;
 
   if (vertIndices.size() == 3) {
-      v1 = vertIndices[0];
-      v2 = vertIndices[1];
-      v3 = vertIndices[2];
+    v1 = vertIndices[0];
+    v2 = vertIndices[1];
+    v3 = vertIndices[2];
 
-      // Get the points pointed to by the indices
-      Point *p1 = &vertices[v1];
-      Point *p2 = &vertices[v2];
-      Point *p3 = &vertices[v3];
+    // Compute the normalized normal of the triangle
+    Vector n = Normalize(Cross(Vertex(v2) - Vertex(v1),
+                               Vertex(v3) - Vertex(v2)));
 
-      // Compute the normalized normal of the triangle
-      Vector n = Normalize(Cross((*p2 - *p1), (*p3 - *p2)));
+    // Add the normal to the normal list corresponding to each point
+    normals[v1] += n;
+    normals[v2] += n;
+    normals[v3] += n;
 
-      // Add the normal to the normal list corresponding to each point
-      normals[v1] += n;
-      normals[v2] += n;
-      normals[v3] += n;
+    // Add vertices to the triangle vertex list
+    triangles.push_back(v1);
+    triangles.push_back(v2);
+    triangles.push_back(v3);
 
-      // Add vertices to the triangle vertex list
-      triangles.push_back(p1);
-      triangles.push_back(p2);
-      triangles.push_back(p3);
   } else if (vertIndices.size() == 4) {
-      v1 = vertIndices[0];
-      v2 = vertIndices[1];
-      v3 = vertIndices[2];
-      v4 = vertIndices[3];
+    v1 = vertIndices[0];
+    v2 = vertIndices[1];
+    v3 = vertIndices[2];
+    v4 = vertIndices[3];
 
-      // Get the points pointed to by the indices
-      Point *p1 = &vertices[v1];
-      Point *p2 = &vertices[v2];
-      Point *p3 = &vertices[v3];
-      Point *p4 = &vertices[v4];
+    // Compute the normalized normal of the triangle
+    Vector n = Normalize(Cross(Vertex(v2) - Vertex(v1),
+                               Vertex(v3) - Vertex(v2)));
 
-      // Compute the normalized normal of the triangle
-      Vector n = Normalize(Cross((*p2 - *p1), (*p3 - *p2)));
+    // Add the normal to the normal list corresponding to each point
+    normals[v1] += n;
+    normals[v2] += n;
+    normals[v3] += n;
+    normals[v4] += n;
 
-      // Add the normal to the normal list corresponding to each point
-      normals[v1] += n;
-      normals[v2] += n;
-      normals[v3] += n;
-      normals[v4] += n;
-
-      // Add vertices to the triangle vertex list
-      quads.push_back(p1);
-      quads.push_back(p2);
-      quads.push_back(p3);
-      quads.push_back(p4);
+    // Add vertices to the triangle vertex list
+    quads.push_back(v1);
+    quads.push_back(v2);
+    quads.push_back(v3);
+    quads.push_back(v4);
   }
 }
 
@@ -108,11 +100,11 @@ void TriangleMesh::ComputeNormal() {
 //   }
 }
 
-Point TriangleMesh::Vertex(int i) {
+Point TriangleMesh::Vertex(int i) const {
   return vertices[i];
 }
 
-Vector TriangleMesh::Normal(int i) {
+Vector TriangleMesh::Normal(int i) const {
   return normals[i];
 }
 

@@ -55,23 +55,23 @@ float window_aspect = window_width / static_cast<float>(window_height);
 bool scene_lighting;
 
 // Lighting configurations
-GLfloat light_position[] = {0.f, 50.f, 0.f};
-GLfloat light_ambient[] = {0.25, 0.25, 0.25};
-GLfloat light_diffuse[] = {0.25, 0.25, 0.25};
-GLfloat light_specular[] = {1.f, 1.f, 1.f};
+GLfloat light_position[] = {120.f, 150.f, 120.f};
+GLfloat light_ambient[] = {0.3f, 0.3f, 0.3f};
+GLfloat light_diffuse[] = {0.7f, 0.7f, 0.7f};
+GLfloat light_specular[] = {1.0f, 1.0f, 1.0f};
 
 // Material configurations
-GLfloat mat_ambient[] = {0.5, 0.5, 0.5};
-GLfloat mat_diffuse[] = {0.5, 0.5, 0.5};
-GLfloat mat_specular[] = {1.f, 1.f, 1.f};
-GLfloat mat_shininess[] = {100.f};
+GLfloat mat_ambient[] = {0.5f, 0.5f, 0.5f};
+GLfloat mat_diffuse[] = {0.5f, 0.5f, 0.5f};
+GLfloat mat_specular[] = {1.0f, 1.0f, 1.0f};
+GLfloat mat_shininess[] = {120.f};
+// GLfloat mat_shininess[] = {50.f};
 
 // Forward declarations of functions
 void Init();
 
 void ComputeLookAt();
 void SetCamera();
-void SetDrawMode();
 void SetLighting();
 void SetProjection();
 
@@ -90,6 +90,7 @@ void ComputeLookAt() {
   float dist = diagExtent * distFactor;
 
   eye = center + Vector(dist, dist, dist);
+  printf("Eye is: %f %f %f\n", eye.x, eye.y, eye.z);
 }
 
 void SetCamera() {
@@ -104,7 +105,8 @@ void SetCamera() {
 }
 
 void SetLighting() {
-  glShadeModel(GL_SMOOTH);
+  glShadeModel(GL_FLAT);
+//   glShadeModel(GL_SMOOTH);
   glEnable(GL_LIGHTING);
   glEnable(GL_LIGHT0);
   glEnable(GL_COLOR_MATERIAL);
@@ -127,11 +129,6 @@ void SetProjection() {
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
   gluPerspective(fovY, window_aspect, 1, 1500);
-}
-
-void SetDrawMode() {
-  glPolygonMode(GL_FRONT, GL_FILL);
-  glPolygonMode(GL_BACK, GL_LINE);
 }
 
 /// Called by Display to draw the floor. Draw a checkerboard floor.
@@ -183,30 +180,30 @@ void Display() {
   // Be sure to call glEnable(GL_RESCALE_NORMAL) so your normals
   // remain normalized throughout transformations.
 
-  float scale = 50;
+//   float scale = 50;
 //   glMatrixMode(GL_MODELVIEW);
 //   glPushMatrix();
 //   glLoadIdentity();
-  glBegin(GL_LINES);
-    glColor3f(1, 0, 0);
-    glVertex3f(0, 0, 0);
-    glVertex3f(axis.x*scale, axis.y*scale, axis.z*scale);
-
-    glColor3f(0, 1, 0);
-    glVertex3f(0, 0, 0);
-    glVertex3f(prevContact.x*scale, prevContact.y*scale, prevContact.z*scale);
-
-    glColor3f(1, 0, 1);
-    glVertex3f(0, 0, 0);
-    glVertex3f(contact.x*scale, contact.y*scale, contact.z*scale);
-
-    glColor3f(0, 1, 1);
-    glVertex3f(0, 0, 0);
-    glVertex3f(eye.x*scale, eye.y*scale, eye.z*scale);
-  glEnd();
+//   glBegin(GL_LINES);
+//     glColor3f(1, 0, 0);
+//     glVertex3f(0, 0, 0);
+//     glVertex3f(axis.x*scale, axis.y*scale, axis.z*scale);
+// 
+//     glColor3f(0, 1, 0);
+//     glVertex3f(0, 0, 0);
+//     glVertex3f(prevContact.x*scale, prevContact.y*scale, prevContact.z*scale);
+// 
+//     glColor3f(1, 0, 1);
+//     glVertex3f(0, 0, 0);
+//     glVertex3f(contact.x*scale, contact.y*scale, contact.z*scale);
+// 
+//     glColor3f(0, 1, 1);
+//     glVertex3f(0, 0, 0);
+//     glVertex3f(eye.x*scale, eye.y*scale, eye.z*scale);
+//   glEnd();
 //   glPopMatrix();
   
-  if (showAxis) DrawAxis();
+//   if (showAxis) DrawAxis();
 //   DrawFloor();
 
   // Render the mesh
@@ -216,64 +213,25 @@ void Display() {
   glutSwapBuffers();
 }
 
-void PrintMatrix(GLfloat* m) {
-  cout.precision(2);
-  int w = 6;
-  for (int i = 0; i < 4; ++i) {
-    cout << setprecision(2) << setw(w) << m[i] << " "
-         << setprecision(2) << setw(w) << m[i+4] << " "
-         << setprecision(2) << setw(w) << m[i+8] << " "
-         << setprecision(2) << setw(w) << m[i+12] << " "
-         << endl;
-  }
-  cout << endl;
-}
-
-void PrintMatrix(GLint matrix) {
-  GLfloat m[16];
-  glGetFloatv(matrix, m);
-  PrintMatrix(m);
-}
-
-void PrintMatrix() {
-  PrintMatrix(GL_MODELVIEW_MATRIX);
-}
-
-void LoadMatrix(GLfloat* m) {
-  // transpose to column-major
-  for (int i = 0; i < 4; ++i) {
-    for (int j = i; j < 4; ++j) {
-      swap(m[i*4+j], m[j*4+i]);
-    }
-  }
-  glLoadMatrixf(m);
-}
-
-void MultMatrix(GLfloat* m) {
-  // transpose to column-major
-  for (int i = 0; i < 4; ++i) {
-    for (int j = i; j < 4; ++j) {
-      swap(m[i*4+j], m[j*4+i]);
-    }
-  }
-  glMultMatrixf(m);
-}
-
 /// Called after parsing but before rendering occurs
 void Init() {
   glEnable(GL_DEPTH_TEST);
+  glEnable(GL_CULL_FACE);
   glDepthMask(GL_TRUE);
   glDepthFunc(GL_LEQUAL);
   glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-  glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+//   glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+  glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+
+  glEnable(GL_RESCALE_NORMAL);
 
   // resize the window
   window_aspect = window_width/static_cast<float>(window_height);
 
+  SetLighting();
   SetProjection();
-  SetDrawMode();
 
   // Compute the initial position of the camera
   up = Vector(0, 1, 0);
@@ -390,6 +348,7 @@ void MouseMotion(int x, int y) {
 //     glPushMatrix();
 //     glRotatef(Degree(angle), axis.x, axis.y, axis.z) ;
     arcball = orientation * Rotate(angle, axis);
+//     arcball = Rotate(angle, axis) * orientation;
 //     glMultTransposeMatrixf(reinterpret_cast<float*>(arcball.Matrix().m));
     glLoadTransposeMatrixf(reinterpret_cast<float*>(arcball.Matrix().m));
 //     int depth;

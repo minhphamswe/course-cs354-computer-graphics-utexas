@@ -22,8 +22,8 @@ class TriangleMesh : public Shape {
   BBox bbox;
   std::vector<Point> vertices;
   std::vector<Vector> normals;
-  std::vector<Point*> triangles;
-  std::vector<Point*> quads;
+  std::vector<int> triangles;
+  std::vector<int> quads;
 
  public:
   const Transform *ObjectToWorld;
@@ -46,10 +46,10 @@ class TriangleMesh : public Shape {
   void ComputeNormal();
 
   /// Return the vertex at the index i
-  Point Vertex(int i);
+  Point Vertex(int i) const;
 
   /// Return the normal vector at the index i
-  Vector Normal(int i);
+  Vector Normal(int i) const;
 
   /// Return the number of vertices in the triangle mesh
   int NumVerts(int i);
