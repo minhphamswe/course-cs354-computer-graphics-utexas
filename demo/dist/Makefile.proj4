@@ -1,0 +1,11 @@
+# Self-destructing Makefile. This file will be gone by the time it's done
+
+.PHONY: all submit
+
+all:
+	tar -xvzf viewer-0.1.tar.gz
+	rm viewer-0.1.tar.gz
+	cp -r ./viewer-0.1/* ./ && rm -rf ./viewer-0.1 && ./configure && make
+
+submit:
+	turnin --submit edwardsj project4 *
