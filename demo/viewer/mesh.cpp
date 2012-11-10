@@ -13,14 +13,16 @@
 using namespace std;
 
 Mesh::Mesh() {
-  mesh = ishi::TriangleMesh();
   _cur_mtl = -1;
+  o2w = ishi::Transform();
+  w2o = ishi::Transform();
+  mesh.push_back(ishi::TriangleMesh(&o2w, &w2o));
 }
 
 // This will be called by the obj parser
 void Mesh::AddVertex(const ishi::Vector& v) {
   // TODO
-  mesh.AddVertex(v[0], v[1], v[2]);
+  mesh[0].AddVertex(v[0], v[1], v[2]);
 
   // updates the bounding box
 //   _bb(v);
@@ -30,7 +32,7 @@ void Mesh::AddVertex(const ishi::Vector& v) {
 void Mesh::AddTextureVertex(const ishi::Vector& v) {
   // TODO
 //   printf("Texture Vertex: (%f, %f, %f)\n", v[0], v[1], v[2]);
-  mesh.AddTextureVertex(v[0], v[1], v[2]);
+  mesh[0].AddTextureVertex(v[0], v[1], v[2]);
 }
 
 // p is the list of indices of vertices for this polygon.  For example,
@@ -42,8 +44,8 @@ void Mesh::AddTextureVertex(const ishi::Vector& v) {
 void Mesh::AddPolygon(const std::vector<int>& p, const std::vector<int>& pt) {
   // TODO
 //   printf("Texture Polygon Indices: (%d, %d, %d)\n", pt[0], pt[1], pt[2]);;
-  mesh.AddPolygon(p);
-  mesh.AddPolygonTexture(pt);
+  mesh[0].AddPolygon(p);
+  mesh[0].AddPolygonTexture(pt);
 
   // updates the poly2mat map
   _polygon2material.push_back(_cur_mtl);
@@ -52,10 +54,10 @@ void Mesh::AddPolygon(const std::vector<int>& p, const std::vector<int>& pt) {
 // Computes a normal for each vertex.
 void Mesh::compute_normals() {
   // TODO don't forget to normalize your normals!
-  mesh.ComputeNormal();
+  mesh[0].ComputeNormal();
 
   for (int i = 0; i < _materials.size(); i++) {
-    mesh.AddMaterial(ishi::Texture(_materials[i].ambient(),
+    mesh[0].AddMaterial(ishi::Texture(_materials[i].ambient(),
                                    _materials[i].diffuse(),
                                    _materials[i].specular(),
                                    _materials[i].specular_coeff()));
@@ -65,7 +67,7 @@ void Mesh::compute_normals() {
 //     printf("Specular is: %f %f %f\n", _materials[i].specular().x, _materials[i].specular().y, _materials[i].specular().z);
   }
 
-  mesh.LoadMaterialMapping(_polygon2material);
+  mesh[0].LoadMaterialMapping(_polygon2material);
 //   for (int i = 0; i < _polygon2material.size(); i++)
 //     printf("Polygon to material is: %d\n", _polygon2material[i]);
 }

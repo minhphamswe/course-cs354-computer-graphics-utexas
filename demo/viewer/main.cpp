@@ -83,7 +83,7 @@ void MouseMotion(int x, int y);
 void Keyboard(unsigned char key, int x, int y);
 
 void InitCamera() {
-  BBox bb = mesh.mesh.ObjectBound();
+  BBox bb = mesh.mesh[0].ObjectBound();
 
   // Recompute camera positions
   float diagExtent = Length(bb.pMax - bb.pMin) / 2;
@@ -171,7 +171,7 @@ void Display() {
   // remain normalized throughout transformations.
 
   // Render the mesh
-  mesh.mesh.accept(gl_renderer);
+  mesh.mesh[0].accept(gl_renderer);
 
   glFlush();
   glutSwapBuffers();

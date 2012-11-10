@@ -15,13 +15,13 @@ namespace ishi {
  */
 class Shape {
  public:
-  const Transform *ObjectToWorld;
-  const Transform *WorldToObject;
+  Transform *ObjectToWorld;
+  Transform *WorldToObject;
   int shapeID;                // ID of this shape. Used for vertex list
   static int nextShapeID;     // The next ID to be assigned
 
  public:
-  Shape(const Transform *o2w, const Transform *w2o);
+  Shape(Transform *o2w, Transform *w2o);
   virtual ~Shape();
 
   /// Return the bounding box of the shape in object space

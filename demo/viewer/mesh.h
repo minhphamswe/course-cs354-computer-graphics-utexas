@@ -79,10 +79,12 @@ class Mesh {
   void compute_normals();
 
  public:
-  ishi::TriangleMesh mesh;
+  std::vector<ishi::TriangleMesh> mesh;
 
  private:
   // TODO add necessary data structures here
+  ishi::Transform o2w;
+  ishi::Transform w2o;
 
   std::vector<Material> _materials;
   std::vector<int> _polygon2material;

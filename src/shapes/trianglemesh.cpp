@@ -3,16 +3,16 @@
 #include <core/point.h>
 #include <core/vector.h>
 #include <core/transform.h>
+#include <core/shape.h>
+#include <shapes/triangle.h>
+#include <shapes/quad.h>
 
 #include <vector>
 
 namespace ishi {
 
-TriangleMesh::TriangleMesh()
-    : o2w(), w2o(), bbox(), ObjectToWorld(&o2w), WorldToObject(&w2o),
-      Shape(ObjectToWorld, WorldToObject) {
-  materials = std::vector<Texture>();
-}
+TriangleMesh::TriangleMesh(Transform *o2w, Transform *w2o)
+    : Shape(o2w, w2o) {}
 
 TriangleMesh::~TriangleMesh() {}
 
@@ -32,8 +32,8 @@ void TriangleMesh::AddVertex(float px, float py, float pz) {
   // Update the Object-to-World transformation matrix
   Point center = (bbox.pMin + bbox.pMax)/2;
 //   printf("Address before: %x\n", &o2w);
-  o2w = Translate(Point() - center);
-  w2o = Inverse(o2w);
+  *ObjectToWorld = Translate(Point() - center);
+  *WorldToObject = Inverse(*ObjectToWorld);
 //   printf("Address after: %x\n", &o2w);
 }
 

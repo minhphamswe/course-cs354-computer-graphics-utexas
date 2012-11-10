@@ -7,7 +7,7 @@ namespace ishi {
 
 int Shape::nextShapeID = 1;
 
-Shape::Shape(const Transform* o2w, const Transform* w2o)
+Shape::Shape(Transform* o2w, Transform* w2o)
     : ObjectToWorld(o2w), WorldToObject(w2o), shapeID(nextShapeID++) { }
 
 Shape::~Shape() { }

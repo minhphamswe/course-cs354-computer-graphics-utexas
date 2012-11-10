@@ -16,8 +16,6 @@ namespace ishi {
 
 class TriangleMesh : public Shape {
  private:
-  Transform o2w;    // Object to world transformation
-  Transform w2o;    // World to object transformation
   BBox bbox;        // Object bounding box
 
   std::vector<Point> vertices;          // Vertex coordinates
@@ -33,15 +31,13 @@ class TriangleMesh : public Shape {
   std::vector<ishi::Texture> materials;      // Collection of materials
 
  public:
-  const Transform *ObjectToWorld;
-  const Transform *WorldToObject;
+//   Transform *ObjectToWorld;
+//   Transform *WorldToObject;
 
  public:
-  TriangleMesh();
+  TriangleMesh(Transform *o2w, Transform *w2o);
 
   virtual ~TriangleMesh();
-
-  int NumVerts();
 
   /// Add a new vertex with the given coordinates to the mesh
   void AddVertex(float px, float py, float pz);
@@ -59,7 +55,7 @@ class TriangleMesh : public Shape {
   Vector Normal(int i) const;
 
   /// Return the number of vertices in the triangle mesh
-  int NumVerts(int i);
+  int NumVerts();
 
   virtual BBox ObjectBound() const;
 

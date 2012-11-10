@@ -32,7 +32,7 @@ void GLRenderer::Render(const TriangleMesh& tm) const {
 
   // Go to the mesh
   glMultTransposeMatrixf(reinterpret_cast<float*>(
-    tm.o2w.Matrix().m));
+    tm.ObjectToWorld->Matrix().m));
 
   // Draw the triangles in the mesh
   glBegin(GL_TRIANGLES);
