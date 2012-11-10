@@ -23,6 +23,7 @@ Mesh mesh;
 
 GLRenderer gl_renderer = GLRenderer();  // The Renderer we are using
 
+Point light;
 Point eye;          // The position of the camera
 Point center;       // The center of the camera's view frustum
 Vector up;          // The upward orientation of the camera
@@ -98,7 +99,7 @@ void UpdateLighting() {
     light_position = arcball.Invert(eye);
     glLightfv(GL_LIGHT0, GL_POSITION, &light_position.x);
   } else {
-    glLightfv(GL_LIGHT0, GL_POSITION, &eye.x);
+//     glLightfv(GL_LIGHT0, GL_POSITION, &light.x);
   }
 }
 
@@ -107,13 +108,21 @@ void InitLighting() {
   glShadeModel(GL_SMOOTH);
   glEnable(GL_LIGHTING);
   glEnable(GL_LIGHT0);
+//   glEnable(GL_LIGHT1);
   glEnable(GL_NORMALIZE);
 
   // Set light configurations for the global light source
+//   light = Point(150, 120, 150);
+//   light = Point(eye.x, eye.y, eye.z);
+  light = Point(0, 0, 150);
   glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
   glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
   glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
-  glLightfv(GL_LIGHT0, GL_POSITION, &(eye.x));
+
+//   glLightfv(GL_LIGHT1, GL_AMBIENT, light_ambient);
+//   glLightfv(GL_LIGHT1, GL_DIFFUSE, light_diffuse);
+//   glLightfv(GL_LIGHT1, GL_SPECULAR, light_specular);
+//   glLightfv(GL_LIGHT1, GL_POSITION, &light.x);
 }
 
 void SetProjection() {
@@ -148,17 +157,17 @@ void Init() {
   glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT);
 
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-  glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+//   glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+  glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 
   glEnable(GL_RESCALE_NORMAL);
 
   // resize the window
   window_aspect = window_width/static_cast<float>(window_height);
 
-  SetProjection();
-
   // Compute the initial position of the camera
   up = Vector(0, 1, 0);
+  SetProjection();
   InitCamera();
 
   // Set light positions
@@ -247,6 +256,11 @@ void Keyboard(unsigned char key, int x, int y) {
     exit(0);
   else if (key == 'l')
     scene_lighting = !scene_lighting;
+  else if (key == '+')
+    fovY += 10.0;
+  else if (key == '-')
+    fovY -= 10.0;
+  glutPostRedisplay();
 }
 
 int main(int argc, char *argv[]) {
