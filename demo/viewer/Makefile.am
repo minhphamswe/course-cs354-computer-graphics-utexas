@@ -46,13 +46,19 @@ viewer_SOURCES = $(srcdir)/main.cpp \
                  $(srcdir)/src/core/renderer.h \
                  $(srcdir)/src/shapes/trianglemesh.cpp \
                  $(srcdir)/src/shapes/trianglemesh.h \
+                 $(srcdir)/src/shapes/triangle.cpp \
+                 $(srcdir)/src/shapes/triangle.h \
+                 $(srcdir)/src/shapes/quad.cpp \
+                 $(srcdir)/src/shapes/quad.h \
                  $(srcdir)/src/rendering/GLRenderer.cpp \
                  $(srcdir)/src/rendering/GLRenderer.h
 
 check_exclude = $(srcdir)/vec.h $(srcdir)/bb.h
 
 check: all
+	./viewer $(viewer_datadir)/elk.obj
 	./viewer $(viewer_datadir)/teapot.obj
+	./viewer $(viewer_datadir)/sponza.obj
 	$(checkdir)/check-code $(filter-out $(check_exclude), $(viewer_SOURCES))
 
 valgrind_gensupp = --gen-suppressions=yes --demangle=no

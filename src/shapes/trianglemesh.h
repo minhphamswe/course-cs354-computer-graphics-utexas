@@ -10,7 +10,11 @@
 #include <core/renderer.h>
 #include <rendering/GLRenderer.h>
 
+#include <shapes/triangle.h>
+#include <shapes/quad.h>
+
 #include <vector>
+#include <list>
 
 namespace ishi {
 
@@ -20,19 +24,16 @@ class TriangleMesh : public Shape {
 
   std::vector<Point> vertices;          // Vertex coordinates
   std::vector<Vector> normals;          // Vertex normals
-  std::vector<int> triangles;           // Vertex indices for triangles
-  std::vector<int> quads;               // Vertex indices for quads
+  std::vector<Shape*> polygons;         // Collection of polygons
+  std::list<Triangle> triangles;
+  std::list<Quad> quads;
 
   std::vector<Point> textures;          // Texture coordinates
   std::vector<int> triangle_textures;   // Texture indices for triangles
   std::vector<int> quad_textures;       // Texture indices for quads
 
   std::vector<int> material_mapping;    // Mapping from polygon to material
-  std::vector<ishi::Texture> materials;      // Collection of materials
-
- public:
-//   Transform *ObjectToWorld;
-//   Transform *WorldToObject;
+  std::vector<Texture> materials;       // Collection of materials
 
  public:
   TriangleMesh(Transform *o2w, Transform *w2o);
@@ -59,7 +60,7 @@ class TriangleMesh : public Shape {
 
   virtual BBox ObjectBound() const;
 
-  virtual void accept(const Renderer& r);
+  virtual void Render(const Renderer& r);
 
   /// Add a new texture coordinate to the mesh
   void AddTextureVertex(float tx, float ty, float tz);

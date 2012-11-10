@@ -4,6 +4,7 @@
 #include <core/vector.h>
 #include <core/transform.h>
 #include <core/shape.h>
+
 #include <shapes/triangle.h>
 #include <shapes/quad.h>
 
@@ -12,7 +13,9 @@
 namespace ishi {
 
 TriangleMesh::TriangleMesh(Transform *o2w, Transform *w2o)
-    : Shape(o2w, w2o) {}
+    : Shape(o2w, w2o) {
+  polygons.clear();
+}
 
 TriangleMesh::~TriangleMesh() {}
 
@@ -31,10 +34,8 @@ void TriangleMesh::AddVertex(float px, float py, float pz) {
 
   // Update the Object-to-World transformation matrix
   Point center = (bbox.pMin + bbox.pMax)/2;
-//   printf("Address before: %x\n", &o2w);
   *ObjectToWorld = Translate(Point() - center);
   *WorldToObject = Inverse(*ObjectToWorld);
-//   printf("Address after: %x\n", &o2w);
 }
 
 void TriangleMesh::AddTextureVertex(float tx, float ty, float tz) {
@@ -53,9 +54,11 @@ void TriangleMesh::AddPolygon(const std::vector<int> vertIndices) {
     v2 = vertIndices[1];
     v3 = vertIndices[2];
 
+    Triangle t = Triangle(ObjectToWorld, WorldToObject, this, v1, v2, v3,
+                          polygons.size());
+
     // Compute the normalized normal of the triangle
-    Vector n = Normalize(Cross(Vertex(v2) - Vertex(v1),
-                               Vertex(v3) - Vertex(v2)));
+    Vector n = t.Normal();
 
     // Add the normal to the normal list corresponding to each point
     normals[v1] += n;
@@ -63,9 +66,8 @@ void TriangleMesh::AddPolygon(const std::vector<int> vertIndices) {
     normals[v3] += n;
 
     // Add vertices to the triangle vertex list
-    triangles.push_back(v1);
-    triangles.push_back(v2);
-    triangles.push_back(v3);
+    triangles.push_back(t);
+    polygons.push_back(&(triangles.back()));
 
   } else if (vertIndices.size() == 4) {
     v1 = vertIndices[0];
@@ -73,9 +75,11 @@ void TriangleMesh::AddPolygon(const std::vector<int> vertIndices) {
     v3 = vertIndices[2];
     v4 = vertIndices[3];
 
+    Quad q = Quad(ObjectToWorld, WorldToObject, this, v1, v2, v3, v4,
+                  polygons.size());
+
     // Compute the normalized normal of the triangle
-    Vector n = Normalize(Cross(Vertex(v2) - Vertex(v1),
-                               Vertex(v3) - Vertex(v2)));
+    Vector n = q.Normal();
 
     // Add the normal to the normal list corresponding to each point
     normals[v1] += n;
@@ -84,10 +88,8 @@ void TriangleMesh::AddPolygon(const std::vector<int> vertIndices) {
     normals[v4] += n;
 
     // Add vertices to the triangle vertex list
-    quads.push_back(v1);
-    quads.push_back(v2);
-    quads.push_back(v3);
-    quads.push_back(v4);
+    quads.push_back(q);
+    polygons.push_back(&(quads.back()));
   }
 }
 
@@ -120,28 +122,21 @@ void TriangleMesh::AddPolygonTexture(const std::vector<int> textIndices) {
   }
 }
 
-
 void TriangleMesh::ComputeNormal() {
-//   printf("Computing Normal ...");
   // We assume at this point all the normals have been added to the normal
   // list, so all we need to do is normalize all the normals
   for (uint32_t i = 0; i < normals.size(); i++) {
     normals[i] = Normalize(normals[i]);
   }
-
-  // TODO: remove debug statements
-//   Point *p;
-//   for (int i = 0; i < triangles.size(); i++) {
-//     p = triangles[i];
-//     printf("Vertex %d: (%f %f %f)\n", i, p->x, p->y, p->z);
-//   }
 }
 
 Point TriangleMesh::Vertex(int i) const {
+  Assert(i >= 0 && i < vertices.size());
   return vertices[i];
 }
 
 Vector TriangleMesh::Normal(int i) const {
+  Assert(i >= 0 && i < normals.size());
   return normals[i];
 }
 
@@ -153,7 +148,7 @@ BBox TriangleMesh::ObjectBound() const {
   return bbox;
 }
 
-void TriangleMesh::accept(const Renderer& r) {
+void TriangleMesh::Render(const Renderer& r) {
   r.Render(*this);
 }
 
@@ -165,6 +160,5 @@ void TriangleMesh::LoadMaterialMapping(const std::vector<int> mapping) {
   for (uint32_t i = 0; i < mapping.size(); i++)
     material_mapping.push_back(mapping[i]);
 }
-
 
 }  // namespace ishi

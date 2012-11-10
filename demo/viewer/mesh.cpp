@@ -58,16 +58,9 @@ void Mesh::compute_normals() {
 
   for (int i = 0; i < _materials.size(); i++) {
     mesh[0].AddMaterial(ishi::Texture(_materials[i].ambient(),
-                                   _materials[i].diffuse(),
-                                   _materials[i].specular(),
-                                   _materials[i].specular_coeff()));
-//     printf("Material is: %s\n", _materials[i].name().c_str());
-//     printf("Ambient is: %f %f %f\n", _materials[i].ambient().x, _materials[i].ambient().y, _materials[i].ambient().z);
-//     printf("Diffusion is: %f %f %f\n", _materials[i].diffuse().x, _materials[i].diffuse().y, _materials[i].diffuse().z);
-//     printf("Specular is: %f %f %f\n", _materials[i].specular().x, _materials[i].specular().y, _materials[i].specular().z);
+                                      _materials[i].diffuse(),
+                                      _materials[i].specular(),
+                                      _materials[i].specular_coeff()));
   }
-
   mesh[0].LoadMaterialMapping(_polygon2material);
-//   for (int i = 0; i < _polygon2material.size(); i++)
-//     printf("Polygon to material is: %d\n", _polygon2material[i]);
 }

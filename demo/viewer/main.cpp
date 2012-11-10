@@ -55,15 +55,8 @@ bool scene_lighting;
 // Lighting configurations
 Point light_position = Point(120.f, 150.f, 120.f);
 GLfloat light_ambient[] = {0.3f, 0.3f, 0.3f};
-GLfloat light_diffuse[] = {0.7f, 0.7f, 0.7f};
+GLfloat light_diffuse[] = {0.6f, 0.6f, 0.6f};
 GLfloat light_specular[] = {1.0f, 1.0f, 1.0f};
-
-// Material configurations
-GLfloat mat_ambient[] = {0.5f, 0.5f, 0.5f};
-GLfloat mat_diffuse[] = {0.5f, 0.5f, 0.5f};
-GLfloat mat_specular[] = {1.0f, 1.0f, 1.0f};
-GLfloat mat_shininess[] = {120.f};
-// GLfloat mat_shininess[] = {50.f};
 
 // Forward declarations of functions
 void Init();
@@ -101,56 +94,29 @@ void UpdateCamera() {
 
 /// Called by Display() to update lighting
 void UpdateLighting() {
-//   printf("UpdateLighting called\n");
-
   if (!scene_lighting) {
-    printf("This.\n");
     light_position = arcball.Invert(eye);
-//     glEnable(GL_LIGHT0);
-//     glDisable(GL_LIGHT1);
-    glLightfv(GL_LIGHT0, GL_POSITION, &(light_position.x));
+    glLightfv(GL_LIGHT0, GL_POSITION, &light_position.x);
   } else {
-    printf("That.\n");
-//     light_position = eye;
-//     glEnable(GL_LIGHT1);
-//     glDisable(GL_LIGHT0);
-    glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
-    glLightfv(GL_LIGHT0, GL_POSITION, &(eye.x));
+    glLightfv(GL_LIGHT0, GL_POSITION, &eye.x);
   }
 }
 
 /// Called by Init() to initialize lighting
 void InitLighting() {
-//   printf("InitLighting called\n");
-//   glShadeModel(GL_FLAT);
-
   glShadeModel(GL_SMOOTH);
   glEnable(GL_LIGHTING);
   glEnable(GL_LIGHT0);
-//   glEnable(GL_LIGHT1);
-  glEnable(GL_COLOR_MATERIAL);
   glEnable(GL_NORMALIZE);
 
   // Set light configurations for the global light source
   glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
   glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
   glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
-  glLightfv(GL_LIGHT0, GL_POSITION, &(light_position.x));
-
-//   glLightfv(GL_LIGHT1, GL_AMBIENT, light_ambient);
-//   glLightfv(GL_LIGHT1, GL_DIFFUSE, light_diffuse);
-//   glLightfv(GL_LIGHT1, GL_SPECULAR, light_specular);
-//   glLightfv(GL_LIGHT1, GL_POSITION, &(eye.x));
-
-  // Set material lighting configurations
-  glMaterialfv(GL_FRONT, GL_AMBIENT, mat_ambient);
-  glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
-  glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
-  glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
+  glLightfv(GL_LIGHT0, GL_POSITION, &(eye.x));
 }
 
 void SetProjection() {
-//   printf("SetProjection called\n");
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
   gluPerspective(fovY, window_aspect, 1, 1500);
@@ -166,12 +132,8 @@ void Display() {
 
   UpdateLighting();
 
-  // TODO set up lighting, material properties and render mesh.
-  // Be sure to call glEnable(GL_RESCALE_NORMAL) so your normals
-  // remain normalized throughout transformations.
-
   // Render the mesh
-  mesh.mesh[0].accept(gl_renderer);
+  mesh.mesh[0].Render(gl_renderer);
 
   glFlush();
   glutSwapBuffers();
@@ -193,7 +155,6 @@ void Init() {
   // resize the window
   window_aspect = window_width/static_cast<float>(window_height);
 
-//   SetLighting();
   SetProjection();
 
   // Compute the initial position of the camera
@@ -224,17 +185,13 @@ void MouseButton(int button, int state, int x, int y) {
   // TODO implement arc ball and zoom
 
   if (state == GLUT_DOWN) {   // On button pressed:
-    printf("1\n");
     if (button == 3) {                          /* mouse scroll up */
-      printf("2\n");
       eye = center + ((eye - center) * 0.95);
 
     } else if (button == 4) {                   /* mouse scroll down */
-      printf("3\n");
       eye = center + ((eye - center) * 1.05);
 
     } else if (button == GLUT_LEFT_BUTTON) {    /* left mouse button */
-      printf("4\n");
       // Save button pressed and contact vector
       prevButton = GLUT_LEFT_BUTTON;
 
@@ -247,8 +204,8 @@ void MouseButton(int button, int state, int x, int y) {
       prevContact = ArcballContact(x, y);
     }
   } else {    // On button released:
-    if (button == GLUT_LEFT_BUTTON) {           /* left mouse button */
-    }
+//     if (button == GLUT_RIGHT_BUTTON) {           /* left mouse button */
+//     }
     prevButton = -1;
   }
   glutPostRedisplay();

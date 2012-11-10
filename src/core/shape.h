@@ -33,7 +33,7 @@ class Shape {
   /// this method if it can compute a tighter bounding box
   virtual BBox WorldBound() const;
 
-  virtual void accept(const Renderer &r) = 0;
+  virtual void Render(const Renderer &r) = 0;
 };
 
 }  // namespace ishi

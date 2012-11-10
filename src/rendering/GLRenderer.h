@@ -7,6 +7,8 @@ namespace ishi {
 
 class Shape;
 class TriangleMesh;
+class Triangle;
+class Quad;
 
 class GLRenderer : public Renderer {
  public:
@@ -15,6 +17,8 @@ class GLRenderer : public Renderer {
 
   virtual void Render(const Shape& s) const;
   virtual void Render(const TriangleMesh &tm) const;
+  virtual void Render(const Triangle& t) const;
+  virtual void Render(const Quad& q) const;
 };
 
 }  // namespace ishi
