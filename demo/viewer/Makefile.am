@@ -55,7 +55,7 @@ viewer_SOURCES = $(srcdir)/main.cpp \
 
 check_exclude = $(srcdir)/vec.h $(srcdir)/bb.h
 
-check: all
+self-check: all
 	./viewer $(viewer_datadir)/elk.obj
 	./viewer $(viewer_datadir)/teapot.obj
 	./viewer $(viewer_datadir)/sponza.obj

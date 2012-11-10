@@ -202,6 +202,10 @@ void MouseButton(int button, int state, int x, int y) {
       orientation = Transform(Transpose(Matrix4x4(top_matrix)));
 
       prevContact = ArcballContact(x, y);
+
+    } else if (button == GLUT_RIGHT_BUTTON) {
+      prevY = y;
+      prevButton = GLUT_RIGHT_BUTTON;
     }
   } else {    // On button released:
 //     if (button == GLUT_RIGHT_BUTTON) {           /* left mouse button */
@@ -226,6 +230,13 @@ void MouseMotion(int x, int y) {
     // Load transformation matrix into modelview matrix
     glMatrixMode(GL_MODELVIEW);
     glLoadTransposeMatrixf(reinterpret_cast<float*>(arcball.Matrix().m));
+
+  } else if (prevButton == GLUT_RIGHT_BUTTON) {
+    float zoomFactor = (y - prevY);
+    zoomFactor /= static_cast<float>(window_height);
+    zoomFactor += 1;
+    eye = center + ((eye - center) * zoomFactor);
+    prevY = y;
   }
   glutPostRedisplay();
 }

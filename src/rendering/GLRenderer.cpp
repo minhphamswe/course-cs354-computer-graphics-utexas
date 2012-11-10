@@ -10,7 +10,6 @@
 #include <shapes/trianglemesh.h>
 #include <shapes/triangle.h>
 #include <shapes/quad.h>
-#include <../demo/mocap/vec.h>
 
 #include <GL/gl.h>
 #include <GL/glut.h>
