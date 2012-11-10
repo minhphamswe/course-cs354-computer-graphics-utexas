@@ -67,3 +67,8 @@ memcheck_opts = --leak-check=full --track-origins=yes
 
 verify: all
 	valgrind $(valgrind_gensupp)--tool=memcheck $(memcheck_supp) $(memcheck_opts) ./viewer $(viewer_datadir)/elk.obj
+
+clean:
+	$(src_dir)/depcomp
+	$(src_dir)/install-sh
+	$(src_dir)/missing

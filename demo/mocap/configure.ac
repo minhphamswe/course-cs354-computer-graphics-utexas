@@ -1,7 +1,7 @@
 #                                               -*- Autoconf -*-
 # Process this file with autoconf to produce a configure script.
 
-AC_PREREQ([2.68])
+AC_PREREQ([2.65])
 AC_INIT([mocap], [0.1], [minh.pham@utexas.edu])
 AM_INIT_AUTOMAKE
 AC_CONFIG_SRCDIR([bvh.l])

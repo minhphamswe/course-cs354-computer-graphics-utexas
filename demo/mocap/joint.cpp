@@ -112,6 +112,7 @@ void Segment::DistributeFrame(float** data) {
 }
 
 void Segment::Render() {
+  std::cout << "Rendering" << std::endl;
   // Render this node
   Vector dir = Inverse(w2o)(endpoint-basepoint);
   float scale = 1.25 * Length(dir);
