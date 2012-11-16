@@ -1,0 +1,8 @@
+# Build folders
+bin.debug64
+bin.release64
+objs.debug64
+objs.release64
+
+# dependency files
+*.d
