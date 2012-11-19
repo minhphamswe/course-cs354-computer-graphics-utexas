@@ -43,11 +43,11 @@ void main()
   float dzdv = minor_radius * cos_v;
 
   // Compute object to surface transformation
-  vec3 T = vec3(dxdu, dydu, dzdu);      // surface tangent vector
-  vec3 T_ = vec3(dxdv, dydv, dzdv);     // another surface tangent vector
-  vec3 N = cross(T, T_);                // surface normal vector
-  vec3 B = cross(T, N);                 // surface binormal vector
-  mat3 M = mat3(T, B, N);               // object to surface transformation
+  vec3 Tu = vec3(dxdu, dydu, dzdu);      // surface tangent vector
+  vec3 Tv = vec3(dxdv, dydv, dzdv);     // another surface tangent vector
+  vec3 N = cross(Tu, Tv);                // surface normal vector
+  vec3 B = cross(Tu, N);                 // surface binormal vector
+  mat3 M = mat3(Tu, B, N);               // object to surface transformation
 
   // Set vertex positions
   gl_Position = gl_ModelViewProjectionMatrix * vec4(x, y, z, 1);
@@ -60,8 +60,8 @@ void main()
 
   eyeDirection = vec3(0);  // XXX fix me
   halfAngle = vec3(0);  // XXX fix me
-  c0 = vec3(0);  // XXX fix me
-  c1 = vec3(0);  // XXX fix me
-  c2 = vec3(0);  // XXX fix me
+  c0 = Tu;
+  c1 = B;
+  c2 = N;
 }
 

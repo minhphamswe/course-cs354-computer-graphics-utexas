@@ -19,5 +19,16 @@ varying vec3 c0, c1, c2;
 
 void main()
 {
-  gl_FragColor = vec4(1,0,0,1);  // XXX fix me
+  vec3 Tu = c0;             // first surface tangent vector
+  vec3 N = c2;              // surface normal vector
+  vec3 Tv = cross(N, Tu);   // second surface tangent vector
+
+  // Extract perturbed normal vector
+  vec3 n = vec3(texture2D(normalMap, normalMapTexCoord));
+
+  // Expand perturbed normal vector to [-1, 1] from [0, 1]
+  n = vec3(2.0) * n - vec3(1.0, 1.0, 1.0);
+
+  vec3 l = normalize(lightDirection);
+  gl_FragColor = LMd * max(dot(n, l), 0);
 }
