@@ -12,6 +12,9 @@
 //
 ///////////////////////////////////////////////////////////////////////////////
 
+#ifndef RAY_GETOPT_H_
+#define RAY_GETOPT_H_
+
 //
 // For Unix, we do have the standard function called getopt. However, we need to
 // make up one for NT. So, I just stick to this one. If you prefer, you can call
@@ -167,4 +170,5 @@ int getopt(int argc, char **argv, char *optstring)
 	}
 	else return i;
 }
-			
+
+#endif

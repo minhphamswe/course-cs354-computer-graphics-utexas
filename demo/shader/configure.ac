@@ -37,15 +37,22 @@ AC_CHECK_LIB([opengl32], [main])
 AC_CHECK_LIB([pthread], [main])
 
 # Checks for header files.
-AC_CHECK_HEADERS([stdlib.h string.h])
+AC_PATH_X
+AC_CHECK_HEADERS([inttypes.h memory.h stddef.h stdint.h stdlib.h string.h])
 
 # Checks for typedefs, structures, and compiler characteristics.
-AC_HEADER_STDBOOL
+AC_CHECK_HEADER_STDBOOL
+AC_C_INLINE
+AC_TYPE_INT32_T
+AC_TYPE_INT64_T
 AC_TYPE_SIZE_T
+AC_TYPE_UINT64_T
+AC_CHECK_TYPES([ptrdiff_t])
 
 # Checks for library functions.
 AC_FUNC_MALLOC
-AC_CHECK_FUNCS([sqrt])
+AC_FUNC_REALLOC
+AC_CHECK_FUNCS([floor memset modf pow sqrt strtol])
 
 AC_CONFIG_FILES([Makefile])
 AC_OUTPUT

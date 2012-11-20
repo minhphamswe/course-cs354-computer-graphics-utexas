@@ -1,0 +1,910 @@
+In file included from ./src/ui/GraphicalUI.h:19:0,
+                 from ./src/main.cpp:2:
+./src/ui/TraceUI.h:11:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/ui/../RayTracer.h:6:0,
+                 from ./src/ui/TraceGLWindow.h:16,
+                 from ./src/ui/GraphicalUI.h:20,
+                 from ./src/main.cpp:2:
+./src/ui/../scene/ray.h:11:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/ui/TraceUI.h:15:0,
+                 from ./src/ui/GraphicalUI.h:19,
+                 from ./src/main.cpp:2:
+./src/ui/../vecmath/mat.h: In function ‘std::ostream& operator<<(std::ostream&, const Mat3<T>&)’:
+./src/ui/../vecmath/mat.h:442:1: warning: no return statement in function returning non-void [-Wreturn-type]
+./src/ui/../vecmath/mat.h: In function ‘std::istream& operator>>(std::istream&, Mat3<T>&)’:
+./src/ui/../vecmath/mat.h:449:1: warning: no return statement in function returning non-void [-Wreturn-type]
+./src/ui/../vecmath/mat.h: In function ‘std::istream& operator>>(std::istream&, Mat4<T>&)’:
+./src/ui/../vecmath/mat.h:586:1: warning: no return statement in function returning non-void [-Wreturn-type]
+In file included from ./src/ui/GraphicalUI.h:19:0,
+                 from ./src/main.cpp:2:
+./src/ui/TraceUI.h: In constructor ‘TraceUI::TraceUI()’:
+./src/ui/TraceUI.h:48:8: warning: ‘TraceUI::m_nDepth’ will be initialized after [-Wreorder]
+./src/ui/TraceUI.h:47:8: warning:   ‘int TraceUI::m_nSize’ [-Wreorder]
+./src/ui/TraceUI.h:25:2: warning:   when initialized here [-Wreorder]
+./src/ui/TraceUI.h:53:8: warning: ‘TraceUI::m_displayDebuggingInfo’ will be initialized after [-Wreorder]
+./src/ui/TraceUI.h:45:13: warning:   ‘RayTracer* TraceUI::raytracer’ [-Wreorder]
+./src/ui/TraceUI.h:25:2: warning:   when initialized here [-Wreorder]
+In file included from ./src/ui/../RayTracer.h:6:0,
+                 from ./src/ui/TraceGLWindow.h:16,
+                 from ./src/ui/GraphicalUI.h:20,
+                 from ./src/main.cpp:2:
+./src/ui/../scene/ray.h: In destructor ‘isect::~isect()’:
+./src/ui/../scene/ray.h:66:16: warning: deleting object of polymorphic class type ‘Material’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+./src/ui/../scene/ray.h: In member function ‘isect& isect::operator=(const isect&)’:
+./src/ui/../scene/ray.h:114:24: warning: deleting object of polymorphic class type ‘Material’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+./src/RayTracer.cpp:3:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/RayTracer.h:6:0,
+                 from ./src/RayTracer.cpp:5:
+./src/scene/ray.h:11:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/scene/light.h:10:0,
+                 from ./src/RayTracer.cpp:6:
+./src/scene/scene.h:7:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/parser/Tokenizer.h:6:0,
+                 from ./src/RayTracer.cpp:10:
+./src/parser/../fileio/buffer.h:2:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/RayTracer.cpp:10:0:
+./src/parser/Tokenizer.h:12:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/RayTracer.cpp:11:0:
+./src/parser/Parser.h:1:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/parser/Parser.h:13:0,
+                 from ./src/RayTracer.cpp:11:
+./src/parser/../scene/scene.h:7:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/parser/../SceneObjects/Box.h:4:0,
+                 from ./src/parser/Parser.h:15,
+                 from ./src/RayTracer.cpp:11:
+./src/parser/../SceneObjects/../scene/scene.h:7:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/parser/../SceneObjects/Cone.h:4:0,
+                 from ./src/parser/Parser.h:16,
+                 from ./src/RayTracer.cpp:11:
+./src/parser/../SceneObjects/../scene/scene.h:7:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/parser/../SceneObjects/Cylinder.h:4:0,
+                 from ./src/parser/Parser.h:17,
+                 from ./src/RayTracer.cpp:11:
+./src/parser/../SceneObjects/../scene/scene.h:7:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/parser/../SceneObjects/Sphere.h:4:0,
+                 from ./src/parser/Parser.h:18,
+                 from ./src/RayTracer.cpp:11:
+./src/parser/../SceneObjects/../scene/scene.h:7:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/parser/../SceneObjects/Square.h:4:0,
+                 from ./src/parser/Parser.h:19,
+                 from ./src/RayTracer.cpp:11:
+./src/parser/../SceneObjects/../scene/scene.h:7:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/parser/../SceneObjects/trimesh.h:9:0,
+                 from ./src/parser/Parser.h:20,
+                 from ./src/RayTracer.cpp:11:
+./src/parser/../SceneObjects/../scene/scene.h:7:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/RayTracer.cpp:13:0:
+./src/ui/TraceUI.h:11:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/scene/ray.h:14:0,
+                 from ./src/RayTracer.h:6,
+                 from ./src/RayTracer.cpp:5:
+./src/scene/../vecmath/mat.h: In function ‘std::ostream& operator<<(std::ostream&, const Mat3<T>&)’:
+./src/scene/../vecmath/mat.h:442:1: warning: no return statement in function returning non-void [-Wreturn-type]
+./src/scene/../vecmath/mat.h: In function ‘std::istream& operator>>(std::istream&, Mat3<T>&)’:
+./src/scene/../vecmath/mat.h:449:1: warning: no return statement in function returning non-void [-Wreturn-type]
+./src/scene/../vecmath/mat.h: In function ‘std::istream& operator>>(std::istream&, Mat4<T>&)’:
+./src/scene/../vecmath/mat.h:586:1: warning: no return statement in function returning non-void [-Wreturn-type]
+In file included from ./src/RayTracer.h:6:0,
+                 from ./src/RayTracer.cpp:5:
+./src/scene/ray.h: In destructor ‘isect::~isect()’:
+./src/scene/ray.h:66:16: warning: deleting object of polymorphic class type ‘Material’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+./src/scene/ray.h: In member function ‘isect& isect::operator=(const isect&)’:
+./src/scene/ray.h:114:24: warning: deleting object of polymorphic class type ‘Material’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+In file included from ./src/scene/scene.h:22:0,
+                 from ./src/scene/light.h:10,
+                 from ./src/RayTracer.cpp:6:
+./src/scene/bbox.h: In constructor ‘BoundingBox::BoundingBox(Vec3d, Vec3d)’:
+./src/scene/bbox.h:8:8: warning: ‘BoundingBox::bmax’ will be initialized after [-Wreorder]
+./src/scene/bbox.h:5:7: warning:   ‘bool BoundingBox::bEmpty’ [-Wreorder]
+./src/scene/bbox.h:15:2: warning:   when initialized here [-Wreorder]
+In file included from ./src/scene/light.h:10:0,
+                 from ./src/RayTracer.cpp:6:
+./src/scene/scene.h: In destructor ‘virtual MaterialSceneObject::~MaterialSceneObject()’:
+./src/scene/scene.h:206:42: warning: deleting object of polymorphic class type ‘Material’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+./src/scene/scene.h: In member function ‘virtual void MaterialSceneObject::setMaterial(Material*)’:
+./src/scene/scene.h:209:51: warning: deleting object of polymorphic class type ‘Material’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+In file included from ./src/RayTracer.cpp:13:0:
+./src/ui/TraceUI.h: In constructor ‘TraceUI::TraceUI()’:
+./src/ui/TraceUI.h:48:8: warning: ‘TraceUI::m_nDepth’ will be initialized after [-Wreorder]
+./src/ui/TraceUI.h:47:8: warning:   ‘int TraceUI::m_nSize’ [-Wreorder]
+./src/ui/TraceUI.h:25:2: warning:   when initialized here [-Wreorder]
+./src/ui/TraceUI.h:53:8: warning: ‘TraceUI::m_displayDebuggingInfo’ will be initialized after [-Wreorder]
+./src/ui/TraceUI.h:45:13: warning:   ‘RayTracer* TraceUI::raytracer’ [-Wreorder]
+./src/ui/TraceUI.h:25:2: warning:   when initialized here [-Wreorder]
+In file included from ./src/RayTracer.cpp:5:0:
+./src/RayTracer.h: In constructor ‘RayTracer::RayTracer()’:
+./src/RayTracer.h:40:9: warning: ‘RayTracer::scene’ will be initialized after [-Wreorder]
+./src/RayTracer.h:37:17: warning:   ‘unsigned char* RayTracer::buffer’ [-Wreorder]
+./src/RayTracer.cpp:78:1: warning:   when initialized here [-Wreorder]
+In file included from ./src/ui/CommandLineUI.h:10:0,
+                 from ./src/ui/CommandLineUI.cpp:7:
+./src/ui/TraceUI.h:11:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/ui/../RayTracer.h:6:0,
+                 from ./src/ui/CommandLineUI.cpp:10:
+./src/ui/../scene/ray.h:11:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/ui/TraceUI.h:15:0,
+                 from ./src/ui/CommandLineUI.h:10,
+                 from ./src/ui/CommandLineUI.cpp:7:
+./src/ui/../vecmath/mat.h: In function ‘std::ostream& operator<<(std::ostream&, const Mat3<T>&)’:
+./src/ui/../vecmath/mat.h:442:1: warning: no return statement in function returning non-void [-Wreturn-type]
+./src/ui/../vecmath/mat.h: In function ‘std::istream& operator>>(std::istream&, Mat3<T>&)’:
+./src/ui/../vecmath/mat.h:449:1: warning: no return statement in function returning non-void [-Wreturn-type]
+./src/ui/../vecmath/mat.h: In function ‘std::istream& operator>>(std::istream&, Mat4<T>&)’:
+./src/ui/../vecmath/mat.h:586:1: warning: no return statement in function returning non-void [-Wreturn-type]
+In file included from ./src/ui/CommandLineUI.h:10:0,
+                 from ./src/ui/CommandLineUI.cpp:7:
+./src/ui/TraceUI.h: In constructor ‘TraceUI::TraceUI()’:
+./src/ui/TraceUI.h:48:8: warning: ‘TraceUI::m_nDepth’ will be initialized after [-Wreorder]
+./src/ui/TraceUI.h:47:8: warning:   ‘int TraceUI::m_nSize’ [-Wreorder]
+./src/ui/TraceUI.h:25:2: warning:   when initialized here [-Wreorder]
+./src/ui/TraceUI.h:53:8: warning: ‘TraceUI::m_displayDebuggingInfo’ will be initialized after [-Wreorder]
+./src/ui/TraceUI.h:45:13: warning:   ‘RayTracer* TraceUI::raytracer’ [-Wreorder]
+./src/ui/TraceUI.h:25:2: warning:   when initialized here [-Wreorder]
+In file included from ./src/ui/../RayTracer.h:6:0,
+                 from ./src/ui/CommandLineUI.cpp:10:
+./src/ui/../scene/ray.h: In destructor ‘isect::~isect()’:
+./src/ui/../scene/ray.h:66:16: warning: deleting object of polymorphic class type ‘Material’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+./src/ui/../scene/ray.h: In member function ‘isect& isect::operator=(const isect&)’:
+./src/ui/../scene/ray.h:114:24: warning: deleting object of polymorphic class type ‘Material’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+./src/ui/CommandLineUI.cpp: In constructor ‘CommandLineUI::CommandLineUI(int, char**)’:
+./src/ui/CommandLineUI.cpp:36:44: warning: deprecated conversion from string constant to ‘char*’ [-Wwrite-strings]
+In file included from ./src/ui/GraphicalUI.h:19:0,
+                 from ./src/ui/GraphicalUI.cpp:16:
+./src/ui/TraceUI.h:11:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/ui/../RayTracer.h:6:0,
+                 from ./src/ui/TraceGLWindow.h:16,
+                 from ./src/ui/GraphicalUI.h:20,
+                 from ./src/ui/GraphicalUI.cpp:16:
+./src/ui/../scene/ray.h:11:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/ui/TraceUI.h:15:0,
+                 from ./src/ui/GraphicalUI.h:19,
+                 from ./src/ui/GraphicalUI.cpp:16:
+./src/ui/../vecmath/mat.h: In function ‘std::ostream& operator<<(std::ostream&, const Mat3<T>&)’:
+./src/ui/../vecmath/mat.h:442:1: warning: no return statement in function returning non-void [-Wreturn-type]
+./src/ui/../vecmath/mat.h: In function ‘std::istream& operator>>(std::istream&, Mat3<T>&)’:
+./src/ui/../vecmath/mat.h:449:1: warning: no return statement in function returning non-void [-Wreturn-type]
+./src/ui/../vecmath/mat.h: In function ‘std::istream& operator>>(std::istream&, Mat4<T>&)’:
+./src/ui/../vecmath/mat.h:586:1: warning: no return statement in function returning non-void [-Wreturn-type]
+In file included from ./src/ui/GraphicalUI.h:19:0,
+                 from ./src/ui/GraphicalUI.cpp:16:
+./src/ui/TraceUI.h: In constructor ‘TraceUI::TraceUI()’:
+./src/ui/TraceUI.h:48:8: warning: ‘TraceUI::m_nDepth’ will be initialized after [-Wreorder]
+./src/ui/TraceUI.h:47:8: warning:   ‘int TraceUI::m_nSize’ [-Wreorder]
+./src/ui/TraceUI.h:25:2: warning:   when initialized here [-Wreorder]
+./src/ui/TraceUI.h:53:8: warning: ‘TraceUI::m_displayDebuggingInfo’ will be initialized after [-Wreorder]
+./src/ui/TraceUI.h:45:13: warning:   ‘RayTracer* TraceUI::raytracer’ [-Wreorder]
+./src/ui/TraceUI.h:25:2: warning:   when initialized here [-Wreorder]
+In file included from ./src/ui/../RayTracer.h:6:0,
+                 from ./src/ui/TraceGLWindow.h:16,
+                 from ./src/ui/GraphicalUI.h:20,
+                 from ./src/ui/GraphicalUI.cpp:16:
+./src/ui/../scene/ray.h: In destructor ‘isect::~isect()’:
+./src/ui/../scene/ray.h:66:16: warning: deleting object of polymorphic class type ‘Material’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+./src/ui/../scene/ray.h: In member function ‘isect& isect::operator=(const isect&)’:
+./src/ui/../scene/ray.h:114:24: warning: deleting object of polymorphic class type ‘Material’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+In file included from ./src/ui/../RayTracer.h:6:0,
+                 from ./src/ui/TraceGLWindow.h:16,
+                 from ./src/ui/TraceGLWindow.cpp:6:
+./src/ui/../scene/ray.h:11:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/ui/GraphicalUI.h:19:0,
+                 from ./src/ui/TraceGLWindow.cpp:8:
+./src/ui/TraceUI.h:11:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/ui/../scene/ray.h:14:0,
+                 from ./src/ui/../RayTracer.h:6,
+                 from ./src/ui/TraceGLWindow.h:16,
+                 from ./src/ui/TraceGLWindow.cpp:6:
+./src/ui/../scene/../vecmath/mat.h: In function ‘std::ostream& operator<<(std::ostream&, const Mat3<T>&)’:
+./src/ui/../scene/../vecmath/mat.h:442:1: warning: no return statement in function returning non-void [-Wreturn-type]
+./src/ui/../scene/../vecmath/mat.h: In function ‘std::istream& operator>>(std::istream&, Mat3<T>&)’:
+./src/ui/../scene/../vecmath/mat.h:449:1: warning: no return statement in function returning non-void [-Wreturn-type]
+./src/ui/../scene/../vecmath/mat.h: In function ‘std::istream& operator>>(std::istream&, Mat4<T>&)’:
+./src/ui/../scene/../vecmath/mat.h:586:1: warning: no return statement in function returning non-void [-Wreturn-type]
+In file included from ./src/ui/../RayTracer.h:6:0,
+                 from ./src/ui/TraceGLWindow.h:16,
+                 from ./src/ui/TraceGLWindow.cpp:6:
+./src/ui/../scene/ray.h: In destructor ‘isect::~isect()’:
+./src/ui/../scene/ray.h:66:16: warning: deleting object of polymorphic class type ‘Material’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+./src/ui/../scene/ray.h: In member function ‘isect& isect::operator=(const isect&)’:
+./src/ui/../scene/ray.h:114:24: warning: deleting object of polymorphic class type ‘Material’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+In file included from ./src/ui/GraphicalUI.h:19:0,
+                 from ./src/ui/TraceGLWindow.cpp:8:
+./src/ui/TraceUI.h: In constructor ‘TraceUI::TraceUI()’:
+./src/ui/TraceUI.h:48:8: warning: ‘TraceUI::m_nDepth’ will be initialized after [-Wreorder]
+./src/ui/TraceUI.h:47:8: warning:   ‘int TraceUI::m_nSize’ [-Wreorder]
+./src/ui/TraceUI.h:25:2: warning:   when initialized here [-Wreorder]
+./src/ui/TraceUI.h:53:8: warning: ‘TraceUI::m_displayDebuggingInfo’ will be initialized after [-Wreorder]
+./src/ui/TraceUI.h:45:13: warning:   ‘RayTracer* TraceUI::raytracer’ [-Wreorder]
+./src/ui/TraceUI.h:25:2: warning:   when initialized here [-Wreorder]
+./src/ui/debuggingView.cpp:1:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/ui/../RayTracer.h:6:0,
+                 from ./src/ui/debuggingView.cpp:5:
+./src/ui/../scene/ray.h:11:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/ui/debuggingView.cpp:6:0:
+./src/ui/../scene/scene.h:7:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/ui/../scene/light.h:10:0,
+                 from ./src/ui/debuggingView.cpp:7:
+./src/ui/../scene/scene.h:7:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/ui/ModelerCamera.h:7:0,
+                 from ./src/ui/debuggingView.cpp:4:
+./src/ui/../vecmath/mat.h: In function ‘std::ostream& operator<<(std::ostream&, const Mat3<T>&)’:
+./src/ui/../vecmath/mat.h:442:1: warning: no return statement in function returning non-void [-Wreturn-type]
+./src/ui/../vecmath/mat.h: In function ‘std::istream& operator>>(std::istream&, Mat3<T>&)’:
+./src/ui/../vecmath/mat.h:449:1: warning: no return statement in function returning non-void [-Wreturn-type]
+./src/ui/../vecmath/mat.h: In function ‘std::istream& operator>>(std::istream&, Mat4<T>&)’:
+./src/ui/../vecmath/mat.h:586:1: warning: no return statement in function returning non-void [-Wreturn-type]
+In file included from ./src/ui/../RayTracer.h:6:0,
+                 from ./src/ui/debuggingView.cpp:5:
+./src/ui/../scene/ray.h: In destructor ‘isect::~isect()’:
+./src/ui/../scene/ray.h:66:16: warning: deleting object of polymorphic class type ‘Material’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+./src/ui/../scene/ray.h: In member function ‘isect& isect::operator=(const isect&)’:
+./src/ui/../scene/ray.h:114:24: warning: deleting object of polymorphic class type ‘Material’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+In file included from ./src/ui/../scene/scene.h:22:0,
+                 from ./src/ui/debuggingView.cpp:6:
+./src/ui/../scene/bbox.h: In constructor ‘BoundingBox::BoundingBox(Vec3d, Vec3d)’:
+./src/ui/../scene/bbox.h:8:8: warning: ‘BoundingBox::bmax’ will be initialized after [-Wreorder]
+./src/ui/../scene/bbox.h:5:7: warning:   ‘bool BoundingBox::bEmpty’ [-Wreorder]
+./src/ui/../scene/bbox.h:15:2: warning:   when initialized here [-Wreorder]
+In file included from ./src/ui/debuggingView.cpp:6:0:
+./src/ui/../scene/scene.h: In destructor ‘virtual MaterialSceneObject::~MaterialSceneObject()’:
+./src/ui/../scene/scene.h:206:42: warning: deleting object of polymorphic class type ‘Material’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+./src/ui/../scene/scene.h: In member function ‘virtual void MaterialSceneObject::setMaterial(Material*)’:
+./src/ui/../scene/scene.h:209:51: warning: deleting object of polymorphic class type ‘Material’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+./src/ui/debuggingView.cpp: In member function ‘virtual int DebuggingView::handle(int)’:
+./src/ui/debuggingView.cpp:123:11: warning: unused variable ‘eventState’ [-Wunused-variable]
+./src/ui/debuggingView.cpp: In member function ‘void DebuggingView::resetCamera()’:
+./src/ui/debuggingView.cpp:174:16: warning: unused variable ‘sceneCamera’ [-Wunused-variable]
+./src/ui/debuggingView.cpp: In member function ‘void DebuggingView::drawAxes()’:
+./src/ui/debuggingView.cpp:310:17: warning: deprecated conversion from string constant to ‘char*’ [-Wwrite-strings]
+./src/ui/debuggingView.cpp:314:17: warning: deprecated conversion from string constant to ‘char*’ [-Wwrite-strings]
+./src/ui/debuggingView.cpp:318:17: warning: deprecated conversion from string constant to ‘char*’ [-Wwrite-strings]
+./src/ui/debuggingView.cpp: In member function ‘void DebuggingView::drawScene()’:
+./src/ui/debuggingView.cpp:445:22: warning: ‘divisions’ may be used uninitialized in this function [-Wmaybe-uninitialized]
+./src/ui/debuggingWindow.cxx: In constructor ‘DebuggingWindow::DebuggingWindow()’:
+./src/ui/debuggingWindow.cxx:220:94: warning: deprecated conversion from string constant to ‘char*’ [-Wwrite-strings]
+./src/ui/debuggingWindow.cxx:212:14: warning: variable ‘w’ set but not used [-Wunused-but-set-variable]
+./src/ui/glObjects.cpp:1:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/ui/glObjects.cpp:8:0:
+./src/ui/../scene/scene.h:7:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/ui/../scene/scene.h:19:0,
+                 from ./src/ui/glObjects.cpp:8:
+./src/ui/../scene/ray.h:11:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/ui/../scene/light.h:10:0,
+                 from ./src/ui/glObjects.cpp:10:
+./src/ui/../scene/scene.h:7:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/ui/../SceneObjects/Box.h:4:0,
+                 from ./src/ui/glObjects.cpp:12:
+./src/ui/../SceneObjects/../scene/scene.h:7:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/ui/../SceneObjects/Cone.h:4:0,
+                 from ./src/ui/glObjects.cpp:13:
+./src/ui/../SceneObjects/../scene/scene.h:7:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/ui/../SceneObjects/Cylinder.h:4:0,
+                 from ./src/ui/glObjects.cpp:14:
+./src/ui/../SceneObjects/../scene/scene.h:7:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/ui/../SceneObjects/Sphere.h:4:0,
+                 from ./src/ui/glObjects.cpp:15:
+./src/ui/../SceneObjects/../scene/scene.h:7:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/ui/../SceneObjects/Square.h:4:0,
+                 from ./src/ui/glObjects.cpp:16:
+./src/ui/../SceneObjects/../scene/scene.h:7:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/ui/../SceneObjects/trimesh.h:9:0,
+                 from ./src/ui/glObjects.cpp:17:
+./src/ui/../SceneObjects/../scene/scene.h:7:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/ui/glObjects.cpp:6:0:
+./src/ui/../vecmath/mat.h: In function ‘std::ostream& operator<<(std::ostream&, const Mat3<T>&)’:
+./src/ui/../vecmath/mat.h:442:1: warning: no return statement in function returning non-void [-Wreturn-type]
+./src/ui/../vecmath/mat.h: In function ‘std::istream& operator>>(std::istream&, Mat3<T>&)’:
+./src/ui/../vecmath/mat.h:449:1: warning: no return statement in function returning non-void [-Wreturn-type]
+./src/ui/../vecmath/mat.h: In function ‘std::istream& operator>>(std::istream&, Mat4<T>&)’:
+./src/ui/../vecmath/mat.h:586:1: warning: no return statement in function returning non-void [-Wreturn-type]
+In file included from ./src/ui/../scene/scene.h:19:0,
+                 from ./src/ui/glObjects.cpp:8:
+./src/ui/../scene/ray.h: In destructor ‘isect::~isect()’:
+./src/ui/../scene/ray.h:66:16: warning: deleting object of polymorphic class type ‘Material’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+./src/ui/../scene/ray.h: In member function ‘isect& isect::operator=(const isect&)’:
+./src/ui/../scene/ray.h:114:24: warning: deleting object of polymorphic class type ‘Material’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+In file included from ./src/ui/../scene/scene.h:22:0,
+                 from ./src/ui/glObjects.cpp:8:
+./src/ui/../scene/bbox.h: In constructor ‘BoundingBox::BoundingBox(Vec3d, Vec3d)’:
+./src/ui/../scene/bbox.h:8:8: warning: ‘BoundingBox::bmax’ will be initialized after [-Wreorder]
+./src/ui/../scene/bbox.h:5:7: warning:   ‘bool BoundingBox::bEmpty’ [-Wreorder]
+./src/ui/../scene/bbox.h:15:2: warning:   when initialized here [-Wreorder]
+In file included from ./src/ui/glObjects.cpp:8:0:
+./src/ui/../scene/scene.h: In destructor ‘virtual MaterialSceneObject::~MaterialSceneObject()’:
+./src/ui/../scene/scene.h:206:42: warning: deleting object of polymorphic class type ‘Material’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+./src/ui/../scene/scene.h: In member function ‘virtual void MaterialSceneObject::setMaterial(Material*)’:
+./src/ui/../scene/scene.h:209:51: warning: deleting object of polymorphic class type ‘Material’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+./src/ui/ModelerCamera.cpp:14:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+./src/ui/ModelerCamera.cpp:15:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+./src/ui/ModelerCamera.cpp:146:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/ui/ModelerCamera.h:7:0,
+                 from ./src/ui/ModelerCamera.cpp:12:
+./src/ui/../vecmath/mat.h: In function ‘std::ostream& operator<<(std::ostream&, const Mat3<T>&)’:
+./src/ui/../vecmath/mat.h:442:1: warning: no return statement in function returning non-void [-Wreturn-type]
+./src/ui/../vecmath/mat.h: In function ‘std::istream& operator>>(std::istream&, Mat3<T>&)’:
+./src/ui/../vecmath/mat.h:449:1: warning: no return statement in function returning non-void [-Wreturn-type]
+./src/ui/../vecmath/mat.h: In function ‘std::istream& operator>>(std::istream&, Mat4<T>&)’:
+./src/ui/../vecmath/mat.h:586:1: warning: no return statement in function returning non-void [-Wreturn-type]
+./src/fileio/bitmap.cpp: In function ‘unsigned char* readBMP(const char*, int&, int&)’:
+./src/fileio/bitmap.cpp:26:36: warning: ignoring return value of ‘size_t fread(void*, size_t, size_t, FILE*)’, declared with attribute warn_unused_result [-Wunused-result]
+./src/fileio/bitmap.cpp:27:36: warning: ignoring return value of ‘size_t fread(void*, size_t, size_t, FILE*)’, declared with attribute warn_unused_result [-Wunused-result]
+./src/fileio/bitmap.cpp:28:41: warning: ignoring return value of ‘size_t fread(void*, size_t, size_t, FILE*)’, declared with attribute warn_unused_result [-Wunused-result]
+./src/fileio/bitmap.cpp:29:41: warning: ignoring return value of ‘size_t fread(void*, size_t, size_t, FILE*)’, declared with attribute warn_unused_result [-Wunused-result]
+./src/fileio/bitmap.cpp:30:39: warning: ignoring return value of ‘size_t fread(void*, size_t, size_t, FILE*)’, declared with attribute warn_unused_result [-Wunused-result]
+./src/fileio/bitmap.cpp:34:55: warning: ignoring return value of ‘size_t fread(void*, size_t, size_t, FILE*)’, declared with attribute warn_unused_result [-Wunused-result]
+In file included from ./src/fileio/buffer.cpp:12:0:
+./src/fileio/buffer.h:2:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/fileio/buffer.cpp:14:0:
+./src/fileio/../parser/Parser.h:1:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/fileio/../parser/Tokenizer.h:6:0,
+                 from ./src/fileio/../parser/Parser.h:11,
+                 from ./src/fileio/buffer.cpp:14:
+./src/fileio/../parser/../fileio/buffer.h:2:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/fileio/../parser/Parser.h:11:0,
+                 from ./src/fileio/buffer.cpp:14:
+./src/fileio/../parser/Tokenizer.h:12:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/fileio/../parser/Parser.h:13:0,
+                 from ./src/fileio/buffer.cpp:14:
+./src/fileio/../parser/../scene/scene.h:7:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/fileio/../parser/../scene/scene.h:19:0,
+                 from ./src/fileio/../parser/Parser.h:13,
+                 from ./src/fileio/buffer.cpp:14:
+./src/fileio/../parser/../scene/ray.h:11:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/fileio/../parser/../scene/light.h:10:0,
+                 from ./src/fileio/../parser/Parser.h:14,
+                 from ./src/fileio/buffer.cpp:14:
+./src/fileio/../parser/../scene/scene.h:7:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/fileio/../parser/../SceneObjects/Box.h:4:0,
+                 from ./src/fileio/../parser/Parser.h:15,
+                 from ./src/fileio/buffer.cpp:14:
+./src/fileio/../parser/../SceneObjects/../scene/scene.h:7:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/fileio/../parser/../SceneObjects/Cone.h:4:0,
+                 from ./src/fileio/../parser/Parser.h:16,
+                 from ./src/fileio/buffer.cpp:14:
+./src/fileio/../parser/../SceneObjects/../scene/scene.h:7:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/fileio/../parser/../SceneObjects/Cylinder.h:4:0,
+                 from ./src/fileio/../parser/Parser.h:17,
+                 from ./src/fileio/buffer.cpp:14:
+./src/fileio/../parser/../SceneObjects/../scene/scene.h:7:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/fileio/../parser/../SceneObjects/Sphere.h:4:0,
+                 from ./src/fileio/../parser/Parser.h:18,
+                 from ./src/fileio/buffer.cpp:14:
+./src/fileio/../parser/../SceneObjects/../scene/scene.h:7:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/fileio/../parser/../SceneObjects/Square.h:4:0,
+                 from ./src/fileio/../parser/Parser.h:19,
+                 from ./src/fileio/buffer.cpp:14:
+./src/fileio/../parser/../SceneObjects/../scene/scene.h:7:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/fileio/../parser/../SceneObjects/trimesh.h:9:0,
+                 from ./src/fileio/../parser/Parser.h:20,
+                 from ./src/fileio/buffer.cpp:14:
+./src/fileio/../parser/../SceneObjects/../scene/scene.h:7:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/fileio/../parser/../scene/ray.h:14:0,
+                 from ./src/fileio/../parser/../scene/scene.h:19,
+                 from ./src/fileio/../parser/Parser.h:13,
+                 from ./src/fileio/buffer.cpp:14:
+./src/fileio/../parser/../scene/../vecmath/mat.h: In function ‘std::ostream& operator<<(std::ostream&, const Mat3<T>&)’:
+./src/fileio/../parser/../scene/../vecmath/mat.h:442:1: warning: no return statement in function returning non-void [-Wreturn-type]
+./src/fileio/../parser/../scene/../vecmath/mat.h: In function ‘std::istream& operator>>(std::istream&, Mat3<T>&)’:
+./src/fileio/../parser/../scene/../vecmath/mat.h:449:1: warning: no return statement in function returning non-void [-Wreturn-type]
+./src/fileio/../parser/../scene/../vecmath/mat.h: In function ‘std::istream& operator>>(std::istream&, Mat4<T>&)’:
+./src/fileio/../parser/../scene/../vecmath/mat.h:586:1: warning: no return statement in function returning non-void [-Wreturn-type]
+In file included from ./src/fileio/../parser/../scene/scene.h:19:0,
+                 from ./src/fileio/../parser/Parser.h:13,
+                 from ./src/fileio/buffer.cpp:14:
+./src/fileio/../parser/../scene/ray.h: In destructor ‘isect::~isect()’:
+./src/fileio/../parser/../scene/ray.h:66:16: warning: deleting object of polymorphic class type ‘Material’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+./src/fileio/../parser/../scene/ray.h: In member function ‘isect& isect::operator=(const isect&)’:
+./src/fileio/../parser/../scene/ray.h:114:24: warning: deleting object of polymorphic class type ‘Material’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+In file included from ./src/fileio/../parser/../scene/scene.h:22:0,
+                 from ./src/fileio/../parser/Parser.h:13,
+                 from ./src/fileio/buffer.cpp:14:
+./src/fileio/../parser/../scene/bbox.h: In constructor ‘BoundingBox::BoundingBox(Vec3d, Vec3d)’:
+./src/fileio/../parser/../scene/bbox.h:8:8: warning: ‘BoundingBox::bmax’ will be initialized after [-Wreorder]
+./src/fileio/../parser/../scene/bbox.h:5:7: warning:   ‘bool BoundingBox::bEmpty’ [-Wreorder]
+./src/fileio/../parser/../scene/bbox.h:15:2: warning:   when initialized here [-Wreorder]
+In file included from ./src/fileio/../parser/Parser.h:13:0,
+                 from ./src/fileio/buffer.cpp:14:
+./src/fileio/../parser/../scene/scene.h: In destructor ‘virtual MaterialSceneObject::~MaterialSceneObject()’:
+./src/fileio/../parser/../scene/scene.h:206:42: warning: deleting object of polymorphic class type ‘Material’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+./src/fileio/../parser/../scene/scene.h: In member function ‘virtual void MaterialSceneObject::setMaterial(Material*)’:
+./src/fileio/../parser/../scene/scene.h:209:51: warning: deleting object of polymorphic class type ‘Material’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+./src/fileio/pngimage.cpp: In function ‘int png_init(const char*, int&, int&)’:
+./src/fileio/pngimage.cpp:35:26: warning: ignoring return value of ‘size_t fread(void*, size_t, size_t, FILE*)’, declared with attribute warn_unused_result [-Wunused-result]
+./src/parser/Token.cpp:1:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/parser/Tokenizer.cpp:8:0:
+./src/parser/../fileio/buffer.h:2:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/parser/Tokenizer.h:6:0,
+                 from ./src/parser/Tokenizer.cpp:9:
+./src/parser/../fileio/buffer.h:2:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/parser/Tokenizer.cpp:9:0:
+./src/parser/Tokenizer.h:12:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+./src/parser/Parser.cpp:1:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/parser/Parser.cpp:8:0:
+./src/parser/Parser.h:1:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/parser/Tokenizer.h:6:0,
+                 from ./src/parser/Parser.h:11,
+                 from ./src/parser/Parser.cpp:8:
+./src/parser/../fileio/buffer.h:2:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/parser/Parser.h:11:0,
+                 from ./src/parser/Parser.cpp:8:
+./src/parser/Tokenizer.h:12:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/parser/Parser.h:13:0,
+                 from ./src/parser/Parser.cpp:8:
+./src/parser/../scene/scene.h:7:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/parser/../scene/scene.h:19:0,
+                 from ./src/parser/Parser.h:13,
+                 from ./src/parser/Parser.cpp:8:
+./src/parser/../scene/ray.h:11:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/parser/../scene/light.h:10:0,
+                 from ./src/parser/Parser.h:14,
+                 from ./src/parser/Parser.cpp:8:
+./src/parser/../scene/scene.h:7:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/parser/../SceneObjects/Box.h:4:0,
+                 from ./src/parser/Parser.h:15,
+                 from ./src/parser/Parser.cpp:8:
+./src/parser/../SceneObjects/../scene/scene.h:7:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/parser/../SceneObjects/Cone.h:4:0,
+                 from ./src/parser/Parser.h:16,
+                 from ./src/parser/Parser.cpp:8:
+./src/parser/../SceneObjects/../scene/scene.h:7:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/parser/../SceneObjects/Cylinder.h:4:0,
+                 from ./src/parser/Parser.h:17,
+                 from ./src/parser/Parser.cpp:8:
+./src/parser/../SceneObjects/../scene/scene.h:7:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/parser/../SceneObjects/Sphere.h:4:0,
+                 from ./src/parser/Parser.h:18,
+                 from ./src/parser/Parser.cpp:8:
+./src/parser/../SceneObjects/../scene/scene.h:7:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/parser/../SceneObjects/Square.h:4:0,
+                 from ./src/parser/Parser.h:19,
+                 from ./src/parser/Parser.cpp:8:
+./src/parser/../SceneObjects/../scene/scene.h:7:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/parser/../SceneObjects/trimesh.h:9:0,
+                 from ./src/parser/Parser.h:20,
+                 from ./src/parser/Parser.cpp:8:
+./src/parser/../SceneObjects/../scene/scene.h:7:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/parser/Parser.cpp:10:0:
+./src/parser/../scene/scene.h:7:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/parser/../scene/ray.h:14:0,
+                 from ./src/parser/../scene/scene.h:19,
+                 from ./src/parser/Parser.h:13,
+                 from ./src/parser/Parser.cpp:8:
+./src/parser/../scene/../vecmath/mat.h: In function ‘std::ostream& operator<<(std::ostream&, const Mat3<T>&)’:
+./src/parser/../scene/../vecmath/mat.h:442:1: warning: no return statement in function returning non-void [-Wreturn-type]
+./src/parser/../scene/../vecmath/mat.h: In function ‘std::istream& operator>>(std::istream&, Mat3<T>&)’:
+./src/parser/../scene/../vecmath/mat.h:449:1: warning: no return statement in function returning non-void [-Wreturn-type]
+./src/parser/../scene/../vecmath/mat.h: In function ‘std::istream& operator>>(std::istream&, Mat4<T>&)’:
+./src/parser/../scene/../vecmath/mat.h:586:1: warning: no return statement in function returning non-void [-Wreturn-type]
+In file included from ./src/parser/../scene/scene.h:19:0,
+                 from ./src/parser/Parser.h:13,
+                 from ./src/parser/Parser.cpp:8:
+./src/parser/../scene/ray.h: In destructor ‘isect::~isect()’:
+./src/parser/../scene/ray.h:66:16: warning: deleting object of polymorphic class type ‘Material’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+./src/parser/../scene/ray.h: In member function ‘isect& isect::operator=(const isect&)’:
+./src/parser/../scene/ray.h:114:24: warning: deleting object of polymorphic class type ‘Material’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+In file included from ./src/parser/../scene/scene.h:22:0,
+                 from ./src/parser/Parser.h:13,
+                 from ./src/parser/Parser.cpp:8:
+./src/parser/../scene/bbox.h: In constructor ‘BoundingBox::BoundingBox(Vec3d, Vec3d)’:
+./src/parser/../scene/bbox.h:8:8: warning: ‘BoundingBox::bmax’ will be initialized after [-Wreorder]
+./src/parser/../scene/bbox.h:5:7: warning:   ‘bool BoundingBox::bEmpty’ [-Wreorder]
+./src/parser/../scene/bbox.h:15:2: warning:   when initialized here [-Wreorder]
+In file included from ./src/parser/Parser.h:13:0,
+                 from ./src/parser/Parser.cpp:8:
+./src/parser/../scene/scene.h: In destructor ‘virtual MaterialSceneObject::~MaterialSceneObject()’:
+./src/parser/../scene/scene.h:206:42: warning: deleting object of polymorphic class type ‘Material’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+./src/parser/../scene/scene.h: In member function ‘virtual void MaterialSceneObject::setMaterial(Material*)’:
+./src/parser/../scene/scene.h:209:51: warning: deleting object of polymorphic class type ‘Material’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+./src/parser/Parser.cpp: In member function ‘void Parser::parseSphere(Scene*, TransformNode*, const Material&)’:
+./src/parser/Parser.cpp:372:16: warning: deleting object of polymorphic class type ‘Material’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+./src/parser/Parser.cpp: In member function ‘void Parser::parseBox(Scene*, TransformNode*, const Material&)’:
+./src/parser/Parser.cpp:406:16: warning: deleting object of polymorphic class type ‘Material’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+./src/parser/Parser.cpp: In member function ‘void Parser::parseSquare(Scene*, TransformNode*, const Material&)’:
+./src/parser/Parser.cpp:440:16: warning: deleting object of polymorphic class type ‘Material’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+./src/parser/Parser.cpp: In member function ‘void Parser::parseCylinder(Scene*, TransformNode*, const Material&)’:
+./src/parser/Parser.cpp:474:16: warning: deleting object of polymorphic class type ‘Material’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+./src/parser/Parser.cpp: In member function ‘void Parser::parseCone(Scene*, TransformNode*, const Material&)’:
+./src/parser/Parser.cpp:513:16: warning: deleting object of polymorphic class type ‘Material’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+./src/parser/Parser.cpp: In member function ‘void Parser::parseTrimesh(Scene*, TransformNode*, const Material&)’:
+./src/parser/Parser.cpp:676:42: warning: suggest parentheses around assignment used as truth value [-Wparentheses]
+In file included from ./src/parser/Tokenizer.h:6:0,
+                 from ./src/parser/ParserException.cpp:5:
+./src/parser/../fileio/buffer.h:2:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/parser/ParserException.cpp:5:0:
+./src/parser/Tokenizer.h:12:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/scene/camera.h:4:0,
+                 from ./src/scene/camera.cpp:1:
+./src/scene/ray.h:11:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/scene/ray.h:14:0,
+                 from ./src/scene/camera.h:4,
+                 from ./src/scene/camera.cpp:1:
+./src/scene/../vecmath/mat.h: In function ‘std::ostream& operator<<(std::ostream&, const Mat3<T>&)’:
+./src/scene/../vecmath/mat.h:442:1: warning: no return statement in function returning non-void [-Wreturn-type]
+./src/scene/../vecmath/mat.h: In function ‘std::istream& operator>>(std::istream&, Mat3<T>&)’:
+./src/scene/../vecmath/mat.h:449:1: warning: no return statement in function returning non-void [-Wreturn-type]
+./src/scene/../vecmath/mat.h: In function ‘std::istream& operator>>(std::istream&, Mat4<T>&)’:
+./src/scene/../vecmath/mat.h:586:1: warning: no return statement in function returning non-void [-Wreturn-type]
+In file included from ./src/scene/camera.h:4:0,
+                 from ./src/scene/camera.cpp:1:
+./src/scene/ray.h: In destructor ‘isect::~isect()’:
+./src/scene/ray.h:66:16: warning: deleting object of polymorphic class type ‘Material’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+./src/scene/ray.h: In member function ‘isect& isect::operator=(const isect&)’:
+./src/scene/ray.h:114:24: warning: deleting object of polymorphic class type ‘Material’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+In file included from ./src/scene/light.h:10:0,
+                 from ./src/scene/light.cpp:3:
+./src/scene/scene.h:7:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/scene/scene.h:19:0,
+                 from ./src/scene/light.h:10,
+                 from ./src/scene/light.cpp:3:
+./src/scene/ray.h:11:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/scene/ray.h:14:0,
+                 from ./src/scene/scene.h:19,
+                 from ./src/scene/light.h:10,
+                 from ./src/scene/light.cpp:3:
+./src/scene/../vecmath/mat.h: In function ‘std::ostream& operator<<(std::ostream&, const Mat3<T>&)’:
+./src/scene/../vecmath/mat.h:442:1: warning: no return statement in function returning non-void [-Wreturn-type]
+./src/scene/../vecmath/mat.h: In function ‘std::istream& operator>>(std::istream&, Mat3<T>&)’:
+./src/scene/../vecmath/mat.h:449:1: warning: no return statement in function returning non-void [-Wreturn-type]
+./src/scene/../vecmath/mat.h: In function ‘std::istream& operator>>(std::istream&, Mat4<T>&)’:
+./src/scene/../vecmath/mat.h:586:1: warning: no return statement in function returning non-void [-Wreturn-type]
+In file included from ./src/scene/scene.h:19:0,
+                 from ./src/scene/light.h:10,
+                 from ./src/scene/light.cpp:3:
+./src/scene/ray.h: In destructor ‘isect::~isect()’:
+./src/scene/ray.h:66:16: warning: deleting object of polymorphic class type ‘Material’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+./src/scene/ray.h: In member function ‘isect& isect::operator=(const isect&)’:
+./src/scene/ray.h:114:24: warning: deleting object of polymorphic class type ‘Material’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+In file included from ./src/scene/scene.h:22:0,
+                 from ./src/scene/light.h:10,
+                 from ./src/scene/light.cpp:3:
+./src/scene/bbox.h: In constructor ‘BoundingBox::BoundingBox(Vec3d, Vec3d)’:
+./src/scene/bbox.h:8:8: warning: ‘BoundingBox::bmax’ will be initialized after [-Wreorder]
+./src/scene/bbox.h:5:7: warning:   ‘bool BoundingBox::bEmpty’ [-Wreorder]
+./src/scene/bbox.h:15:2: warning:   when initialized here [-Wreorder]
+In file included from ./src/scene/light.h:10:0,
+                 from ./src/scene/light.cpp:3:
+./src/scene/scene.h: In destructor ‘virtual MaterialSceneObject::~MaterialSceneObject()’:
+./src/scene/scene.h:206:42: warning: deleting object of polymorphic class type ‘Material’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+./src/scene/scene.h: In member function ‘virtual void MaterialSceneObject::setMaterial(Material*)’:
+./src/scene/scene.h:209:51: warning: deleting object of polymorphic class type ‘Material’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+In file included from ./src/scene/material.cpp:1:0:
+./src/scene/ray.h:11:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/scene/light.h:10:0,
+                 from ./src/scene/material.cpp:3:
+./src/scene/scene.h:7:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/scene/ray.h:14:0,
+                 from ./src/scene/material.cpp:1:
+./src/scene/../vecmath/mat.h: In function ‘std::ostream& operator<<(std::ostream&, const Mat3<T>&)’:
+./src/scene/../vecmath/mat.h:442:1: warning: no return statement in function returning non-void [-Wreturn-type]
+./src/scene/../vecmath/mat.h: In function ‘std::istream& operator>>(std::istream&, Mat3<T>&)’:
+./src/scene/../vecmath/mat.h:449:1: warning: no return statement in function returning non-void [-Wreturn-type]
+./src/scene/../vecmath/mat.h: In function ‘std::istream& operator>>(std::istream&, Mat4<T>&)’:
+./src/scene/../vecmath/mat.h:586:1: warning: no return statement in function returning non-void [-Wreturn-type]
+In file included from ./src/scene/material.cpp:1:0:
+./src/scene/ray.h: In destructor ‘isect::~isect()’:
+./src/scene/ray.h:66:16: warning: deleting object of polymorphic class type ‘Material’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+./src/scene/ray.h: In member function ‘isect& isect::operator=(const isect&)’:
+./src/scene/ray.h:114:24: warning: deleting object of polymorphic class type ‘Material’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+In file included from ./src/scene/scene.h:22:0,
+                 from ./src/scene/light.h:10,
+                 from ./src/scene/material.cpp:3:
+./src/scene/bbox.h: In constructor ‘BoundingBox::BoundingBox(Vec3d, Vec3d)’:
+./src/scene/bbox.h:8:8: warning: ‘BoundingBox::bmax’ will be initialized after [-Wreorder]
+./src/scene/bbox.h:5:7: warning:   ‘bool BoundingBox::bEmpty’ [-Wreorder]
+./src/scene/bbox.h:15:2: warning:   when initialized here [-Wreorder]
+In file included from ./src/scene/light.h:10:0,
+                 from ./src/scene/material.cpp:3:
+./src/scene/scene.h: In destructor ‘virtual MaterialSceneObject::~MaterialSceneObject()’:
+./src/scene/scene.h:206:42: warning: deleting object of polymorphic class type ‘Material’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+./src/scene/scene.h: In member function ‘virtual void MaterialSceneObject::setMaterial(Material*)’:
+./src/scene/scene.h:209:51: warning: deleting object of polymorphic class type ‘Material’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+In file included from ./src/scene/ray.cpp:1:0:
+./src/scene/ray.h:11:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/scene/ray.cpp:3:0:
+./src/scene/scene.h:7:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/scene/ray.h:14:0,
+                 from ./src/scene/ray.cpp:1:
+./src/scene/../vecmath/mat.h: In function ‘std::ostream& operator<<(std::ostream&, const Mat3<T>&)’:
+./src/scene/../vecmath/mat.h:442:1: warning: no return statement in function returning non-void [-Wreturn-type]
+./src/scene/../vecmath/mat.h: In function ‘std::istream& operator>>(std::istream&, Mat3<T>&)’:
+./src/scene/../vecmath/mat.h:449:1: warning: no return statement in function returning non-void [-Wreturn-type]
+./src/scene/../vecmath/mat.h: In function ‘std::istream& operator>>(std::istream&, Mat4<T>&)’:
+./src/scene/../vecmath/mat.h:586:1: warning: no return statement in function returning non-void [-Wreturn-type]
+In file included from ./src/scene/ray.cpp:1:0:
+./src/scene/ray.h: In destructor ‘isect::~isect()’:
+./src/scene/ray.h:66:16: warning: deleting object of polymorphic class type ‘Material’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+./src/scene/ray.h: In member function ‘isect& isect::operator=(const isect&)’:
+./src/scene/ray.h:114:24: warning: deleting object of polymorphic class type ‘Material’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+In file included from ./src/scene/scene.h:22:0,
+                 from ./src/scene/ray.cpp:3:
+./src/scene/bbox.h: In constructor ‘BoundingBox::BoundingBox(Vec3d, Vec3d)’:
+./src/scene/bbox.h:8:8: warning: ‘BoundingBox::bmax’ will be initialized after [-Wreorder]
+./src/scene/bbox.h:5:7: warning:   ‘bool BoundingBox::bEmpty’ [-Wreorder]
+./src/scene/bbox.h:15:2: warning:   when initialized here [-Wreorder]
+In file included from ./src/scene/ray.cpp:3:0:
+./src/scene/scene.h: In destructor ‘virtual MaterialSceneObject::~MaterialSceneObject()’:
+./src/scene/scene.h:206:42: warning: deleting object of polymorphic class type ‘Material’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+./src/scene/scene.h: In member function ‘virtual void MaterialSceneObject::setMaterial(Material*)’:
+./src/scene/scene.h:209:51: warning: deleting object of polymorphic class type ‘Material’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+In file included from ./src/scene/scene.cpp:3:0:
+./src/scene/scene.h:7:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/scene/scene.h:19:0,
+                 from ./src/scene/scene.cpp:3:
+./src/scene/ray.h:11:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/scene/light.h:10:0,
+                 from ./src/scene/scene.cpp:4:
+./src/scene/scene.h:7:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/scene/scene.cpp:5:0:
+./src/scene/../ui/TraceUI.h:11:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/scene/ray.h:14:0,
+                 from ./src/scene/scene.h:19,
+                 from ./src/scene/scene.cpp:3:
+./src/scene/../vecmath/mat.h: In function ‘std::ostream& operator<<(std::ostream&, const Mat3<T>&)’:
+./src/scene/../vecmath/mat.h:442:1: warning: no return statement in function returning non-void [-Wreturn-type]
+./src/scene/../vecmath/mat.h: In function ‘std::istream& operator>>(std::istream&, Mat3<T>&)’:
+./src/scene/../vecmath/mat.h:449:1: warning: no return statement in function returning non-void [-Wreturn-type]
+./src/scene/../vecmath/mat.h: In function ‘std::istream& operator>>(std::istream&, Mat4<T>&)’:
+./src/scene/../vecmath/mat.h:586:1: warning: no return statement in function returning non-void [-Wreturn-type]
+In file included from ./src/scene/scene.h:19:0,
+                 from ./src/scene/scene.cpp:3:
+./src/scene/ray.h: In destructor ‘isect::~isect()’:
+./src/scene/ray.h:66:16: warning: deleting object of polymorphic class type ‘Material’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+./src/scene/ray.h: In member function ‘isect& isect::operator=(const isect&)’:
+./src/scene/ray.h:114:24: warning: deleting object of polymorphic class type ‘Material’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+In file included from ./src/scene/scene.h:22:0,
+                 from ./src/scene/scene.cpp:3:
+./src/scene/bbox.h: In constructor ‘BoundingBox::BoundingBox(Vec3d, Vec3d)’:
+./src/scene/bbox.h:8:8: warning: ‘BoundingBox::bmax’ will be initialized after [-Wreorder]
+./src/scene/bbox.h:5:7: warning:   ‘bool BoundingBox::bEmpty’ [-Wreorder]
+./src/scene/bbox.h:15:2: warning:   when initialized here [-Wreorder]
+In file included from ./src/scene/scene.cpp:3:0:
+./src/scene/scene.h: In destructor ‘virtual MaterialSceneObject::~MaterialSceneObject()’:
+./src/scene/scene.h:206:42: warning: deleting object of polymorphic class type ‘Material’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+./src/scene/scene.h: In member function ‘virtual void MaterialSceneObject::setMaterial(Material*)’:
+./src/scene/scene.h:209:51: warning: deleting object of polymorphic class type ‘Material’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+In file included from ./src/scene/scene.cpp:5:0:
+./src/scene/../ui/TraceUI.h: In constructor ‘TraceUI::TraceUI()’:
+./src/scene/../ui/TraceUI.h:48:8: warning: ‘TraceUI::m_nDepth’ will be initialized after [-Wreorder]
+./src/scene/../ui/TraceUI.h:47:8: warning:   ‘int TraceUI::m_nSize’ [-Wreorder]
+./src/scene/../ui/TraceUI.h:25:2: warning:   when initialized here [-Wreorder]
+./src/scene/../ui/TraceUI.h:53:8: warning: ‘TraceUI::m_displayDebuggingInfo’ will be initialized after [-Wreorder]
+./src/scene/../ui/TraceUI.h:45:13: warning:   ‘RayTracer* TraceUI::raytracer’ [-Wreorder]
+./src/scene/../ui/TraceUI.h:25:2: warning:   when initialized here [-Wreorder]
+./src/scene/scene.cpp: In member function ‘bool Scene::intersect(const ray&, isect&) const’:
+./src/scene/scene.cpp:53:9: warning: unused variable ‘tmin’ [-Wunused-variable]
+./src/scene/scene.cpp:54:9: warning: unused variable ‘tmax’ [-Wunused-variable]
+In file included from ./src/SceneObjects/Box.h:4:0,
+                 from ./src/SceneObjects/Box.cpp:5:
+./src/SceneObjects/../scene/scene.h:7:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/SceneObjects/../scene/scene.h:19:0,
+                 from ./src/SceneObjects/Box.h:4,
+                 from ./src/SceneObjects/Box.cpp:5:
+./src/SceneObjects/../scene/ray.h:11:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/SceneObjects/../scene/ray.h:14:0,
+                 from ./src/SceneObjects/../scene/scene.h:19,
+                 from ./src/SceneObjects/Box.h:4,
+                 from ./src/SceneObjects/Box.cpp:5:
+./src/SceneObjects/../scene/../vecmath/mat.h: In function ‘std::ostream& operator<<(std::ostream&, const Mat3<T>&)’:
+./src/SceneObjects/../scene/../vecmath/mat.h:442:1: warning: no return statement in function returning non-void [-Wreturn-type]
+./src/SceneObjects/../scene/../vecmath/mat.h: In function ‘std::istream& operator>>(std::istream&, Mat3<T>&)’:
+./src/SceneObjects/../scene/../vecmath/mat.h:449:1: warning: no return statement in function returning non-void [-Wreturn-type]
+./src/SceneObjects/../scene/../vecmath/mat.h: In function ‘std::istream& operator>>(std::istream&, Mat4<T>&)’:
+./src/SceneObjects/../scene/../vecmath/mat.h:586:1: warning: no return statement in function returning non-void [-Wreturn-type]
+In file included from ./src/SceneObjects/../scene/scene.h:19:0,
+                 from ./src/SceneObjects/Box.h:4,
+                 from ./src/SceneObjects/Box.cpp:5:
+./src/SceneObjects/../scene/ray.h: In destructor ‘isect::~isect()’:
+./src/SceneObjects/../scene/ray.h:66:16: warning: deleting object of polymorphic class type ‘Material’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+./src/SceneObjects/../scene/ray.h: In member function ‘isect& isect::operator=(const isect&)’:
+./src/SceneObjects/../scene/ray.h:114:24: warning: deleting object of polymorphic class type ‘Material’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+In file included from ./src/SceneObjects/../scene/scene.h:22:0,
+                 from ./src/SceneObjects/Box.h:4,
+                 from ./src/SceneObjects/Box.cpp:5:
+./src/SceneObjects/../scene/bbox.h: In constructor ‘BoundingBox::BoundingBox(Vec3d, Vec3d)’:
+./src/SceneObjects/../scene/bbox.h:8:8: warning: ‘BoundingBox::bmax’ will be initialized after [-Wreorder]
+./src/SceneObjects/../scene/bbox.h:5:7: warning:   ‘bool BoundingBox::bEmpty’ [-Wreorder]
+./src/SceneObjects/../scene/bbox.h:15:2: warning:   when initialized here [-Wreorder]
+In file included from ./src/SceneObjects/Box.h:4:0,
+                 from ./src/SceneObjects/Box.cpp:5:
+./src/SceneObjects/../scene/scene.h: In destructor ‘virtual MaterialSceneObject::~MaterialSceneObject()’:
+./src/SceneObjects/../scene/scene.h:206:42: warning: deleting object of polymorphic class type ‘Material’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+./src/SceneObjects/../scene/scene.h: In member function ‘virtual void MaterialSceneObject::setMaterial(Material*)’:
+./src/SceneObjects/../scene/scene.h:209:51: warning: deleting object of polymorphic class type ‘Material’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+In file included from ./src/SceneObjects/Cone.h:4:0,
+                 from ./src/SceneObjects/Cone.cpp:3:
+./src/SceneObjects/../scene/scene.h:7:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/SceneObjects/../scene/scene.h:19:0,
+                 from ./src/SceneObjects/Cone.h:4,
+                 from ./src/SceneObjects/Cone.cpp:3:
+./src/SceneObjects/../scene/ray.h:11:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/SceneObjects/../scene/ray.h:14:0,
+                 from ./src/SceneObjects/../scene/scene.h:19,
+                 from ./src/SceneObjects/Cone.h:4,
+                 from ./src/SceneObjects/Cone.cpp:3:
+./src/SceneObjects/../scene/../vecmath/mat.h: In function ‘std::ostream& operator<<(std::ostream&, const Mat3<T>&)’:
+./src/SceneObjects/../scene/../vecmath/mat.h:442:1: warning: no return statement in function returning non-void [-Wreturn-type]
+./src/SceneObjects/../scene/../vecmath/mat.h: In function ‘std::istream& operator>>(std::istream&, Mat3<T>&)’:
+./src/SceneObjects/../scene/../vecmath/mat.h:449:1: warning: no return statement in function returning non-void [-Wreturn-type]
+./src/SceneObjects/../scene/../vecmath/mat.h: In function ‘std::istream& operator>>(std::istream&, Mat4<T>&)’:
+./src/SceneObjects/../scene/../vecmath/mat.h:586:1: warning: no return statement in function returning non-void [-Wreturn-type]
+In file included from ./src/SceneObjects/../scene/scene.h:19:0,
+                 from ./src/SceneObjects/Cone.h:4,
+                 from ./src/SceneObjects/Cone.cpp:3:
+./src/SceneObjects/../scene/ray.h: In destructor ‘isect::~isect()’:
+./src/SceneObjects/../scene/ray.h:66:16: warning: deleting object of polymorphic class type ‘Material’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+./src/SceneObjects/../scene/ray.h: In member function ‘isect& isect::operator=(const isect&)’:
+./src/SceneObjects/../scene/ray.h:114:24: warning: deleting object of polymorphic class type ‘Material’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+In file included from ./src/SceneObjects/../scene/scene.h:22:0,
+                 from ./src/SceneObjects/Cone.h:4,
+                 from ./src/SceneObjects/Cone.cpp:3:
+./src/SceneObjects/../scene/bbox.h: In constructor ‘BoundingBox::BoundingBox(Vec3d, Vec3d)’:
+./src/SceneObjects/../scene/bbox.h:8:8: warning: ‘BoundingBox::bmax’ will be initialized after [-Wreorder]
+./src/SceneObjects/../scene/bbox.h:5:7: warning:   ‘bool BoundingBox::bEmpty’ [-Wreorder]
+./src/SceneObjects/../scene/bbox.h:15:2: warning:   when initialized here [-Wreorder]
+In file included from ./src/SceneObjects/Cone.h:4:0,
+                 from ./src/SceneObjects/Cone.cpp:3:
+./src/SceneObjects/../scene/scene.h: In destructor ‘virtual MaterialSceneObject::~MaterialSceneObject()’:
+./src/SceneObjects/../scene/scene.h:206:42: warning: deleting object of polymorphic class type ‘Material’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+./src/SceneObjects/../scene/scene.h: In member function ‘virtual void MaterialSceneObject::setMaterial(Material*)’:
+./src/SceneObjects/../scene/scene.h:209:51: warning: deleting object of polymorphic class type ‘Material’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+In file included from ./src/SceneObjects/Cylinder.h:4:0,
+                 from ./src/SceneObjects/Cylinder.cpp:3:
+./src/SceneObjects/../scene/scene.h:7:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/SceneObjects/../scene/scene.h:19:0,
+                 from ./src/SceneObjects/Cylinder.h:4,
+                 from ./src/SceneObjects/Cylinder.cpp:3:
+./src/SceneObjects/../scene/ray.h:11:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/SceneObjects/../scene/ray.h:14:0,
+                 from ./src/SceneObjects/../scene/scene.h:19,
+                 from ./src/SceneObjects/Cylinder.h:4,
+                 from ./src/SceneObjects/Cylinder.cpp:3:
+./src/SceneObjects/../scene/../vecmath/mat.h: In function ‘std::ostream& operator<<(std::ostream&, const Mat3<T>&)’:
+./src/SceneObjects/../scene/../vecmath/mat.h:442:1: warning: no return statement in function returning non-void [-Wreturn-type]
+./src/SceneObjects/../scene/../vecmath/mat.h: In function ‘std::istream& operator>>(std::istream&, Mat3<T>&)’:
+./src/SceneObjects/../scene/../vecmath/mat.h:449:1: warning: no return statement in function returning non-void [-Wreturn-type]
+./src/SceneObjects/../scene/../vecmath/mat.h: In function ‘std::istream& operator>>(std::istream&, Mat4<T>&)’:
+./src/SceneObjects/../scene/../vecmath/mat.h:586:1: warning: no return statement in function returning non-void [-Wreturn-type]
+In file included from ./src/SceneObjects/../scene/scene.h:19:0,
+                 from ./src/SceneObjects/Cylinder.h:4,
+                 from ./src/SceneObjects/Cylinder.cpp:3:
+./src/SceneObjects/../scene/ray.h: In destructor ‘isect::~isect()’:
+./src/SceneObjects/../scene/ray.h:66:16: warning: deleting object of polymorphic class type ‘Material’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+./src/SceneObjects/../scene/ray.h: In member function ‘isect& isect::operator=(const isect&)’:
+./src/SceneObjects/../scene/ray.h:114:24: warning: deleting object of polymorphic class type ‘Material’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+In file included from ./src/SceneObjects/../scene/scene.h:22:0,
+                 from ./src/SceneObjects/Cylinder.h:4,
+                 from ./src/SceneObjects/Cylinder.cpp:3:
+./src/SceneObjects/../scene/bbox.h: In constructor ‘BoundingBox::BoundingBox(Vec3d, Vec3d)’:
+./src/SceneObjects/../scene/bbox.h:8:8: warning: ‘BoundingBox::bmax’ will be initialized after [-Wreorder]
+./src/SceneObjects/../scene/bbox.h:5:7: warning:   ‘bool BoundingBox::bEmpty’ [-Wreorder]
+./src/SceneObjects/../scene/bbox.h:15:2: warning:   when initialized here [-Wreorder]
+In file included from ./src/SceneObjects/Cylinder.h:4:0,
+                 from ./src/SceneObjects/Cylinder.cpp:3:
+./src/SceneObjects/../scene/scene.h: In destructor ‘virtual MaterialSceneObject::~MaterialSceneObject()’:
+./src/SceneObjects/../scene/scene.h:206:42: warning: deleting object of polymorphic class type ‘Material’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+./src/SceneObjects/../scene/scene.h: In member function ‘virtual void MaterialSceneObject::setMaterial(Material*)’:
+./src/SceneObjects/../scene/scene.h:209:51: warning: deleting object of polymorphic class type ‘Material’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+In file included from ./src/SceneObjects/trimesh.h:7:0,
+                 from ./src/SceneObjects/trimesh.cpp:3:
+./src/SceneObjects/../scene/ray.h:11:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/SceneObjects/trimesh.h:9:0,
+                 from ./src/SceneObjects/trimesh.cpp:3:
+./src/SceneObjects/../scene/scene.h:7:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/SceneObjects/../scene/ray.h:14:0,
+                 from ./src/SceneObjects/trimesh.h:7,
+                 from ./src/SceneObjects/trimesh.cpp:3:
+./src/SceneObjects/../scene/../vecmath/mat.h: In function ‘std::ostream& operator<<(std::ostream&, const Mat3<T>&)’:
+./src/SceneObjects/../scene/../vecmath/mat.h:442:1: warning: no return statement in function returning non-void [-Wreturn-type]
+./src/SceneObjects/../scene/../vecmath/mat.h: In function ‘std::istream& operator>>(std::istream&, Mat3<T>&)’:
+./src/SceneObjects/../scene/../vecmath/mat.h:449:1: warning: no return statement in function returning non-void [-Wreturn-type]
+./src/SceneObjects/../scene/../vecmath/mat.h: In function ‘std::istream& operator>>(std::istream&, Mat4<T>&)’:
+./src/SceneObjects/../scene/../vecmath/mat.h:586:1: warning: no return statement in function returning non-void [-Wreturn-type]
+In file included from ./src/SceneObjects/trimesh.h:7:0,
+                 from ./src/SceneObjects/trimesh.cpp:3:
+./src/SceneObjects/../scene/ray.h: In destructor ‘isect::~isect()’:
+./src/SceneObjects/../scene/ray.h:66:16: warning: deleting object of polymorphic class type ‘Material’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+./src/SceneObjects/../scene/ray.h: In member function ‘isect& isect::operator=(const isect&)’:
+./src/SceneObjects/../scene/ray.h:114:24: warning: deleting object of polymorphic class type ‘Material’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+In file included from ./src/SceneObjects/../scene/scene.h:22:0,
+                 from ./src/SceneObjects/trimesh.h:9,
+                 from ./src/SceneObjects/trimesh.cpp:3:
+./src/SceneObjects/../scene/bbox.h: In constructor ‘BoundingBox::BoundingBox(Vec3d, Vec3d)’:
+./src/SceneObjects/../scene/bbox.h:8:8: warning: ‘BoundingBox::bmax’ will be initialized after [-Wreorder]
+./src/SceneObjects/../scene/bbox.h:5:7: warning:   ‘bool BoundingBox::bEmpty’ [-Wreorder]
+./src/SceneObjects/../scene/bbox.h:15:2: warning:   when initialized here [-Wreorder]
+In file included from ./src/SceneObjects/trimesh.h:9:0,
+                 from ./src/SceneObjects/trimesh.cpp:3:
+./src/SceneObjects/../scene/scene.h: In destructor ‘virtual MaterialSceneObject::~MaterialSceneObject()’:
+./src/SceneObjects/../scene/scene.h:206:42: warning: deleting object of polymorphic class type ‘Material’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+./src/SceneObjects/../scene/scene.h: In member function ‘virtual void MaterialSceneObject::setMaterial(Material*)’:
+./src/SceneObjects/../scene/scene.h:209:51: warning: deleting object of polymorphic class type ‘Material’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+./src/SceneObjects/trimesh.cpp: In destructor ‘virtual Trimesh::~Trimesh()’:
+./src/SceneObjects/trimesh.cpp:10:11: warning: deleting object of polymorphic class type ‘Material’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+./src/SceneObjects/trimesh.cpp: In member function ‘char* Trimesh::doubleCheck()’:
+./src/SceneObjects/trimesh.cpp:48:16: warning: deprecated conversion from string constant to ‘char*’ [-Wwrite-strings]
+./src/SceneObjects/trimesh.cpp:50:16: warning: deprecated conversion from string constant to ‘char*’ [-Wwrite-strings]
+./src/SceneObjects/trimesh.cpp: In member function ‘virtual bool Trimesh::intersectLocal(const ray&, isect&) const’:
+./src/SceneObjects/trimesh.cpp:57:9: warning: unused variable ‘tmin’ [-Wunused-variable]
+./src/SceneObjects/trimesh.cpp:58:9: warning: unused variable ‘tmax’ [-Wunused-variable]
+./src/SceneObjects/trimesh.cpp: In member function ‘virtual bool TrimeshFace::intersectLocal(const ray&, isect&) const’:
+./src/SceneObjects/trimesh.cpp:81:18: warning: unused variable ‘a’ [-Wunused-variable]
+./src/SceneObjects/trimesh.cpp:82:18: warning: unused variable ‘b’ [-Wunused-variable]
+./src/SceneObjects/trimesh.cpp:83:18: warning: unused variable ‘c’ [-Wunused-variable]
+In file included from ./src/SceneObjects/Sphere.h:4:0,
+                 from ./src/SceneObjects/Sphere.cpp:3:
+./src/SceneObjects/../scene/scene.h:7:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/SceneObjects/../scene/scene.h:19:0,
+                 from ./src/SceneObjects/Sphere.h:4,
+                 from ./src/SceneObjects/Sphere.cpp:3:
+./src/SceneObjects/../scene/ray.h:11:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/SceneObjects/../scene/ray.h:14:0,
+                 from ./src/SceneObjects/../scene/scene.h:19,
+                 from ./src/SceneObjects/Sphere.h:4,
+                 from ./src/SceneObjects/Sphere.cpp:3:
+./src/SceneObjects/../scene/../vecmath/mat.h: In function ‘std::ostream& operator<<(std::ostream&, const Mat3<T>&)’:
+./src/SceneObjects/../scene/../vecmath/mat.h:442:1: warning: no return statement in function returning non-void [-Wreturn-type]
+./src/SceneObjects/../scene/../vecmath/mat.h: In function ‘std::istream& operator>>(std::istream&, Mat3<T>&)’:
+./src/SceneObjects/../scene/../vecmath/mat.h:449:1: warning: no return statement in function returning non-void [-Wreturn-type]
+./src/SceneObjects/../scene/../vecmath/mat.h: In function ‘std::istream& operator>>(std::istream&, Mat4<T>&)’:
+./src/SceneObjects/../scene/../vecmath/mat.h:586:1: warning: no return statement in function returning non-void [-Wreturn-type]
+In file included from ./src/SceneObjects/../scene/scene.h:19:0,
+                 from ./src/SceneObjects/Sphere.h:4,
+                 from ./src/SceneObjects/Sphere.cpp:3:
+./src/SceneObjects/../scene/ray.h: In destructor ‘isect::~isect()’:
+./src/SceneObjects/../scene/ray.h:66:16: warning: deleting object of polymorphic class type ‘Material’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+./src/SceneObjects/../scene/ray.h: In member function ‘isect& isect::operator=(const isect&)’:
+./src/SceneObjects/../scene/ray.h:114:24: warning: deleting object of polymorphic class type ‘Material’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+In file included from ./src/SceneObjects/../scene/scene.h:22:0,
+                 from ./src/SceneObjects/Sphere.h:4,
+                 from ./src/SceneObjects/Sphere.cpp:3:
+./src/SceneObjects/../scene/bbox.h: In constructor ‘BoundingBox::BoundingBox(Vec3d, Vec3d)’:
+./src/SceneObjects/../scene/bbox.h:8:8: warning: ‘BoundingBox::bmax’ will be initialized after [-Wreorder]
+./src/SceneObjects/../scene/bbox.h:5:7: warning:   ‘bool BoundingBox::bEmpty’ [-Wreorder]
+./src/SceneObjects/../scene/bbox.h:15:2: warning:   when initialized here [-Wreorder]
+In file included from ./src/SceneObjects/Sphere.h:4:0,
+                 from ./src/SceneObjects/Sphere.cpp:3:
+./src/SceneObjects/../scene/scene.h: In destructor ‘virtual MaterialSceneObject::~MaterialSceneObject()’:
+./src/SceneObjects/../scene/scene.h:206:42: warning: deleting object of polymorphic class type ‘Material’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+./src/SceneObjects/../scene/scene.h: In member function ‘virtual void MaterialSceneObject::setMaterial(Material*)’:
+./src/SceneObjects/../scene/scene.h:209:51: warning: deleting object of polymorphic class type ‘Material’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+In file included from ./src/SceneObjects/Square.h:4:0,
+                 from ./src/SceneObjects/Square.cpp:3:
+./src/SceneObjects/../scene/scene.h:7:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/SceneObjects/../scene/scene.h:19:0,
+                 from ./src/SceneObjects/Square.h:4,
+                 from ./src/SceneObjects/Square.cpp:3:
+./src/SceneObjects/../scene/ray.h:11:0: warning: ignoring #pragma warning  [-Wunknown-pragmas]
+In file included from ./src/SceneObjects/../scene/ray.h:14:0,
+                 from ./src/SceneObjects/../scene/scene.h:19,
+                 from ./src/SceneObjects/Square.h:4,
+                 from ./src/SceneObjects/Square.cpp:3:
+./src/SceneObjects/../scene/../vecmath/mat.h: In function ‘std::ostream& operator<<(std::ostream&, const Mat3<T>&)’:
+./src/SceneObjects/../scene/../vecmath/mat.h:442:1: warning: no return statement in function returning non-void [-Wreturn-type]
+./src/SceneObjects/../scene/../vecmath/mat.h: In function ‘std::istream& operator>>(std::istream&, Mat3<T>&)’:
+./src/SceneObjects/../scene/../vecmath/mat.h:449:1: warning: no return statement in function returning non-void [-Wreturn-type]
+./src/SceneObjects/../scene/../vecmath/mat.h: In function ‘std::istream& operator>>(std::istream&, Mat4<T>&)’:
+./src/SceneObjects/../scene/../vecmath/mat.h:586:1: warning: no return statement in function returning non-void [-Wreturn-type]
+In file included from ./src/SceneObjects/../scene/scene.h:19:0,
+                 from ./src/SceneObjects/Square.h:4,
+                 from ./src/SceneObjects/Square.cpp:3:
+./src/SceneObjects/../scene/ray.h: In destructor ‘isect::~isect()’:
+./src/SceneObjects/../scene/ray.h:66:16: warning: deleting object of polymorphic class type ‘Material’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+./src/SceneObjects/../scene/ray.h: In member function ‘isect& isect::operator=(const isect&)’:
+./src/SceneObjects/../scene/ray.h:114:24: warning: deleting object of polymorphic class type ‘Material’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+In file included from ./src/SceneObjects/../scene/scene.h:22:0,
+                 from ./src/SceneObjects/Square.h:4,
+                 from ./src/SceneObjects/Square.cpp:3:
+./src/SceneObjects/../scene/bbox.h: In constructor ‘BoundingBox::BoundingBox(Vec3d, Vec3d)’:
+./src/SceneObjects/../scene/bbox.h:8:8: warning: ‘BoundingBox::bmax’ will be initialized after [-Wreorder]
+./src/SceneObjects/../scene/bbox.h:5:7: warning:   ‘bool BoundingBox::bEmpty’ [-Wreorder]
+./src/SceneObjects/../scene/bbox.h:15:2: warning:   when initialized here [-Wreorder]
+In file included from ./src/SceneObjects/Square.h:4:0,
+                 from ./src/SceneObjects/Square.cpp:3:
+./src/SceneObjects/../scene/scene.h: In destructor ‘virtual MaterialSceneObject::~MaterialSceneObject()’:
+./src/SceneObjects/../scene/scene.h:206:42: warning: deleting object of polymorphic class type ‘Material’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+./src/SceneObjects/../scene/scene.h: In member function ‘virtual void MaterialSceneObject::setMaterial(Material*)’:
+./src/SceneObjects/../scene/scene.h:209:51: warning: deleting object of polymorphic class type ‘Material’ which has non-virtual destructor might cause undefined behaviour [-Wdelete-non-virtual-dtor]
+CommandLineUI.o: In function `CommandLineUI::CommandLineUI(int, char**)':
+/home/minhpham/projects/cs354/demo/ray/./src/ui/CommandLineUI.cpp:36: undefined reference to `getopt(int, char* const*, char*)'
+collect2: error: ld returned 1 exit status
+make[1]: *** [ray] Error 1
+make: *** [all] Error 2

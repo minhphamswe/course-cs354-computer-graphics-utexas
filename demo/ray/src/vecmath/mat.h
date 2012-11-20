@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string.h>
+#include <cmath>
 
 //==========[ Forward References ]=============================================
 
@@ -11,6 +12,8 @@ template <class T> class Vec3;
 template <class T> class Vec4;
 template <class T> class Mat3;
 template <class T> class Mat4;
+
+using std::fabs;
 
 //==========[ class Mat3 ]=====================================================
 

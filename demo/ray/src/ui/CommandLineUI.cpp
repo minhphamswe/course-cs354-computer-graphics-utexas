@@ -8,6 +8,7 @@
 #include "../fileio/bitmap.h"
 
 #include "../RayTracer.h"
+#include "../getopt.h"
 
 using namespace std;
 
@@ -15,11 +16,11 @@ using namespace std;
 // from getopt.cpp
 // it should be put in an include file.
 //
-#ifdef _WIN32
-extern int getopt(int argc, char **argv, char *optstring);
-#else
-extern int getopt(int argc, char* const* argv, char *optstring);
-#endif
+// #ifdef _WIN32
+// extern int getopt(int argc, char **argv, char *optstring);
+// #else
+// extern int getopt(int argc, char* const* argv, char *optstring);
+// #endif
 extern char* optarg;
 extern int optind, opterr, optopt;
 // ***********************************************************
