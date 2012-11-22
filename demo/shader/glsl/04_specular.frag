@@ -20,6 +20,5 @@ varying vec3 c0, c1, c2;
 void main()
 {
   vec3 h = normalize(halfAngle);
-  vec3 n = vec3(0, 0, 1);
-  gl_FragColor = LMs * max(pow(dot(n, h), shininess), 0);
+  gl_FragColor = LMs * max(pow(h.z, shininess), 0);
 }
