@@ -28,7 +28,7 @@ void main()
   vec3 n = vec3(texture2D(normalMap, normalMapTexCoord));
 
   // Expand perturbed normal vector to [-1, 1] from [0, 1]
-  n = vec3(2.0) * n - vec3(1.0, 1.0, 1.0);
+  n = 2.0 * n - vec3(1.0);
   n.y = -n.y;               // invert the bump direction
 
   vec3 l = normalize(lightDirection);

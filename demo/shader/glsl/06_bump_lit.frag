@@ -28,7 +28,7 @@ void main()
   vec3 n = vec3(texture2D(normalMap, normalMapTexCoord));
 
   // Expand (perturbed) normal vector to [-1, 1] from [0, 1]
-  n = vec3(2.0) * n - vec3(1.0, 1.0, 1.0);
+  n = 2.0 * n - vec3(1.0);
 
   // Adjust direction
   n.y = -n.y;               // invert the bump direction
@@ -37,7 +37,7 @@ void main()
   vec3 l = normalize(lightDirection);
   vec3 h = normalize(halfAngle);
 
-  // Light components
+  // Lighting components
   vec4 specular = LMs * max(pow(dot(n, h), shininess), 0.0);
   vec4 diffuse  = LMd * max(dot(n, l), 0.0);
   vec4 ambient  = LMa;
