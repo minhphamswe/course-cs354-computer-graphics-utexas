@@ -19,6 +19,7 @@ varying vec3 c0, c1, c2;
 
 void main()
 {
+  // Get vectors from passed-in arguments
   vec3 Tu = c0;             // first surface tangent vector
   vec3 N = c2;              // surface normal vector
   vec3 Tv = cross(N, Tu);   // second surface tangent vector

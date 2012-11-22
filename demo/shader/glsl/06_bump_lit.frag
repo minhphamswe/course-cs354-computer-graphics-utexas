@@ -43,5 +43,6 @@ void main()
   vec4 ambient  = LMa;
   vec4 lighting = specular + diffuse + ambient;
 
+  // Modulate decal color by lighting
   gl_FragColor = lighting * texture2D(decal, normalMapTexCoord);
 }

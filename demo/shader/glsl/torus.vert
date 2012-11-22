@@ -46,7 +46,7 @@ void main()
   vec3 Tu = vec3(dxdu, dydu, dzdu);      // surface tangent vector
   vec3 Tv = vec3(dxdv, dydv, dzdv);     // another surface tangent vector
   vec3 N = cross(Tu, Tv);                // surface normal vector
-  vec3 B = cross(Tu, N);                 // surface binormal vector
+  vec3 B = cross(N, Tu);                 // surface binormal vector
   mat3 M = mat3(Tu, B, N);               // object to surface transformation
 
   // Set vertex positions
@@ -55,10 +55,9 @@ void main()
   // Set texture mapping coordinates
   normalMapTexCoord = vec2(6.0*u, 2.0*v);
 
-  // Compute light direction
+  // Compute light direction, eye direction, and half angle
   lightDirection = (lightPosition - vec3(x,y,z)) * M;
-
-  eyeDirection = (eyeDirection - vec3(x,y,z)) * M;
+  eyeDirection = (eyePosition - vec3(x,y,z)) * M;
   halfAngle = (lightDirection - eyeDirection) / vec3(2.0);
 
   // Pass information to fragment shaders
