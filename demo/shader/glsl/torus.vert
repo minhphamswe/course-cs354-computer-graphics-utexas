@@ -58,8 +58,10 @@ void main()
   // Compute light direction
   lightDirection = (lightPosition - vec3(x,y,z)) * M;
 
-  eyeDirection = vec3(0);  // XXX fix me
-  halfAngle = vec3(0);  // XXX fix me
+  eyeDirection = (eyeDirection - vec3(x,y,z)) * M;
+  halfAngle = (lightDirection - eyeDirection) / vec3(2.0);
+
+  // Pass information to fragment shaders
   c0 = Tu;
   c1 = B;
   c2 = N;
