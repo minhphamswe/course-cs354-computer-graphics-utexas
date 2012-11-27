@@ -1008,13 +1008,6 @@ inline Vec3<T> prod(const Vec3<T>& a, const Vec3<T>& b) {
 }
 
 template <class T>
-inline Vec3<T> cross(const Vec3<T>& a, const Vec3<T>& b) {
-  return Vec3<T>(a[1] * b[2] - a[2] * b[1],
-                 a[2] * b[0] - a[0] * b[2],
-                 a[0] * b[1] - a[1] * b[0]);
-}
-
-template <class T>
 inline Vec4<T> operator -(const Vec4<T>& v) {
   return Vec4<T>(-v[0], -v[1], -v[2], -v[3]);
 }

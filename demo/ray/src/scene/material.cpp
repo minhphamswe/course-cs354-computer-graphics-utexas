@@ -40,11 +40,13 @@ Vec3d Material::shade(Scene *scene, const ray& r, const isect& i) const {
     R = I - 2.0 * (N * I) * N;                  // reflection vector
     V = (r.getPosition() - isectPoint);         // view vector
     V.normalize();
-    L = pLight->getColor(isectPoint);           // light color vector
+
+    // compute light color vector
+    L = pLight->getColor(isectPoint) * pLight->distanceAttenuation(isectPoint);
 
     ambient = ka(i);
-    diffuse = max((I * N), 0.0) * (kd(i) % L;
-    specular = max(pow((R * V), shininess(i)), 0.0) * (ks(i) % L;
+    diffuse = max((I * N), 0.0) * (kd(i) % L);
+    specular = max(pow((R * V), shininess(i)), 0.0) * (ks(i) % L);
 
     lighting = ambient + diffuse + lighting;
     sumLighting += lighting;
