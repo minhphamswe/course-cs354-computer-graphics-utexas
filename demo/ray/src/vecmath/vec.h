@@ -34,155 +34,201 @@ class VectorSizeMismatch {};
 
 template <class T>
 class Vec {
-		// array of elements
-	T*		n;
-		// vector size
-	int		numElements;
+    // array of elements
+    T*    n;
+    // vector size
+    int   numElements;
 
-public:
+  public:
 
-	//---[ Constructors/Destructor ]-------------
+    //---[ Constructors/Destructor ]-------------
 
-	Vec() { n = NULL; numElements = 0; }
-		// creates a new vector with size elements
-		// if zeroElements is true the vector is initialized to zero
-	Vec( int size, bool zeroElements = false );
-		// copy constructor
-	Vec( const Vec<T>& v );
-		// destructor, simply deletes the array
-	virtual ~Vec();
+    Vec() {
+      n = NULL;
+      numElements = 0;
+    }
+    // creates a new vector with size elements
+    // if zeroElements is true the vector is initialized to zero
+    Vec(int size, bool zeroElements = false);
+    // copy constructor
+    Vec(const Vec<T>& v);
+    // destructor, simply deletes the array
+    virtual ~Vec();
 
-	//---[ Size Methods ]------------------------
+    //---[ Size Methods ]------------------------
 
-	int size() const { return numElements; }
-	void resize( int size, bool zeroElements = false );
+    int size() const {
+      return numElements;
+    }
+    void resize(int size, bool zeroElements = false);
 
-	//---[ Equal Operators ]---------------------
+    //---[ Equal Operators ]---------------------
 
-	Vec<T>& operator =  ( const Vec<T>& v );
-	Vec<T>& operator += ( const Vec<T>& v );
-	Vec<T>& operator -= ( const Vec<T>& v );
-	Vec<T>& operator *= ( const T d );
-	Vec<T>& operator /= ( const T d );
+    Vec<T>& operator = (const Vec<T>& v);
+    Vec<T>& operator += (const Vec<T>& v);
+    Vec<T>& operator -= (const Vec<T>& v);
+    Vec<T>& operator *= (const T d);
+    Vec<T>& operator /= (const T d);
 
-	//---[ Access Operators ]--------------------
+    //---[ Access Operators ]--------------------
 
-	T& operator []( int i )
-		{ return n[i]; }
-	T operator []( int i ) const 
-		{ return n[i]; }
+    T& operator [](int i) {
+      return n[i];
+    }
+    T operator [](int i) const {
+      return n[i];
+    }
 
-	//---[ Arithmetic Operators ]----------------
+    //---[ Arithmetic Operators ]----------------
 
-	Vec<T> operator-( const Vec<T>& a );
-	Vec<T> operator+( const Vec<T>& a );
+    Vec<T> operator-(const Vec<T>& a);
+    Vec<T> operator+(const Vec<T>& a);
 
-	//---[ Conversion Operators ]----------------
+    //---[ Conversion Operators ]----------------
 
-	T* getPointer() const { return n; }
+    T* getPointer() const {
+      return n;
+    }
 
-	//---[ Length Methods ]----------------------
+    //---[ Length Methods ]----------------------
 
-	double length2() const;
-	double length() const;
+    double length2() const;
+    double length() const;
 
-	//---[ Normalization ]-----------------------
+    //---[ Normalization ]-----------------------
 
-	void normalize();
+    void normalize();
 
-	//---[ Zero Test ]---------------------------
+    //---[ Zero Test ]---------------------------
 
-	bool iszero();
-	void zeroElements();
+    bool iszero();
+    void zeroElements();
 
-	//---[ Friend Methods ]----------------------
+    //---[ Friend Methods ]----------------------
 
-	template <class U> friend T operator *( const Vec<T>& a, const Vec<T>& b );
-	template <class U> friend Vec<T> operator -( const Vec<T>& v );
-	template <class U> friend Vec<T> operator *( const Vec<T>& a, const double d );
-	template <class U> friend Vec<T> operator *( const double d, const Vec<T>& a );
-	template <class U> friend Vec<T> operator /( const Vec<T>& a, const double d );
-	template <class U> friend Vec<T> operator ^( const Vec<T>& a, const Vec<T>& b );
-	template <class U> friend bool operator == ( const Vec<T>& a, const Vec<T>& b );
-	template <class U> friend bool operator != ( const Vec<T>& a, const Vec<T>& b );
-	template <class U> friend std::ostream& operator <<( std::ostream& os, const Vec<T>& v );
-	template <class U> friend std::istream& operator >>( std::istream& is, Vec<T>& v );
-	template <class U> friend Vec<T> minimum( const Vec<T>& a, const Vec<T>& b );
-	template <class U> friend Vec<T> maximum( const Vec<T>& a, const Vec<T>& b );
-	template <class U> friend Vec<T> prod( const Vec<T>& a, const Vec<T>& b );
+    template <class U> friend T operator *(const Vec<T>& a, const Vec<T>& b);
+    template <class U> friend Vec<T> operator -(const Vec<T>& v);
+    template <class U> friend Vec<T> operator *(const Vec<T>& a, const double d);
+    template <class U> friend Vec<T> operator *(const double d, const Vec<T>& a);
+    template <class U> friend Vec<T> operator /(const Vec<T>& a, const double d);
+    template <class U> friend Vec<T> operator ^(const Vec<T>& a, const Vec<T>& b);
+    template <class U> friend bool operator == (const Vec<T>& a, const Vec<T>& b);
+    template <class U> friend bool operator != (const Vec<T>& a, const Vec<T>& b);
+    template <class U> friend std::ostream& operator <<(std::ostream& os, const Vec<T>& v);
+    template <class U> friend std::istream& operator >>(std::istream& is, Vec<T>& v);
+    template <class U> friend Vec<T> minimum(const Vec<T>& a, const Vec<T>& b);
+    template <class U> friend Vec<T> maximum(const Vec<T>& a, const Vec<T>& b);
+    template <class U> friend Vec<T> prod(const Vec<T>& a, const Vec<T>& b);
 };
 
-typedef Vec<int>	Veci;
-typedef Vec<float>	Vecf;
-typedef Vec<double>	Vecd;
+typedef Vec<int>  Veci;
+typedef Vec<float>  Vecf;
+typedef Vec<double> Vecd;
 
 //==========[ class Vec2 ]=================================
 
 template <class T>
 class Vec2 {
 
-	//---[ Private Variable Declarations ]-------
+    //---[ Private Variable Declarations ]-------
 
-		// x, y
-	T		n[2];
+    // x, y
+    T   n[2];
 
-public:
+  public:
 
-	//---[ Constructors ]------------------------
+    //---[ Constructors ]------------------------
 
-	Vec2() { n[0] = 0.0; n[1] = 0.0; }
-	Vec2( const T x, const T y )
-		{ n[0] = x; n[1] = y; }
-	Vec2( const Vec2<T>& v )
-		{ n[0] = v[0]; n[1] = v[1]; }
+    Vec2() {
+      n[0] = 0.0;
+      n[1] = 0.0;
+    }
+    Vec2(const T x, const T y) {
+      n[0] = x;
+      n[1] = y;
+    }
+    Vec2(const Vec2<T>& v) {
+      n[0] = v[0];
+      n[1] = v[1];
+    }
 
-	//---[ Equal Operators ]---------------------
+    //---[ Equal Operators ]---------------------
 
-	Vec2<T>& operator=( const Vec2<T>& v )
-		{ n[0] = v[0]; n[1] = v[1]; return *this; }
-	Vec2<T>& operator +=( const Vec2<T>& v )
-		{ n[0] += v[0]; n[1] += v[1]; return *this; }
-	Vec2<T>& operator -= ( const Vec2<T>& v )
-		{ n[0] -= v[0]; n[1] -= v[1]; return *this; }
-	Vec2<T>& operator *= ( const T d )
-		{ n[0] *= d; n[1] *= d; return *this; }
-	Vec2<T>& operator /= ( const T d )
-		{ n[0] /= d; n[1] /= d; return *this; }
+    Vec2<T>& operator=(const Vec2<T>& v) {
+      n[0] = v[0];
+      n[1] = v[1];
+      return *this;
+    }
+    Vec2<T>& operator +=(const Vec2<T>& v) {
+      n[0] += v[0];
+      n[1] += v[1];
+      return *this;
+    }
+    Vec2<T>& operator -= (const Vec2<T>& v) {
+      n[0] -= v[0];
+      n[1] -= v[1];
+      return *this;
+    }
+    Vec2<T>& operator *= (const T d) {
+      n[0] *= d;
+      n[1] *= d;
+      return *this;
+    }
+    Vec2<T>& operator /= (const T d) {
+      n[0] /= d;
+      n[1] /= d;
+      return *this;
+    }
 
-	//---[ Access Operators ]--------------------
+    //---[ Access Operators ]--------------------
 
-	T& operator []( int i )
-		{ return n[i]; }
-	T operator []( int i ) const 
-		{ return n[i]; }
+    T& operator [](int i) {
+      return n[i];
+    }
+    T operator [](int i) const {
+      return n[i];
+    }
 
-	//---[ Arithmetic Operators ]----------------
+    //---[ Arithmetic Operators ]----------------
 
-	Vec2<T> operator-( const Vec2<T>& a ) { return Vec2<T>(n[0]-a[0],n[1]-a[1]); }
-	Vec2<T> operator+( const Vec2<T>& a ) { return Vec2<T>(a[0]+n[0],a[1]+n[1]); }
+    Vec2<T> operator-(const Vec2<T>& a) {
+      return Vec2<T>(n[0] - a[0], n[1] - a[1]);
+    }
+    Vec2<T> operator+(const Vec2<T>& a) {
+      return Vec2<T>(a[0] + n[0], a[1] + n[1]);
+    }
 
-	//---[ Conversion Operators ]----------------
+    //---[ Conversion Operators ]----------------
 
-	const T* getPointer() const { return n; }
+    const T* getPointer() const {
+      return n;
+    }
 
-	//---[ Length Methods ]----------------------
+    //---[ Length Methods ]----------------------
 
-	double length2() const
-		{ return n[0]*n[0] + n[1]*n[1]; }
-	double length() const
-		{ return sqrt( length2() ); }
+    double length2() const {
+      return n[0] * n[0] + n[1] * n[1];
+    }
+    double length() const {
+      return sqrt(length2());
+    }
 
-	//---[ Normalization ]-----------------------
+    //---[ Normalization ]-----------------------
 
-	void normalize() { 
-		double len = length();
-		n[0] /= len; n[1] /= len;
-	}
+    void normalize() {
+      double len = length();
+      n[0] /= len;
+      n[1] /= len;
+    }
 
-	//---[ Zero Test ]---------------------------
+    //---[ Zero Test ]---------------------------
 
-	bool iszero() { return ( (n[0]==0 && n[1]==0) ? true : false); };
-	void zeroElements() { memset(n,0,sizeof(T)*2); }
+    bool iszero() {
+      return ((n[0] == 0 && n[1] == 0) ? true : false);
+    };
+    void zeroElements() {
+      memset(n, 0, sizeof(T) * 2);
+    }
 };
 
 typedef Vec2<int> Vec2i;
@@ -194,109 +240,179 @@ typedef Vec2<double> Vec2d;
 template <class T>
 class Vec3 {
 
-	//---[ Private Variable Declarations ]-------
+    //---[ Private Variable Declarations ]-------
 
-public:
-		// x, y, z
-	T		n[3];
+  public:
+    // x, y, z
+    T   n[3];
 
-	//---[ Constructors ]------------------------
+    //---[ Constructors ]------------------------
 
-	Vec3() { n[0] = 0.0; n[1] = 0.0; n[2] = 0.0; }
-	Vec3( const T x, const T y, const T z )
-		{ n[0] = x; n[1] = y; n[2] = z; }
-	Vec3( const Vec3<T>& v )
-		{ n[0] = v[0]; n[1] = v[1]; n[2] = v[2]; }
-	Vec3( int ) { n[0] = 0.0; n[1] = 0.0; n[2] = 0.0; }
-	Vec3( const Vec4<T>& v )
-		{ n[0] = v[0]; n[1] = v[1]; n[2] = v[2]; }
+    Vec3() {
+      n[0] = 0.0;
+      n[1] = 0.0;
+      n[2] = 0.0;
+    }
+    Vec3(const T x, const T y, const T z) {
+      n[0] = x;
+      n[1] = y;
+      n[2] = z;
+    }
+    Vec3(const Vec3<T>& v) {
+      n[0] = v[0];
+      n[1] = v[1];
+      n[2] = v[2];
+    }
+    Vec3(int) {
+      n[0] = 0.0;
+      n[1] = 0.0;
+      n[2] = 0.0;
+    }
+    Vec3(const Vec4<T>& v) {
+      n[0] = v[0];
+      n[1] = v[1];
+      n[2] = v[2];
+    }
 
-	//---[ Equal Operators ]---------------------
+    //---[ Equal Operators ]---------------------
 
-	Vec3<T>& operator=( const Vec3<T>& v )
-		{ n[0] = v[0]; n[1] = v[1]; n[2] = v[2]; return *this; }
-	Vec3<T>& operator +=( const Vec3<T>& v )
-		{ n[0] += v[0]; n[1] += v[1]; n[2] += v[2]; return *this; }
-	Vec3<T>& operator -= ( const Vec3<T>& v )
-		{ n[0] -= v[0]; n[1] -= v[1]; n[2] -= v[2]; return *this; }
-	Vec3<T>& operator *= ( const T d )
-		{ n[0] *= d; n[1] *= d; n[2] *= d; return *this; }
-	Vec3<T>& operator %= ( const Vec3<T>& v )
-		{ n[0] *= v[0]; n[1] *= v[1]; n[2] *= v[2]; return *this; }
-	Vec3<T>& operator /= ( const T d )
-		{ n[0] /= d; n[1] /= d; n[2] /= d; return *this; }
+    Vec3<T>& operator=(const Vec3<T>& v) {
+      n[0] = v[0];
+      n[1] = v[1];
+      n[2] = v[2];
+      return *this;
+    }
+    Vec3<T>& operator +=(const Vec3<T>& v) {
+      n[0] += v[0];
+      n[1] += v[1];
+      n[2] += v[2];
+      return *this;
+    }
+    Vec3<T>& operator -= (const Vec3<T>& v) {
+      n[0] -= v[0];
+      n[1] -= v[1];
+      n[2] -= v[2];
+      return *this;
+    }
+    Vec3<T>& operator *= (const T d) {
+      n[0] *= d;
+      n[1] *= d;
+      n[2] *= d;
+      return *this;
+    }
+    Vec3<T>& operator %= (const Vec3<T>& v) {
+      n[0] *= v[0];
+      n[1] *= v[1];
+      n[2] *= v[2];
+      return *this;
+    }
+    Vec3<T>& operator /= (const T d) {
+      n[0] /= d;
+      n[1] /= d;
+      n[2] /= d;
+      return *this;
+    }
 
-	//---[ Access Operators ]--------------------
+    //---[ Access Operators ]--------------------
 
-	T& operator []( int i )
-		{ return n[i]; }
-	T operator []( int i ) const 
-		{ return n[i]; }
+    T& operator [](int i) {
+      return n[i];
+    }
+    T operator [](int i) const {
+      return n[i];
+    }
 
-	//---[ Arithmetic Operators ]----------------
+    //---[ Arithmetic Operators ]----------------
 
-	Vec3<T> operator-( const Vec3<T>& a ) const { return Vec3<T>(n[0]-a[0],n[1]-a[1],n[2]-a[2]); }
-	Vec3<T> operator+( const Vec3<T>& a ) const { return Vec3<T>(a[0]+n[0],a[1]+n[1],a[2]+n[2]); }
+    Vec3<T> operator-(const Vec3<T>& a) const {
+      return Vec3<T>(n[0] - a[0], n[1] - a[1], n[2] - a[2]);
+    }
+    Vec3<T> operator+(const Vec3<T>& a) const {
+      return Vec3<T>(a[0] + n[0], a[1] + n[1], a[2] + n[2]);
+    }
 
-	//---[ Conversion Operators ]----------------
+    //---[ Conversion Operators ]----------------
 
-	const T* getPointer() const { return n; }
+    const T* getPointer() const {
+      return n;
+    }
 
-	//---[ Length Methods ]----------------------
+    //---[ Length Methods ]----------------------
 
-	double length2() const
-		{ return n[0]*n[0] + n[1]*n[1] + n[2]*n[2]; }
-	double length() const
-		{ return sqrt( length2() ); }
+    double length2() const {
+      return n[0] * n[0] + n[1] * n[1] + n[2] * n[2];
+    }
+    double length() const {
+      return sqrt(length2());
+    }
 
-	//---[ Normalization ]-----------------------
+    //---[ Normalization ]-----------------------
 
-	void normalize() { 
-		double len = length();
-		n[0] /= len; n[1] /= len; n[2] /= len;
-	}
+    void normalize() {
+      double len = length();
+      n[0] /= len;
+      n[1] /= len;
+      n[2] /= len;
+    }
 
-	void clamp() {
-		int i;
-		for (i=0; i < 3; i++) {
-			if (n[i] < 0) n[i] = 0.0;
-			if (n[i] > 1) n[i] = 1.0;
-		}
-	}
+    void clamp() {
+      int i;
 
-	//---[ Zero Test ]---------------------------
+      for (i = 0; i < 3; i++) {
+        if (n[i] < 0)
+          n[i] = 0.0;
 
-	bool iszero() { return ( (n[0]==0 && n[1]==0 && n[2]==0) ? true : false); };
-	void zeroElements() { memset(n,0,sizeof(T)*3); }
+        if (n[i] > 1)
+          n[i] = 1.0;
+      }
+    }
 
-	//---[ OpenGL Methods ]----------------------
+    //---[ Zero Test ]---------------------------
 
-	void glTranslate() { glTranslated(n[0], n[1], n[2]); }
-	void glColor()  { glColor3d(n[0], n[1], n[2]); }
-	void glVertex()  { glVertex3d(n[0], n[1], n[2]); }
-	void glNormal()  { glNormal3d(n[0], n[1], n[2]); }
+    bool iszero() {
+      return ((n[0] == 0 && n[1] == 0 && n[2] == 0) ? true : false);
+    };
+    void zeroElements() {
+      memset(n, 0, sizeof(T) * 3);
+    }
 
-	//---[ Friend Methods ]----------------------
+    //---[ OpenGL Methods ]----------------------
 
-	template <class U> friend T operator *( const Vec3<T>& a, const Vec4<T>& b );
-	template <class U> friend T operator *( const Vec4<T>& b, const Vec3<T>& a );
-	template <class U> friend Vec3<T> operator -( const Vec3<T>& v );
-	template <class U> friend Vec3<T> operator *( const Vec3<T>& a, const double d );
-	template <class U> friend Vec3<T> operator *( const double d, const Vec3<T>& a );
-	template <class U> friend Vec3<T> operator *( const Vec3<T>& v, Mat4<T>& a );
-	template <class U> friend T operator *( const Vec3<T>& a, const Vec3<T>& b );
-	template <class U> friend Vec3<T> operator *( const Mat3<T>& a, const Vec3<T>& v );
-	template <class U> friend Vec3<T> operator *( const Vec3<T>& v, const Mat3<T>& a );
-	template <class U> friend Vec3<T> operator *( const Mat4<T>& a, const Vec3<T>& v );
-	template <class U> friend Vec3<T> operator /( const Vec3<T>& a, const double d );
-	template <class U> friend Vec3<T> operator ^( const Vec3<T>& a, const Vec3<T>& b );
-	template <class U> friend bool operator ==( const Vec3<T>& a, const Vec3<T>& b );
-	template <class U> friend bool operator !=( const Vec3<T>& a, const Vec3<T>& b );
-	template <class U> friend std::ostream& operator <<( std::ostream& os, const Vec3<T>& v );
-	template <class U> friend std::istream& operator >>( std::istream& is, Vec3<T>& v );
-	template <class U> friend Vec3<T> minimum( const Vec3<T>& a, const Vec3<T>& b );
-	template <class U> friend Vec3<T> maximum( const Vec3<T>& a, const Vec3<T>& b );
-	template <class U> friend Vec3<T> prod( const Vec3<T>& a, const Vec3<T>& b );
+    void glTranslate() {
+      glTranslated(n[0], n[1], n[2]);
+    }
+    void glColor()  {
+      glColor3d(n[0], n[1], n[2]);
+    }
+    void glVertex()  {
+      glVertex3d(n[0], n[1], n[2]);
+    }
+    void glNormal()  {
+      glNormal3d(n[0], n[1], n[2]);
+    }
+
+    //---[ Friend Methods ]----------------------
+
+    template <class U> friend T operator *(const Vec3<T>& a, const Vec4<T>& b);
+    template <class U> friend T operator *(const Vec4<T>& b, const Vec3<T>& a);
+    template <class U> friend Vec3<T> operator -(const Vec3<T>& v);
+    template <class U> friend Vec3<T> operator *(const Vec3<T>& a, const double d);
+    template <class U> friend Vec3<T> operator *(const double d, const Vec3<T>& a);
+    template <class U> friend Vec3<T> operator *(const Vec3<T>& v, Mat4<T>& a);
+    template <class U> friend T operator *(const Vec3<T>& a, const Vec3<T>& b);
+    template <class U> friend Vec3<T> operator *(const Mat3<T>& a, const Vec3<T>& v);
+    template <class U> friend Vec3<T> operator *(const Vec3<T>& v, const Mat3<T>& a);
+    template <class U> friend Vec3<T> operator *(const Mat4<T>& a, const Vec3<T>& v);
+    template <class U> friend Vec3<T> operator /(const Vec3<T>& a, const double d);
+    template <class U> friend Vec3<T> operator ^(const Vec3<T>& a, const Vec3<T>& b);
+    template <class U> friend bool operator ==(const Vec3<T>& a, const Vec3<T>& b);
+    template <class U> friend bool operator !=(const Vec3<T>& a, const Vec3<T>& b);
+    template <class U> friend std::ostream& operator <<(std::ostream& os, const Vec3<T>& v);
+    template <class U> friend std::istream& operator >>(std::istream& is, Vec3<T>& v);
+    template <class U> friend Vec3<T> minimum(const Vec3<T>& a, const Vec3<T>& b);
+    template <class U> friend Vec3<T> maximum(const Vec3<T>& a, const Vec3<T>& b);
+    template <class U> friend Vec3<T> prod(const Vec3<T>& a, const Vec3<T>& b);
+    template <class U> friend Vec3<T> cross(const Vec3<T>& a, const Vec3<T>& b);
 };
 
 typedef Vec3<int> Vec3i;
@@ -308,87 +424,137 @@ typedef Vec3<double> Vec3d;
 template <class T>
 class Vec4 {
 
-	//---[ Private Variable Declarations ]-------
+    //---[ Private Variable Declarations ]-------
 
-		// x, y, z, w
-	T		n[4];
+    // x, y, z, w
+    T   n[4];
 
-public:
-	
-	//---[ Constructors ]------------------------
+  public:
 
-	Vec4() { n[0] = 0.0; n[1] = 0.0; n[2] = 0.0; n[3] = 0.0; }
-	Vec4( const T x, const T y, const T z, const T w )
-		{ n[0] = x; n[1] = y; n[2] = z; n[3] = w; }
-	Vec4( const Vec4& v )
-		{ n[0] = v[0]; n[1] = v[1]; n[2] = v[2]; n[3] = v[3]; }
+    //---[ Constructors ]------------------------
 
-	//---[ Equal Operators ]---------------------
+    Vec4() {
+      n[0] = 0.0;
+      n[1] = 0.0;
+      n[2] = 0.0;
+      n[3] = 0.0;
+    }
+    Vec4(const T x, const T y, const T z, const T w) {
+      n[0] = x;
+      n[1] = y;
+      n[2] = z;
+      n[3] = w;
+    }
+    Vec4(const Vec4& v) {
+      n[0] = v[0];
+      n[1] = v[1];
+      n[2] = v[2];
+      n[3] = v[3];
+    }
 
-	Vec4<T>& operator =( const Vec4<T>& v )
-		{ n[0] = v[0]; n[1] = v[1]; n[2] = v[2]; n[3] = v[3];
-		  return *this; }
-	Vec4<T>& operator +=( const Vec4<T>& v )
-		{ n[0] += v[0]; n[1] += v[1]; n[2] += v[2]; n[3] += v[3];
-		  return *this; }
-	Vec4<T>& operator -= ( const Vec4<T>& v )
-		{ n[0] -= v[0]; n[1] -= v[1]; n[2] -= v[2]; n[3] -= v[3];
-		  return *this; }
-	Vec4<T>& operator *= ( const T d )
-		{ n[0] *= d; n[1] *= d; n[2] *= d; n[3] *= d; return *this; }
-	Vec4<T>& operator /= ( const T d )
-		{ n[0] /= d; n[1] /= d; n[2] /= d; n[3] /= d; return *this; }
+    //---[ Equal Operators ]---------------------
 
-	//---[ Access Operators ]--------------------
+    Vec4<T>& operator =(const Vec4<T>& v) {
+      n[0] = v[0];
+      n[1] = v[1];
+      n[2] = v[2];
+      n[3] = v[3];
+      return *this;
+    }
+    Vec4<T>& operator +=(const Vec4<T>& v) {
+      n[0] += v[0];
+      n[1] += v[1];
+      n[2] += v[2];
+      n[3] += v[3];
+      return *this;
+    }
+    Vec4<T>& operator -= (const Vec4<T>& v) {
+      n[0] -= v[0];
+      n[1] -= v[1];
+      n[2] -= v[2];
+      n[3] -= v[3];
+      return *this;
+    }
+    Vec4<T>& operator *= (const T d) {
+      n[0] *= d;
+      n[1] *= d;
+      n[2] *= d;
+      n[3] *= d;
+      return *this;
+    }
+    Vec4<T>& operator /= (const T d) {
+      n[0] /= d;
+      n[1] /= d;
+      n[2] /= d;
+      n[3] /= d;
+      return *this;
+    }
 
-	T& operator []( int i )
-		{ return n[i]; }
-	T operator []( int i ) const 
-		{ return n[i]; }
+    //---[ Access Operators ]--------------------
 
-	//---[ Arithmetic Operators ]----------------
+    T& operator [](int i) {
+      return n[i];
+    }
+    T operator [](int i) const {
+      return n[i];
+    }
 
-	Vec4<T> operator-( const Vec4<T>& a ) { return Vec4<T>(n[0]-a[0],n[1]-a[1],n[2]-a[2],n[3]-a[3]); }
-	Vec4<T> operator+( const Vec4<T>& a ) { return Vec4<T>(a[0]+n[0],a[1]+n[1],a[2]+n[2],a[3]+n[3]); }
+    //---[ Arithmetic Operators ]----------------
 
-	//---[ Length Methods ]----------------------
+    Vec4<T> operator-(const Vec4<T>& a) {
+      return Vec4<T>(n[0] - a[0], n[1] - a[1], n[2] - a[2], n[3] - a[3]);
+    }
+    Vec4<T> operator+(const Vec4<T>& a) {
+      return Vec4<T>(a[0] + n[0], a[1] + n[1], a[2] + n[2], a[3] + n[3]);
+    }
 
-	double length2() const
-		{ return n[0]*n[0] + n[1]*n[1] + n[2]*n[2] + n[3]*n[3]; }
-	double length() const
-		{ return sqrt( length2() ); }
+    //---[ Length Methods ]----------------------
 
-	//---[ Zero Test ]---------------------------
+    double length2() const {
+      return n[0] * n[0] + n[1] * n[1] + n[2] * n[2] + n[3] * n[3];
+    }
+    double length() const {
+      return sqrt(length2());
+    }
 
-	bool isZero() const { return n[0]==0&&n[1]==0&&n[2]==0&&n[3]==0; }
-	void zeroElements() { memset(n,0,4*sizeof(T)); }
+    //---[ Zero Test ]---------------------------
 
-	//---[ Normalization ]-----------------------
+    bool isZero() const {
+      return n[0] == 0 && n[1] == 0 && n[2] == 0 && n[3] == 0;
+    }
+    void zeroElements() {
+      memset(n, 0, 4 * sizeof(T));
+    }
 
-	void normalize() {
-		double len = length();
-		n[0] /= len; n[1] /= len; n[2] /= len; n[3] /= len;
-	}
-	
-	//---[ Friend Methods ]----------------------
+    //---[ Normalization ]-----------------------
 
-	template <class U> friend T operator *( const Vec3<T>& a, const Vec4<T>& b );
-	template <class U> friend T operator *( const Vec4<T>& b, const Vec3<T>& a );
-	template <class U> friend Vec4<T> operator -( const Vec4<T>& v );
-	template <class U> friend Vec4<T> operator *( const Vec4<T>& a, const double d );
-	template <class U> friend Vec4<T> operator *( const double d, const Vec4<T>& a );
-	template <class U> friend T operator *( const Vec4<T>& a, const Vec4<T>& b );
-	template <class U> friend Vec4<T> operator *( const Mat4<T>& a, const Vec4<T>& v );
-	template <class U> friend Vec4<T> operator *( const Vec4<T>& v, const Mat4<T>& a );
-	template <class U> friend Vec4<T> operator /( const Vec4<T>& a, const double d );
-	template <class U> friend Vec4<T> operator ^( const Vec4<T>& a, const Vec4<T>& b );
-	template <class U> friend bool operator ==( const Vec4<T>& a, const Vec4<T>& b );
-	template <class U> friend bool operator !=( const Vec4<T>& a, const Vec4<T>& b );
-	template <class U> friend std::ostream& operator <<( std::ostream& os, const Vec4<T>& v );
-	template <class U> friend std::istream& operator >>( std::istream& is, Vec4<T>& v );
-	template <class U> friend Vec4<T> minimum( const Vec4<T>& a, const Vec4<T>& b );
-	template <class U> friend Vec4<T> maximum( const Vec4<T>& a, const Vec4<T>& b );
-	template <class U> friend Vec4<T> prod( const Vec4<T>& a, const Vec4<T>& b );
+    void normalize() {
+      double len = length();
+      n[0] /= len;
+      n[1] /= len;
+      n[2] /= len;
+      n[3] /= len;
+    }
+
+    //---[ Friend Methods ]----------------------
+
+    template <class U> friend T operator *(const Vec3<T>& a, const Vec4<T>& b);
+    template <class U> friend T operator *(const Vec4<T>& b, const Vec3<T>& a);
+    template <class U> friend Vec4<T> operator -(const Vec4<T>& v);
+    template <class U> friend Vec4<T> operator *(const Vec4<T>& a, const double d);
+    template <class U> friend Vec4<T> operator *(const double d, const Vec4<T>& a);
+    template <class U> friend T operator *(const Vec4<T>& a, const Vec4<T>& b);
+    template <class U> friend Vec4<T> operator *(const Mat4<T>& a, const Vec4<T>& v);
+    template <class U> friend Vec4<T> operator *(const Vec4<T>& v, const Mat4<T>& a);
+    template <class U> friend Vec4<T> operator /(const Vec4<T>& a, const double d);
+    template <class U> friend Vec4<T> operator ^(const Vec4<T>& a, const Vec4<T>& b);
+    template <class U> friend bool operator ==(const Vec4<T>& a, const Vec4<T>& b);
+    template <class U> friend bool operator !=(const Vec4<T>& a, const Vec4<T>& b);
+    template <class U> friend std::ostream& operator <<(std::ostream& os, const Vec4<T>& v);
+    template <class U> friend std::istream& operator >>(std::istream& is, Vec4<T>& v);
+    template <class U> friend Vec4<T> minimum(const Vec4<T>& a, const Vec4<T>& b);
+    template <class U> friend Vec4<T> maximum(const Vec4<T>& a, const Vec4<T>& b);
+    template <class U> friend Vec4<T> prod(const Vec4<T>& a, const Vec4<T>& b);
 };
 
 typedef Vec4<int> Vec4i;
@@ -398,503 +564,535 @@ typedef Vec4<double> Vec4d;
 //==========[ Vec Methods ]================================
 
 template <class T>
-Vec<T>::Vec( int size, bool zeroElements ) {
-	numElements = size;
-	n = new T[size];
+Vec<T>::Vec(int size, bool zeroElements) {
+  numElements = size;
+  n = new T[size];
 
-	if( !zeroElements )
-		return;
+  if (!zeroElements)
+    return;
 
-	for( int i=0;i<size;i++ )
-		n[i] = 0.0;
+  for (int i = 0; i < size; i++)
+    n[i] = 0.0;
 }
 
 template <class T>
-Vec<T>::Vec( const Vec<T>& v ) {
-	numElements = v.numElements;
-	n = new T[numElements];
+Vec<T>::Vec(const Vec<T>& v) {
+  numElements = v.numElements;
+  n = new T[numElements];
 
-	memcpy( n, v.n, numElements * sizeof(T) );
+  memcpy(n, v.n, numElements * sizeof(T));
 }
 
 template <class T>
 Vec<T>::~Vec() {
-	delete [] n;
+  delete [] n;
 }
 
 template <class T>
-void Vec<T>::resize( int size, bool zeroElements ) {
-	if( numElements != size ) {
-		numElements = size;
-		delete [] n;
+void Vec<T>::resize(int size, bool zeroElements) {
+  if (numElements != size) {
+    numElements = size;
+    delete [] n;
 
-		n = new T[size];
-	}
+    n = new T[size];
+  }
 
-	if( zeroElements )
-		memset( n, 0, numElements * sizeof(T) );
+  if (zeroElements)
+    memset(n, 0, numElements * sizeof(T));
 }
 
 template <class T>
 void Vec<T>::zeroElements() {
-	memset( n, 0, numElements * sizeof(T) );
+  memset(n, 0, numElements * sizeof(T));
 }
 
 template <class T>
-Vec<T>& Vec<T>::operator=( const Vec<T>& v ) {
+Vec<T>& Vec<T>::operator=(const Vec<T>& v) {
 #ifdef _DEBUG
-	if( v.numElements != numElements )
-		throw VectorSizeMismatch();
+
+  if (v.numElements != numElements)
+    throw VectorSizeMismatch();
+
 #endif
 
-	for( int i=0;i<numElements;i++ )
-		n[i] = v[i];
+  for (int i = 0; i < numElements; i++)
+    n[i] = v[i];
 
-	return *this;
+  return *this;
 }
 
 template <class T>
-Vec<T>& Vec<T>::operator+=( const Vec<T>& v ) {
+Vec<T>& Vec<T>::operator+=(const Vec<T>& v) {
 #ifdef _DEBUG
-	if( v.numElements != numElements )
-		throw VectorSizeMismatch();
+
+  if (v.numElements != numElements)
+    throw VectorSizeMismatch();
+
 #endif
 
-	for( int i=0;i<numElements;i++ )
-		n[i] += v[i];
+  for (int i = 0; i < numElements; i++)
+    n[i] += v[i];
 
-	return *this;
+  return *this;
 }
 
 template <class T>
-Vec<T>& Vec<T>::operator-=( const Vec<T>& v ) {
+Vec<T>& Vec<T>::operator-=(const Vec<T>& v) {
 #ifdef _DEBUG
-	if( v.numElements != numElements )
-		throw VectorSizeMismatch();
+
+  if (v.numElements != numElements)
+    throw VectorSizeMismatch();
+
 #endif
 
-	for( int i=0;i<numElements;i++ )
-		n[i] -= v[i];
+  for (int i = 0; i < numElements; i++)
+    n[i] -= v[i];
 
-	return *this;
+  return *this;
 }
 
 template <class T>
-Vec<T>& Vec<T>::operator*=( const T d ) {
-	for( int i=0;i<numElements;i++ )
-		n[i] *= d;
+Vec<T>& Vec<T>::operator*=(const T d) {
+  for (int i = 0; i < numElements; i++)
+    n[i] *= d;
 
-	return *this;
+  return *this;
 }
 
 template <class T>
-Vec<T>& Vec<T>::operator/=( const T d ) {
-	for( int i=0;i<numElements;i++ )
-		n[i] /= d;
+Vec<T>& Vec<T>::operator/=(const T d) {
+  for (int i = 0; i < numElements; i++)
+    n[i] /= d;
 
-	return *this;
+  return *this;
 }
 
 template <class T>
-Vec<T> Vec<T>::operator-( const Vec<T>& v ) {
+Vec<T> Vec<T>::operator-(const Vec<T>& v) {
 #ifdef _DEBUG
-	if( v.numElements != numElements )
-		throw VectorSizeMismatch();
+
+  if (v.numElements != numElements)
+    throw VectorSizeMismatch();
+
 #endif
 
-	Vec<T>	result( numElements, false );
+  Vec<T>  result(numElements, false);
 
-	for( int i=0;i<numElements;i++ )
-		result[i] = n[i] - v[i];
+  for (int i = 0; i < numElements; i++)
+    result[i] = n[i] - v[i];
 
-	return result;
+  return result;
 }
 
 template <class T>
-Vec<T> Vec<T>::operator+( const Vec<T>& v ) {
+Vec<T> Vec<T>::operator+(const Vec<T>& v) {
 #ifdef _DEBUG
-	if( v.numElements != numElements )
-		throw VectorSizeMismatch();
+
+  if (v.numElements != numElements)
+    throw VectorSizeMismatch();
+
 #endif
 
-	Vec<T>	result( numElements, false );
+  Vec<T>  result(numElements, false);
 
-	for( int i=0;i<numElements;i++ )
-		result[i] = v[i] + n[i];
+  for (int i = 0; i < numElements; i++)
+    result[i] = v[i] + n[i];
 
-	return result;
+  return result;
 }
 
 template <class T>
 double Vec<T>::length2() const {
-	double	result = 0.0;
+  double  result = 0.0;
 
-	for( int i=0;i<numElements;i++ )
-		result += n[i] * n[i];
+  for (int i = 0; i < numElements; i++)
+    result += n[i] * n[i];
 
-	return result;
+  return result;
 }
 
 template <class T>
 double Vec<T>::length() const {
-	return sqrt( length2() );
+  return sqrt(length2());
 }
 
 template <class T>
 void Vec<T>::normalize() {
-	double len = length();
+  double len = length();
 
-	for( int i=0;i<numElements;i++ )
-		n[i] /= len;
+  for (int i = 0; i < numElements; i++)
+    n[i] /= len;
 }
 
 template <class T>
 bool Vec<T>::iszero() {
-	for( int i=0;i<numElements;i++ )
-		if( n[i] != 0 ) return false;
+  for (int i = 0; i < numElements; i++)
+    if (n[i] != 0)
+      return false;
 
-	return true;
+  return true;
 }
 
 template <class T>
-T operator*( const Vec<T>& a, const Vec<T>& b ) {
+T operator*(const Vec<T>& a, const Vec<T>& b) {
 #ifdef _DEBUG
-	if( a.numElements != b.numElements )
-		throw VectorSizeMismatch();
+
+  if (a.numElements != b.numElements)
+    throw VectorSizeMismatch();
+
 #endif
 
-	double	result = 0.0;
+  double  result = 0.0;
 
-	for( int i=0;i<a.numElements;i++ )
-		result += a[i] * b[i];
+  for (int i = 0; i < a.numElements; i++)
+    result += a[i] * b[i];
 
-	return result;
+  return result;
 }
 
 template <class T>
-Vec<T> operator-( const Vec<T>& v ) {
-	Vec<T>	result( v.numElements, false );
+Vec<T> operator-(const Vec<T>& v) {
+  Vec<T>  result(v.numElements, false);
 
-	for( int i=0;i<v.numElements;i++ )
-		result[i] = -v[i];
+  for (int i = 0; i < v.numElements; i++)
+    result[i] = -v[i];
 
-	return result;
+  return result;
 }
 
 template <class T>
-Vec<T> operator*( const Vec<T>& a, const double d ) {
-	Vec<T>	result( a.numElements, false );
+Vec<T> operator*(const Vec<T>& a, const double d) {
+  Vec<T>  result(a.numElements, false);
 
-	for( int i=0;i<a.numElements;i++ )
-		result[i] = a[i] * d;
+  for (int i = 0; i < a.numElements; i++)
+    result[i] = a[i] * d;
 
-	return result;
+  return result;
 }
 
 template <class T>
-Vec<T> operator*( const double d, const Vec<T>& a ) {
-	Vec<T>	result( a.numElements, false );
+Vec<T> operator*(const double d, const Vec<T>& a) {
+  Vec<T>  result(a.numElements, false);
 
-	for( int i=0;i<a.numElements;i++ )
-		result[i] = a[i] * d;
+  for (int i = 0; i < a.numElements; i++)
+    result[i] = a[i] * d;
 
-	return result;
+  return result;
 }
 
 template <class T>
-Vec<T> operator/( const Vec<T>& a, const double d ) {
-	Vec<T>	result( a.numElements, false );
+Vec<T> operator/(const Vec<T>& a, const double d) {
+  Vec<T>  result(a.numElements, false);
 
-	for( int i=0;i<a.numElements;i++ )
-		result[i] = a[i] / d;
+  for (int i = 0; i < a.numElements; i++)
+    result[i] = a[i] / d;
 
-	return result;
+  return result;
 }
 
 template <class T>
-Vec<T> operator^( const Vec<T>& a, const Vec<T>& b ) {
+Vec<T> operator^(const Vec<T>& a, const Vec<T>& b) {
 #ifdef _DEBUG
-	if( a.numElements != b.numElements )
-		throw VectorSizeMismatch();
+
+  if (a.numElements != b.numElements)
+    throw VectorSizeMismatch();
+
 #endif
 
-	return a;
+  return a;
 }
 
 template <class T>
-bool operator==( const Vec<T>& a, const Vec<T>& b ) {
+bool operator==(const Vec<T>& a, const Vec<T>& b) {
 #ifdef _DEBUG
-	if( a.numElements != b.numElements )
-		throw VectorSizeMismatch();
+
+  if (a.numElements != b.numElements)
+    throw VectorSizeMismatch();
+
 #endif
 
-	for( int i=0;i<a.numElements;i++ )
-		if( a[i] != b[i] )
-			return false;
+  for (int i = 0; i < a.numElements; i++)
+    if (a[i] != b[i])
+      return false;
 
-	return true;
+  return true;
 }
 
 template <class T>
-bool operator!=( const Vec<T>& a, const Vec<T>& b ) {
+bool operator!=(const Vec<T>& a, const Vec<T>& b) {
 #ifdef _DEBUG
-	if( a.numElements != b.numElements )
-		throw VectorSizeMismatch();
+
+  if (a.numElements != b.numElements)
+    throw VectorSizeMismatch();
+
 #endif
 
-	for( int i=0;i<a.numElements;i++ )
-		if( a[i] == b[i] )
-			return false;
+  for (int i = 0; i < a.numElements; i++)
+    if (a[i] == b[i])
+      return false;
 
-	return true;
+  return true;
 }
 
 template <class T>
-std::ostream& operator<<( std::ostream& os, const Vec<T>& a ) {
-	os << a.numElements;
+std::ostream& operator<<(std::ostream& os, const Vec<T>& a) {
+  os << a.numElements;
 
-	for( int i=0;i<a.numElements;i++ )
-		os << " " << a[i];
+  for (int i = 0; i < a.numElements; i++)
+    os << " " << a[i];
 
-	return os;
+  return os;
 }
 
 template <class T>
-std::istream& operator>>( std::istream& is, const Vec<T>& a ) {
-	return is;
+std::istream& operator>>(std::istream& is, const Vec<T>& a) {
+  return is;
 }
 
 template <class T>
-Vec<T> minimum( const Vec<T>& a, const Vec<T>& b ) {
+Vec<T> minimum(const Vec<T>& a, const Vec<T>& b) {
 #ifdef _DEBUG
-	if( a.numElements != b.numElements )
-		throw VectorSizeMismatch();
+
+  if (a.numElements != b.numElements)
+    throw VectorSizeMismatch();
+
 #endif
 
-	Vec<T>	result( a.numElements, false );
+  Vec<T>  result(a.numElements, false);
 
-	for( int i=0;i<a.numElements;i++ )
-		result[i] = min( a[i], b[i] );
+  for (int i = 0; i < a.numElements; i++)
+    result[i] = min(a[i], b[i]);
 
-	return result;
+  return result;
 }
 
 template <class T>
-Vec<T> maximum( const Vec<T>& a, const Vec<T>& b ) {
+Vec<T> maximum(const Vec<T>& a, const Vec<T>& b) {
 #ifdef _DEBUG
-	if( a.numElements != b.numElements )
-		throw VectorSizeMismatch();
+
+  if (a.numElements != b.numElements)
+    throw VectorSizeMismatch();
+
 #endif
 
-	Vec<T>	result( a.numElements, false );
+  Vec<T>  result(a.numElements, false);
 
-	for( int i=0;i<a.numElements;i++ )
-		result[i] = max( a[i], b[i] );
+  for (int i = 0; i < a.numElements; i++)
+    result[i] = max(a[i], b[i]);
 
-	return result;
+  return result;
 }
 
 template <class T>
-Vec<T> prod( const Vec<T>& a, const Vec<T>& b ) {
+Vec<T> prod(const Vec<T>& a, const Vec<T>& b) {
 #ifdef _DEBUG
-	if( a.numElements != b.numElements )
-		throw VectorSizeMismatch();
+
+  if (a.numElements != b.numElements)
+    throw VectorSizeMismatch();
+
 #endif
 
-	Vec<T>	result( a.numElements, false );
+  Vec<T>  result(a.numElements, false);
 
-	for( int i=0;i<a.numElements;i++ )
-		result[i] = a[i] *b[i];
+  for (int i = 0; i < a.numElements; i++)
+    result[i] = a[i] * b[i];
 
-	return result;
+  return result;
 }
 
 //==========[ Inline Method Definitions (Vectors) ]========
 
 template <class T>
-inline Vec3<T> operator %( const Vec3<T>& a, const Vec3<T>& b ) {
-	return Vec3<T>(a[0] * b[0], a[1] * b[1], a[2] * b[2]);
+inline Vec3<T> operator %(const Vec3<T>& a, const Vec3<T>& b) {
+  return Vec3<T>(a[0] * b[0], a[1] * b[1], a[2] * b[2]);
 }
 template <class T>
-inline T operator *( const Vec3<T>& a, const Vec4<T>& b ) {
-	return a[0] * b[0] + a[1] * b[1] + a[2] * b[2] + b[3];
+inline T operator *(const Vec3<T>& a, const Vec4<T>& b) {
+  return a[0] * b[0] + a[1] * b[1] + a[2] * b[2] + b[3];
 }
 
 template <class T>
-inline T operator *( const Vec4<T>& b, const Vec3<T>& a ) {
-	return a[0] * b[0] + a[1] * b[1] + a[2] * b[2] + b[3];
+inline T operator *(const Vec4<T>& b, const Vec3<T>& a) {
+  return a[0] * b[0] + a[1] * b[1] + a[2] * b[2] + b[3];
 }
 
 template <class T>
 inline Vec3<T> operator -(const Vec3<T>& v) {
-	return Vec3<T>( -v[0], -v[1], -v[2] );
+  return Vec3<T>(-v[0], -v[1], -v[2]);
 }
 
 template <class T>
-inline Vec3<T> operator *(const Vec3<T>& a, const double d ) {
-	return Vec3<T>( a[0] * d, a[1] * d, a[2] * d );
+inline Vec3<T> operator *(const Vec3<T>& a, const double d) {
+  return Vec3<T>(a[0] * d, a[1] * d, a[2] * d);
 }
 
 template <class T>
 inline Vec3<T> operator *(const double d, const Vec3<T>& a) {
-	return a * d;
+  return a * d;
 }
 
 template <class T>
-inline Vec3<T> operator *(const Mat4<T>& a, const Vec3<T>& v){
-	return Vec3<T>( a.n[0]*v[0]+a.n[1]*v[1]+a.n[2]*v[2]+a.n[3],
-			a.n[4]*v[0]+a.n[5]*v[1]+a.n[6]*v[2]+a.n[7],
-			a.n[8]*v[0]+a.n[9]*v[1]+a.n[10]*v[2]+a.n[11] );
+inline Vec3<T> operator *(const Mat4<T>& a, const Vec3<T>& v) {
+  return Vec3<T>(a.n[0] * v[0] + a.n[1] * v[1] + a.n[2] * v[2] + a.n[3],
+                 a.n[4] * v[0] + a.n[5] * v[1] + a.n[6] * v[2] + a.n[7],
+                 a.n[8] * v[0] + a.n[9] * v[1] + a.n[10] * v[2] + a.n[11]);
 }
 
 template <class T>
 inline Vec3<T> operator *(const Vec3<T>& v, Mat4<T>& a) {
-	return a.transpose() * v;
+  return a.transpose() * v;
 }
 
 template <class T>
-inline T operator *(const Vec3<T>& a, const Vec3<T>& b){
-	return a[0]*b[0] + a[1]*b[1] + a[2]*b[2];
+inline T operator *(const Vec3<T>& a, const Vec3<T>& b) {
+  return a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
 }
 
 template <class T>
-inline Vec3<T> operator *( const Mat3<T>& a, const Vec3<T>& v ) {
-	return Vec3<T>( a.n[0]*v[0]+a.n[1]*v[1]+a.n[2]*v[2],
-			a.n[3]*v[0]+a.n[4]*v[1]+a.n[5]*v[2],
-			a.n[6]*v[0]+a.n[7]*v[1]+a.n[8]*v[2] );
+inline Vec3<T> operator *(const Mat3<T>& a, const Vec3<T>& v) {
+  return Vec3<T>(a.n[0] * v[0] + a.n[1] * v[1] + a.n[2] * v[2],
+                 a.n[3] * v[0] + a.n[4] * v[1] + a.n[5] * v[2],
+                 a.n[6] * v[0] + a.n[7] * v[1] + a.n[8] * v[2]);
 }
 
 template <class T>
-inline Vec3<T> operator *( const Vec3<T>& v, const Mat3<T>& a ) {
-	return a.transpose() * v;
+inline Vec3<T> operator *(const Vec3<T>& v, const Mat3<T>& a) {
+  return a.transpose() * v;
 }
 
 template <class T>
-inline Vec3<T> operator /(const Vec3<T>& a, const double d){
-	return Vec3<T>( a[0] / d, a[1] / d, a[2] / d );
+inline Vec3<T> operator /(const Vec3<T>& a, const double d) {
+  return Vec3<T>(a[0] / d, a[1] / d, a[2] / d);
 }
 
 template <class T>
 inline Vec3<T> operator ^(const Vec3<T>& a, const Vec3<T>& b) {
-	return Vec3<T>( a[1]*b[2] - a[2]*b[1],
-			a[2]*b[0] - a[0]*b[2],
-			a[0]*b[1] - a[1]*b[0] );
+  return Vec3<T>(a[1] * b[2] - a[2] * b[1],
+                 a[2] * b[0] - a[0] * b[2],
+                 a[0] * b[1] - a[1] * b[0]);
 }
 
 template <class T>
 inline bool operator ==(const Vec3<T>& a, const Vec3<T>& b) {
-	return a[0]==b[0] && a[1] == b[1] && a[2] == b[2];
+  return a[0] == b[0] && a[1] == b[1] && a[2] == b[2];
 }
 
 template <class T>
 inline bool operator !=(const Vec3<T>& a, const Vec3<T>& b) {
-	return !( a == b );
+  return !(a == b);
 }
 
 template <class T>
-inline std::ostream& operator <<( std::ostream& os, const Vec3<T>& v ) {
-	return os << v[0] << " " << v[1] << " " << v[2];
+inline std::ostream& operator <<(std::ostream& os, const Vec3<T>& v) {
+  return os << v[0] << " " << v[1] << " " << v[2];
 }
 
 template <class T>
-inline std::istream& operator >>( std::istream& is, Vec3<T>& v ) {
-	return is >> v[0] >> v[1] >> v[2];
+inline std::istream& operator >>(std::istream& is, Vec3<T>& v) {
+  return is >> v[0] >> v[1] >> v[2];
 }
 
 template <class T>
-inline Vec3<T> minimum( const Vec3<T>& a, const Vec3<T>& b ) {
-	return Vec3<T>( min(a[0],b[0]), min(a[1],b[1]), min(a[2],b[2]) );
+inline Vec3<T> minimum(const Vec3<T>& a, const Vec3<T>& b) {
+  return Vec3<T>(min(a[0], b[0]), min(a[1], b[1]), min(a[2], b[2]));
 }
 
 template <class T>
 inline Vec3<T> maximum(const Vec3<T>& a, const Vec3<T>& b) {
-	return Vec3<T>( max(a[0],b[0]), max(a[1],b[1]), max(a[2],b[2]) );
+  return Vec3<T>(max(a[0], b[0]), max(a[1], b[1]), max(a[2], b[2]));
 }
 
 template <class T>
-inline Vec3<T> prod(const Vec3<T>& a, const Vec3<T>& b ) {
-	return Vec3<T>( a[0]*b[0], a[1]*b[1], a[2]*b[2] );
+inline Vec3<T> prod(const Vec3<T>& a, const Vec3<T>& b) {
+  return Vec3<T>(a[0] * b[0], a[1] * b[1], a[2] * b[2]);
 }
 
 template <class T>
-inline Vec4<T> operator -( const Vec4<T>& v ) {
-	return Vec4<T>( -v[0], -v[1], -v[2], -v[3] );
+inline Vec3<T> cross(const Vec3<T>& a, const Vec3<T>& b) {
+  return Vec3<T>(a[1] * b[2] - a[2] * b[1],
+                 a[2] * b[0] - a[0] * b[2],
+                 a[0] * b[1] - a[1] * b[0]);
 }
 
 template <class T>
-inline Vec4<T> operator *(const Vec4<T>& a, const double d ) {
-	return Vec4<T>( a[0] * d, a[1] * d, a[2] * d, a[3] * d );
+inline Vec4<T> operator -(const Vec4<T>& v) {
+  return Vec4<T>(-v[0], -v[1], -v[2], -v[3]);
+}
+
+template <class T>
+inline Vec4<T> operator *(const Vec4<T>& a, const double d) {
+  return Vec4<T>(a[0] * d, a[1] * d, a[2] * d, a[3] * d);
 }
 
 template <class T>
 inline Vec4<T> operator *(const double d, const Vec4<T>& a) {
-	return a * d;
+  return a * d;
 }
 
 template <class T>
 inline T operator *(const Vec4<T>& a, const Vec4<T>& b) {
-	return a[0]*b[0] + a[1]*b[1] + a[2]*b[2] + a[3]*b[3];
+  return a[0] * b[0] + a[1] * b[1] + a[2] * b[2] + a[3] * b[3];
 }
 
 template <class T>
 inline Vec4<T> operator *(const Mat4<T>& a, const Vec4<T>& v) {
-	return Vec4<T>( a.n[0]*v[0]+a.n[1]*v[1]+a.n[2]*v[2]+a.n[3]*v[3],
-			a.n[4]*v[0]+a.n[5]*v[1]+a.n[6]*v[2]+a.n[7]*v[3],
-			a.n[8]*v[0]+a.n[9]*v[1]+a.n[10]*v[2]+a.n[11]*v[3],
-			a.n[12]*v[0]+a.n[13]*v[1]+a.n[14]*v[2]+a.n[15]*v[3]);
+  return Vec4<T>(a.n[0] * v[0] + a.n[1] * v[1] + a.n[2] * v[2] + a.n[3] * v[3],
+                 a.n[4] * v[0] + a.n[5] * v[1] + a.n[6] * v[2] + a.n[7] * v[3],
+                 a.n[8] * v[0] + a.n[9] * v[1] + a.n[10] * v[2] + a.n[11] * v[3],
+                 a.n[12] * v[0] + a.n[13] * v[1] + a.n[14] * v[2] + a.n[15] * v[3]);
 }
 
 template <class T>
-inline Vec4<T> operator *( const Vec4<T>& v, Mat4<T>& a ){
-	return a.transpose() * v;
+inline Vec4<T> operator *(const Vec4<T>& v, Mat4<T>& a) {
+  return a.transpose() * v;
 }
 
 template <class T>
 inline Vec4<T> operator /(const Vec4<T>& a, const double d) {
-	return Vec4<T>( a[0] / d, a[1] / d, a[2] / d, a[3] / d );
+  return Vec4<T>(a[0] / d, a[1] / d, a[2] / d, a[3] / d);
 }
 
 template <class T>
 inline bool operator ==(const Vec4<T>& a, const Vec4<T>& b) {
-	return a[0] == b[0] && a[1] == b[1] && a[2] == b[2] 
-	    && a[3] == b[3];
+  return a[0] == b[0] && a[1] == b[1] && a[2] == b[2]
+         && a[3] == b[3];
 }
 
 template <class T>
 inline bool operator !=(const Vec4<T>& a, const Vec4<T>& b) {
-	return !( a == b );
+  return !(a == b);
 }
 
 template <class T>
-inline std::ostream& operator <<( std::ostream& os, const Vec4<T>& v ) {
-	return os << v[0] << " " << v[1] << " " << v[2] << " " << v[3];
+inline std::ostream& operator <<(std::ostream& os, const Vec4<T>& v) {
+  return os << v[0] << " " << v[1] << " " << v[2] << " " << v[3];
 }
 
 template <class T>
-inline std::istream& operator >>( std::istream& is, Vec4<T>& v ) {
-	return is >> v[0] >> v[1] >> v[2] >> v[3];
+inline std::istream& operator >>(std::istream& is, Vec4<T>& v) {
+  return is >> v[0] >> v[1] >> v[2] >> v[3];
 }
 
 template <class T>
-inline Vec4<T> minimum( const Vec4<T>& a, const Vec4<T>& b ) {
-	return Vec4<T>( min(a[0],b[0]), min(a[1],b[1]), min(a[2],b[2]),
-	             min(a[3],b[3]) );
+inline Vec4<T> minimum(const Vec4<T>& a, const Vec4<T>& b) {
+  return Vec4<T>(min(a[0], b[0]), min(a[1], b[1]), min(a[2], b[2]),
+                 min(a[3], b[3]));
 }
 
 template <class T>
-inline Vec4<T> maximum( const Vec4<T>& a, const Vec4<T>& b) {
-	return Vec4<T>( max(a[0],b[0]), max(a[1],b[1]), max(a[2],b[2]),
-	             max(a[3],b[3]) );
+inline Vec4<T> maximum(const Vec4<T>& a, const Vec4<T>& b) {
+  return Vec4<T>(max(a[0], b[0]), max(a[1], b[1]), max(a[2], b[2]),
+                 max(a[3], b[3]));
 }
 
 template <class T>
-inline Vec4<T> prod(const Vec4<T>& a, const Vec4<T>& b ) {
-	return Vec4<T>( a[0]*b[0], a[1]*b[1], a[2]*b[2], a[3]*b[3] );
+inline Vec4<T> prod(const Vec4<T>& a, const Vec4<T>& b) {
+  return Vec4<T>(a[0] * b[0], a[1] * b[1], a[2] * b[2], a[3] * b[3]);
 }
 
 template <class T>
 inline Vec3<T> vec4to3(Vec4<T> &v) {
-	return Vec3<T>(v[0], v[1], v[2]);
+  return Vec3<T>(v[0], v[1], v[2]);
 }
 
 #endif
