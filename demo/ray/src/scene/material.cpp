@@ -29,7 +29,8 @@ Vec3d Material::shade(Scene *scene, const ray& r, const isect& i) const {
   Vec3d ambient, diffuse, specular, lighting;
   Vec3d sumLighting;
 
-  sumLighting = Vec3d(0.0, 0.0, 0.0);
+  ambient = ka(i) % scene->ambient();
+  sumLighting = ke(i) + ambient;
 
   Vec3d isectPoint = r.at(i.t);
   for (vector<Light*>::const_iterator litr = scene->beginLights();
@@ -44,10 +45,10 @@ Vec3d Material::shade(Scene *scene, const ray& r, const isect& i) const {
     H.normalize();
 
     // compute light color vector
-    L = pLight->distanceAttenuation(isectPoint) * pLight->getColor(isectPoint);
+    L = min(1.0, pLight->distanceAttenuation(isectPoint)) *
+        pLight->getColor(isectPoint);
 
-    ambient = ka(i) % L;
-    diffuse = max((I * N), 0.0) * (kd(i) % L);
+    diffuse = max((N * I), 0.0) * (kd(i) % L);
     specular = pow(max((N * H), 0.0), shininess(i)) * (ks(i) % L);
 
     lighting = diffuse + specular;
@@ -60,9 +61,6 @@ Vec3d Material::shade(Scene *scene, const ray& r, const isect& i) const {
       std::cout << "V: " << V << std::endl;
 
       std::cout << "Light: " << L << std::endl;
-
-      std::cout << "ka: " << ka(i) << "\t";
-      std::cout << "ambient: " << ambient << std::endl;
 
       std::cout << "kd: " << kd(i) << "\t";
       std::cout << "(I * N): " << (I * N) << "\t";
@@ -91,6 +89,10 @@ Vec3d Material::shade(Scene *scene, const ray& r, const isect& i) const {
   sumLighting.clamp();
 
   if (debugMode) {
+    std::cout << "ka: " << ka(i) << "\t";
+    std::cout << "scene->ambient(): " << scene->ambient() << "\t";
+    std::cout << "ambient: " << ambient << std::endl;
+
     std::cout << "sumLighting: " << sumLighting << std::endl;
   }
   return sumLighting;

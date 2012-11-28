@@ -69,13 +69,13 @@ Vec3d RayTracer::traceRay(const ray& r, const Vec3d& thresh, int depth) {
       // Maxium depth not reached: Spawn new refraction/reflection rays
       // Incident, normal, and reflection vector
       Vec3d I, N, R;
-      Vec3d SumReflection;      // Sum contributions of reflection rays
-      Vec3d SumRefraction;      // Sum contributions of refraction rays
+      Vec3d SumReflection;      // Sum contributions of reflected rays
+      Vec3d SumTransmission;    // Sum contributions of transmitted rays
       Vec3d Sum;                // Sum contributions of all visible rays
 
       // Start all sums at zero
       SumReflection = Vec3d(0.0, 0.0, 0.0);
-      SumRefraction = Vec3d(0.0, 0.0, 0.0);
+      SumTransmission = Vec3d(0.0, 0.0, 0.0);
       Sum = m.shade(scene, r, i);
 
       // Compute new reflection ray
@@ -83,19 +83,16 @@ Vec3d RayTracer::traceRay(const ray& r, const Vec3d& thresh, int depth) {
       N = i.N;                      // Normal vector
       R = 2.0 * (I * N) * N - I;    // Reflection vector
       R.normalize();
-//       ray test = ray(isectPoint, I, ray::SHADOW);
       ray reflection = ray(isectPoint, R, ray::REFLECTION);
 
       // Cast new reflection ray
-//       traceRay(test, thresh, depth + 1);
-//       traceRay(reflection, thresh, depth + 1);
-      SumReflection += m.kr(i) % traceRay(reflection, thresh, depth + 1);
+      SumReflection += traceRay(reflection, thresh, depth + 1);
 
       // Compute new refraction ray
       // Cast new refraction ray
 
       // Sum all rays, clamping if necessary
-      Sum += (SumReflection + SumRefraction);
+      Sum += (m.kr(i) % SumReflection +  m.kt(i) % SumTransmission);
       return Sum;
     }
 
