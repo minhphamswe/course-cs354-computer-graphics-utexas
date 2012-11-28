@@ -24,7 +24,7 @@ using namespace std;
 // Use this variable to decide if you want to print out
 // debugging messages.  Gets set in the "trace single ray" mode
 // in TraceGLWindow, for example.
-bool debugMode = true;
+bool debugMode = false;
 
 // Trace a top-level ray through normalized window coordinates (x,y)
 // through the projection plane, and out into the scene.  All we do is
@@ -59,17 +59,44 @@ Vec3d RayTracer::traceRay(const ray& r, const Vec3d& thresh, int depth) {
     // more steps: add in the contributions from reflected and refracted
     // rays.
 
+    Vec3d isectPoint = r.at(i.t);     // Intersection point
     const Material& m = i.getMaterial();
-    return m.shade(scene, r, i);
     if (depth >= traceUI->getDepth()) {
-      // Maxium depth reached: return color of the point hit
+      // Maxium depth reached: Return color of the point hit
+      return m.shade(scene, r, i);
 
-//       return m.shade(scene, r, i);
     } else {
       // Maxium depth not reached: Spawn new refraction/reflection rays
-//       ray reflection = new ray(ray::REFLECTION);
-//       ray refraction = new ray(ray::REFRACTION);
-//       return traceRay();
+      // Incident, normal, and reflection vector
+      Vec3d I, N, R;
+      Vec3d SumReflection;      // Sum contributions of reflection rays
+      Vec3d SumRefraction;      // Sum contributions of refraction rays
+      Vec3d Sum;                // Sum contributions of all visible rays
+
+      // Start all sums at zero
+      SumReflection = Vec3d(0.0, 0.0, 0.0);
+      SumRefraction = Vec3d(0.0, 0.0, 0.0);
+      Sum = m.shade(scene, r, i);
+
+      // Compute new reflection ray
+      I = -r.getDirection();        // Incident vector
+      N = i.N;                      // Normal vector
+      R = 2.0 * (I * N) * N - I;    // Reflection vector
+      R.normalize();
+//       ray test = ray(isectPoint, I, ray::SHADOW);
+      ray reflection = ray(isectPoint, R, ray::REFLECTION);
+
+      // Cast new reflection ray
+//       traceRay(test, thresh, depth + 1);
+//       traceRay(reflection, thresh, depth + 1);
+      SumReflection += traceRay(reflection, thresh, depth + 1);
+
+      // Compute new refraction ray
+      // Cast new refraction ray
+
+      // Sum all rays, clamping if necessary
+      Sum += (SumReflection + SumRefraction);
+      return Sum;
     }
 
   } else {

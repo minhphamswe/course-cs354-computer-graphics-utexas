@@ -29,8 +29,7 @@ Vec3d Material::shade(Scene *scene, const ray& r, const isect& i) const {
   Vec3d ambient, diffuse, specular, lighting;
   Vec3d sumLighting;
 
-  ambient = ka(i);
-  sumLighting = ambient;
+  sumLighting = Vec3d(0.0, 0.0, 0.0);
 
   Vec3d isectPoint = r.at(i.t);
   for (vector<Light*>::const_iterator litr = scene->beginLights();
@@ -47,29 +46,47 @@ Vec3d Material::shade(Scene *scene, const ray& r, const isect& i) const {
     // compute light color vector
     L = pLight->distanceAttenuation(isectPoint) * pLight->getColor(isectPoint);
 
+    ambient = ka(i) % L;
     diffuse = max((I * N), 0.0) * (kd(i) % L);
-    specular = max(pow((N * H), shininess(i)), 0.0) * (ks(i) % L);
+    specular = pow(max((N * H), 0.0), shininess(i)) * (ks(i) % L);
 
-    lighting = ambient + diffuse + specular;
+    lighting = diffuse + specular;
     sumLighting += lighting;
 
     if (debugMode) {
-      std::cout << "Incident: " << I << "\t";
-      std::cout << "Halfway: " << H << "\t";
-      std::cout << "View: " << V << std::endl;
+      std::cout << "N: " << N << "\t";
+      std::cout << "I: " << I << "\t";
+      std::cout << "H: " << H << "\t";
+      std::cout << "V: " << V << std::endl;
+
+      std::cout << "Light: " << L << std::endl;
+
+      std::cout << "ka: " << ka(i) << "\t";
+      std::cout << "ambient: " << ambient << std::endl;
 
       std::cout << "kd: " << kd(i) << "\t";
+      std::cout << "(I * N): " << (I * N) << "\t";
+      std::cout << "(kd(i) % L): " << (kd(i) % L) << "\t";
       std::cout << "diffuse: " << diffuse << std::endl;
 
       std::cout << "ks: " << ks(i) << "\t";
+      std::cout << "(N * H): " << (N * H) << "\t";
       std::cout << "shininess: " << shininess(i) << "\t";
+
+//       std::cout << "pow((N * H), shininess(i)): " << pow((N * H), shininess(i)) << "\t";
+//       std::cout << "max(pow((N * H), shininess(i)), 0.0): " << max(pow((N * H), shininess(i)), 0.0) << std::endl;
+
+      std::cout << "(ks(i) % L): " << (ks(i) % L) << "\t";
       std::cout << "specular: " << specular << std::endl;
+
+      std::cout << "sumLighting: " << sumLighting << std::endl;
     }
   }
 
+  sumLighting.clamp();
+
   if (debugMode) {
-    std::cout << "ka: " << ka(i) << "\t";
-    std::cout << "ambient: " << ambient << std::endl;
+    std::cout << "sumLighting: " << sumLighting << std::endl;
   }
   return sumLighting;
 }
