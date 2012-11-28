@@ -89,7 +89,7 @@ Vec3d RayTracer::traceRay(const ray& r, const Vec3d& thresh, int depth) {
       // Cast new reflection ray
 //       traceRay(test, thresh, depth + 1);
 //       traceRay(reflection, thresh, depth + 1);
-      SumReflection += traceRay(reflection, thresh, depth + 1);
+      SumReflection += m.kr(i) % traceRay(reflection, thresh, depth + 1);
 
       // Compute new refraction ray
       // Cast new refraction ray

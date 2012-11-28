@@ -80,6 +80,11 @@ Vec3d Material::shade(Scene *scene, const ray& r, const isect& i) const {
       std::cout << "specular: " << specular << std::endl;
 
       std::cout << "sumLighting: " << sumLighting << std::endl;
+
+      std::cout << "ke(i): " << ke(i) << "\t";
+      std::cout << "kr(i): " << kr(i) << "\t";
+      std::cout << "kt(i): " << kt(i) << "\t";
+      std::cout << "index(i): " << index(i) << std::endl;
     }
   }
 
