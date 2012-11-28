@@ -25,7 +25,7 @@ Vec3d Material::shade(Scene *scene, const ray& r, const isect& i) const {
   if (debugMode)
     std::cout << "Debugging Phong code..." << std::endl;
 
-  Vec3d I, R, V, N, L;
+  Vec3d I, H, V, N, L;
   Vec3d ambient, diffuse, specular, lighting;
   Vec3d sumLighting;
 
@@ -38,25 +38,24 @@ Vec3d Material::shade(Scene *scene, const ray& r, const isect& i) const {
        ++litr) {
     Light* pLight = *litr;
 
-    N = i.N;                                    // normal vector
-    I = pLight->getDirection(isectPoint);       // incident vector
-    R = I - 2.0 * (N * I) * N;                  // reflection vector
-//     V = (r.getPosition() - isectPoint);         // view vector
-//     V.normalize();
-    V = -r.getDirection();
+    N = i.N;                                    // Normal vector
+    I = pLight->getDirection(isectPoint);       // Incident vector
+    V = -r.getDirection();                      // View vector
+    H = I + V;                                  // Halfway vector
+    H.normalize();
 
     // compute light color vector
     L = pLight->distanceAttenuation(isectPoint) * pLight->getColor(isectPoint);
 
     diffuse = max((I * N), 0.0) * (kd(i) % L);
-    specular = max(pow((R * V), shininess(i)), 0.0) * (ks(i) % L);
+    specular = max(pow((N * H), shininess(i)), 0.0) * (ks(i) % L);
 
     lighting = ambient + diffuse + specular;
     sumLighting += lighting;
 
     if (debugMode) {
       std::cout << "Incident: " << I << "\t";
-      std::cout << "Reflection: " << R << "\t";
+      std::cout << "Halfway: " << H << "\t";
       std::cout << "View: " << V << std::endl;
 
       std::cout << "kd: " << kd(i) << "\t";
