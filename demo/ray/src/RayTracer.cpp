@@ -61,14 +61,17 @@ Vec3d RayTracer::traceRay(const ray& r, const Vec3d& thresh, int depth) {
 
     Vec3d isectPoint = r.at(i.t);     // Intersection point
     const Material& m = i.getMaterial();
+
     if (depth >= traceUI->getDepth()) {
       // Maxium depth reached: Return color of the point hit
       return m.shade(scene, r, i);
 
     } else {
       // Maxium depth not reached: Spawn new refraction/reflection rays
-      // Incident, normal, and reflection vector
-      Vec3d I, N, R;
+      // Incident, normal, reflection, and transmission vector
+      Vec3d I, N, R, T;
+      double ICos, TCos;        // Cosine of incident and transmission angle
+      double RRI;               // Ratio of Refraction Indices
       Vec3d SumReflection;      // Sum contributions of reflected rays
       Vec3d SumTransmission;    // Sum contributions of transmitted rays
       Vec3d Sum;                // Sum contributions of all visible rays
@@ -80,8 +83,12 @@ Vec3d RayTracer::traceRay(const ray& r, const Vec3d& thresh, int depth) {
 
       // Compute new reflection ray
       I = -r.getDirection();        // Incident vector
-      N = i.N;                      // Normal vector
-      R = 2.0 * (I * N) * N - I;    // Reflection vector
+      if (depth %2 == 0)
+        N = i.N;
+      else
+        N = -i.N;                      // Normal vector
+      ICos = (I * N);               // Cosine of incident angle
+      R = (2.0 * ICos * N) - I;     // Reflection vector
       R.normalize();
       ray reflection = ray(isectPoint, R, ray::REFLECTION);
 
@@ -89,7 +96,23 @@ Vec3d RayTracer::traceRay(const ray& r, const Vec3d& thresh, int depth) {
       SumReflection += traceRay(reflection, thresh, depth + 1);
 
       // Compute new refraction ray
+      if (depth % 2 == 0)
+        RRI = 1 / m.index(i);
+      else
+        RRI = m.index(i);
+
+      if (debugMode) {
+        std::cout << "m.index(i): " << m.index(i) << "\t";
+        std::cout << "RRI: " << RRI << std::endl;
+      }
+      TCos = 1 - RRI * RRI * (1 - ICos * ICos);
+      if (TCos > 0)
+        TCos = sqrt(TCos);
+      T = (RRI * ICos - TCos) * N - RRI * I;
+      ray transmission = ray(isectPoint, T, ray::REFRACTION);
+
       // Cast new refraction ray
+      SumTransmission += traceRay(transmission, thresh, depth + 1);
 
       // Sum all rays, clamping if necessary
       Sum += (m.kr(i) % SumReflection +  m.kt(i) % SumTransmission);
@@ -204,5 +227,6 @@ void RayTracer::tracePixel(int i, int j) {
   pixel[1] = (int)(255.0 * col[1]);
   pixel[2] = (int)(255.0 * col[2]);
 }
+
 
 
