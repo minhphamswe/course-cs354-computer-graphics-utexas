@@ -122,6 +122,14 @@ Vec3d RayTracer::traceRay(const ray& r, const Vec3d& thresh, int depth) {
         std::cout << "TSin.length2: " << TSin.length2() << "\t" << std::endl;
       }
 
+      //==========[ Debug Shadow Rays ]======================================
+      for (vector<Light*>::const_iterator litr = scene->beginLights();
+           litr != scene->endLights();
+           ++litr) {
+        Light* pLight = *litr;
+        ray shadow = ray(isectPoint, pLight->getDirection(isectPoint), ray::SHADOW);
+        traceRay(shadow, thresh, 0);
+      }
 
       // Cast new refraction ray
       if (m.kt(i).length2() > 0 && (TSin.length2() < 1)) {

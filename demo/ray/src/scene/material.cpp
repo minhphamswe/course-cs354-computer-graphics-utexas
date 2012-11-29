@@ -46,7 +46,8 @@ Vec3d Material::shade(Scene *scene, const ray& r, const isect& i) const {
 
     // compute light color vector
     L = min(1.0, pLight->distanceAttenuation(isectPoint)) *
-        pLight->getColor(isectPoint);
+        (pLight->shadowAttenuation(isectPoint) %
+        pLight->getColor(isectPoint));
 
     diffuse = max((N * I), 0.0) * (kd(i) % L);
     specular = pow(max((N * H), 0.0), shininess(i)) * (ks(i) % L);
