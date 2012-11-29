@@ -102,6 +102,7 @@ Vec3d RayTracer::traceRay(const ray& r, const Vec3d& thresh, int depth) {
         RRI = m.index(i);
 
       if (debugMode) {
+        std::cout << "i.t: " << i.t << "\t";
         std::cout << "m.index(i): " << m.index(i) << "\t";
         std::cout << "RRI: " << RRI << std::endl;
       }
