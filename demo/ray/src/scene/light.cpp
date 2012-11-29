@@ -1,5 +1,6 @@
 #include <cmath>
 
+#include "assert.h"
 #include "light.h"
 
 
@@ -17,7 +18,7 @@ Vec3d DirectionalLight::shadowAttenuation(const Vec3d& P) const {
   // You should implement shadow-handling code here.
   ray r = ray(P, this->getDirection(P), ray::SHADOW);
   isect i;
-
+  assert(scene != NULL);
   if (scene->intersect(r, i)) {
     // Ray hit some object
     return Vec3d(0, 0, 0);
