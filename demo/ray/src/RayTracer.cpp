@@ -70,54 +70,69 @@ Vec3d RayTracer::traceRay(const ray& r, const Vec3d& thresh, int depth) {
       // Maxium depth not reached: Spawn new refraction/reflection rays
       // Incident, normal, reflection, and transmission vector
       Vec3d I, N, R, T;
-      double ICos, TCos;        // Cosine of incident and transmission angle
-      double RRI;               // Ratio of Refraction Indices
-      Vec3d SumReflection;      // Sum contributions of reflected rays
-      Vec3d SumTransmission;    // Sum contributions of transmitted rays
-      Vec3d Sum;                // Sum contributions of all visible rays
+      Vec3d ICos, ISin;     // Cosine, sine vectors of incident vector
+      Vec3d TCos, TSin;     // Cosine, sine vectors of transmission vector
+      double IR, TR;        // Incident, Transmission Refraction Index
+      double RRI;           // Ratio of Refraction Indices
+      Vec3d Intensity;      // Sum contributions of all visible rays
 
-      // Start all sums at zero
-      SumReflection = Vec3d(0.0, 0.0, 0.0);
-      SumTransmission = Vec3d(0.0, 0.0, 0.0);
-      Sum = m.shade(scene, r, i);
+      // Start intensity at local illumination level
+      Intensity = m.shade(scene, r, i);
 
-      // Compute new reflection ray
+      //==========[ Compute Reflection ]=====================================
+      // Get incident and normal vectors
       I = -r.getDirection();        // Incident vector
       if (depth %2 == 0)
         N = i.N;
       else
-        N = -i.N;                      // Normal vector
-      ICos = (I * N);               // Cosine of incident angle
-      R = (2.0 * ICos * N) - I;     // Reflection vector
-      R.normalize();
+        N = -i.N;                   // Normal vector
+
+      // Compute cosine, sine vectors of incident vector
+      ICos = (I * N) * N;           // Cosine vector of incident vector
+      ISin = ICos - I;              // Sine vector of incident vector
+
+      // Compute reflection vector
+      R = ICos + ISin;              // Reflection vector
+
+      // Cast reflection ray
       ray reflection = ray(isectPoint, R, ray::REFLECTION);
+      Intensity += m.kr(i) % traceRay(reflection, thresh, depth + 1);
 
-      // Cast new reflection ray
-      SumReflection += traceRay(reflection, thresh, depth + 1);
+      //==========[ Compute Refraction ]=====================================
+      // Compute refraction indices
+      if (depth % 2 == 0) {
+        // Entering object
+        IR = 1.0;
+        TR = m.index(i);
+      }
+      else {
+        // Exiting object
+        IR = m.index(i);
+        TR = 1.0;
+      }
+      RRI = IR / TR;
 
-      // Compute new refraction ray
-      if (depth % 2 == 0)
-        RRI = 1 / m.index(i);
-      else
-        RRI = m.index(i);
+      // Compute sine vectors of transmission vector
+      TSin = RRI * ISin;
 
       if (debugMode) {
         std::cout << "i.t: " << i.t << "\t";
         std::cout << "m.index(i): " << m.index(i) << "\t";
-        std::cout << "RRI: " << RRI << std::endl;
+        std::cout << "RRI: " << RRI << "\t";
+        std::cout << "TSin: " << TSin << "\t";
+        std::cout << "TSin.length2: " << TSin.length2() << "\t" << std::endl;
       }
-      TCos = 1 - RRI * RRI * (1 - ICos * ICos);
-      if (TCos > 0)
-        TCos = sqrt(TCos);
-      T = (RRI * ICos - TCos) * N - RRI * I;
-      ray transmission = ray(isectPoint, T, ray::REFRACTION);
 
       // Cast new refraction ray
-      SumTransmission += traceRay(transmission, thresh, depth + 1);
+      if (m.kt(i).length2() > 0 && (TSin.length2() < 1)) {
+        // Total internal reflection not achieved
+        TCos = sqrt(1 - TSin.length2()) * (-N);
+        T = TCos + TSin;
+        ray transmission = ray(isectPoint, T, ray::REFRACTION);
+        Intensity += m.kt(i) % traceRay(transmission, thresh, depth + 1);
+      }
 
-      // Sum all rays, clamping if necessary
-      Sum += (m.kr(i) % SumReflection +  m.kt(i) % SumTransmission);
-      return Sum;
+      return Intensity;
     }
 
   } else {
