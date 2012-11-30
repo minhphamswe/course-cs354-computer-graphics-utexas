@@ -26,6 +26,8 @@ Vec3d Material::shade(Scene *scene, const ray& r, const isect& i) const {
     std::cout << "Debugging Phong code..." << std::endl;
 
   Vec3d I, H, V, N, L;
+  double distance;
+  Vec3d shadow;
   Vec3d ambient, diffuse, specular, lighting;
   Vec3d sumLighting;
 
@@ -45,9 +47,9 @@ Vec3d Material::shade(Scene *scene, const ray& r, const isect& i) const {
     H.normalize();
 
     // compute light color vector
-    L = min(1.0, pLight->distanceAttenuation(isectPoint)) *
-        (pLight->shadowAttenuation(isectPoint) %
-        pLight->getColor(isectPoint));
+    distance = min(1.0, pLight->distanceAttenuation(isectPoint));
+    shadow = pLight->shadowAttenuation(isectPoint);
+    L = distance * (shadow % pLight->getColor(isectPoint));
 
     diffuse = max((N * I), 0.0) * (kd(i) % L);
     specular = pow(max((N * H), 0.0), shininess(i)) * (ks(i) % L);
@@ -56,34 +58,37 @@ Vec3d Material::shade(Scene *scene, const ray& r, const isect& i) const {
     sumLighting += lighting;
 
     if (debugMode) {
-//       std::cout << "N: " << N << "\t";
-//       std::cout << "I: " << I << "\t";
-//       std::cout << "H: " << H << "\t";
-//       std::cout << "V: " << V << std::endl;
-// 
-//       std::cout << "Light: " << L << std::endl;
-// 
-//       std::cout << "kd: " << kd(i) << "\t";
-//       std::cout << "(I * N): " << (I * N) << "\t";
-//       std::cout << "(kd(i) % L): " << (kd(i) % L) << "\t";
-//       std::cout << "diffuse: " << diffuse << std::endl;
-// 
-//       std::cout << "ks: " << ks(i) << "\t";
-//       std::cout << "(N * H): " << (N * H) << "\t";
-//       std::cout << "shininess: " << shininess(i) << "\t";
+      std::cout << "N: " << N << "\t";
+      std::cout << "I: " << I << "\t";
+      std::cout << "H: " << H << "\t";
+      std::cout << "i.t: " << i.t << "\t";
+      std::cout << "V: " << V << std::endl;
 
-//       std::cout << "pow((N * H), shininess(i)): " << pow((N * H), shininess(i)) << "\t";
-//       std::cout << "max(pow((N * H), shininess(i)), 0.0): " << max(pow((N * H), shininess(i)), 0.0) << std::endl;
+      std::cout << "distance attenuation: " << distance << "\t";
+      std::cout << "shadow attenuation: " << shadow << "\t";
+      std::cout << "Light: " << L << std::endl;
 
-//       std::cout << "(ks(i) % L): " << (ks(i) % L) << "\t";
-//       std::cout << "specular: " << specular << std::endl;
-// 
-//       std::cout << "sumLighting: " << sumLighting << std::endl;
-// 
-//       std::cout << "ke(i): " << ke(i) << "\t";
-//       std::cout << "kr(i): " << kr(i) << "\t";
-//       std::cout << "kt(i): " << kt(i) << "\t";
-//       std::cout << "index(i): " << index(i) << std::endl;
+      std::cout << "kd: " << kd(i) << "\t";
+      std::cout << "(I * N): " << (I * N) << "\t";
+      std::cout << "(kd(i) % L): " << (kd(i) % L) << "\t";
+      std::cout << "diffuse: " << diffuse << std::endl;
+
+      std::cout << "ks: " << ks(i) << "\t";
+      std::cout << "(N * H): " << (N * H) << "\t";
+      std::cout << "shininess: " << shininess(i) << "\t";
+
+      std::cout << "pow((N * H), shininess(i)): " << pow((N * H), shininess(i)) << "\t";
+      std::cout << "max(pow((N * H), shininess(i)), 0.0): " << max(pow((N * H), shininess(i)), 0.0) << std::endl;
+
+      std::cout << "(ks(i) % L): " << (ks(i) % L) << "\t";
+      std::cout << "specular: " << specular << std::endl;
+
+      std::cout << "sumLighting: " << sumLighting << std::endl;
+
+      std::cout << "ke(i): " << ke(i) << "\t";
+      std::cout << "kr(i): " << kr(i) << "\t";
+      std::cout << "kt(i): " << kt(i) << "\t";
+      std::cout << "index(i): " << index(i) << std::endl;
     }
   }
 

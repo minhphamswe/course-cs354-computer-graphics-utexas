@@ -1,4 +1,5 @@
 #include <cmath>
+#include <assert.h>
 #include <float.h>
 #include "trimesh.h"
 
@@ -57,7 +58,6 @@ bool Trimesh::intersectLocal(const ray&r, isect&i) const {
 
   for (iter j = faces.begin(); j != faces.end(); ++j) {
     isect cur;
-
     if ((*j)->intersectLocal(r, cur)) {
       if (!have_one || (cur.t < i.t)) {
         i = cur;
@@ -82,7 +82,10 @@ bool TrimeshFace::intersectLocal(const ray& r, isect& i) const {
 
   // YOUR CODE HERE
   // The normal vector to the plane containing the triangle
-  Vec3d n = this->normal;
+//   Vec3d n = -this->normal;
+  Vec3d n = (a-c) ^ (b-a);
+  n.normalize();
+  double d = n * a;
 
   // We have n * (r(t) - a) == 0 if the point r(t) is on the plane containing
   // the triangle (since r(t) - a is perpendicular with n). Since the dot
@@ -92,7 +95,7 @@ bool TrimeshFace::intersectLocal(const ray& r, isect& i) const {
   // <=> t = ((n * a) - (n * P)) / (n * d)
   // <=> t = (n * (a - P)) / (n * d)
   // The t parameter of the intersection point
-  double t = - (n * r.getPosition() - this->dist) / (n * r.getDirection());
+  double t = - ((n * r.getPosition()) - d) / (n * r.getDirection());
 
   // The intersection point
   Vec3d q = r.at(t);
@@ -107,7 +110,7 @@ bool TrimeshFace::intersectLocal(const ray& r, isect& i) const {
     B = Vec2d(b[1], b[2]);
     C = Vec2d(c[1], c[2]);
     Q = Vec2d(q[1], q[2]);
-  } else if (abs(n[0]) > abs(n[2])) {
+  } else if (abs(n[1]) > abs(n[2])) {
     A = Vec2d(a[0], a[2]);
     B = Vec2d(b[0], b[2]);
     C = Vec2d(c[0], c[2]);
@@ -132,18 +135,24 @@ bool TrimeshFace::intersectLocal(const ray& r, isect& i) const {
 
   if (u > 0 && v > 0 && w > 0) {
     // The intersection point is inside the triangle
-    i.setN(n);
-    i.setT(t);
+    i.N = n;
+    i.t = t;
     i.setObject(this);
     i.setBary(Vec3d(u, v, w));
-    if (this->material) {
-      i.setMaterial(*(this->material));
-    } else if (this->parent->material) {
-      i.setMaterial(*(this->parent->material));
+
+    Material *mat;
+    if (material != NULL) {
+//       cout << "Trace 1" << endl;
+      mat = new Material(*(material));
+    } else if (parent->material != NULL) {
+//       cout << "Trace 2" << endl;
+      mat = new Material(*(parent->material));
     } else {
-      Material placeHolder = Material();
-      i.setMaterial(placeHolder);
+//       cout << "Trace 3" << endl;
+      mat = new Material();
     }
+    assert(mat != NULL);
+    i.setMaterial(*mat);
 
     return true;
   } else {
