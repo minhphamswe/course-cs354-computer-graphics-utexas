@@ -13,6 +13,7 @@
 #include "ui/TraceUI.h"
 #include <cmath>
 #include <algorithm>
+#include <assert.h>
 
 extern TraceUI* traceUI;
 
@@ -83,7 +84,7 @@ Vec3d RayTracer::traceRay(const ray& r, const Vec3d& thresh, int depth) {
         //==========[ Compute Reflection ]=====================================
         // Get incident and normal vectors
         I = -r.getDirection();        // Incident vector
-        if (depth %2 == 0)
+        if (depth % 2 == 0)
           N = i.N;
         else
           N = -i.N;                   // Normal vector
@@ -92,6 +93,13 @@ Vec3d RayTracer::traceRay(const ray& r, const Vec3d& thresh, int depth) {
         ICos = (I * N) * N;           // Cosine vector of incident vector
         ISin = ICos - I;              // Sine vector of incident vector
 
+        if (debugMode) {
+          std::cout << "N: " << N << "\t" << endl;
+          std::cout << "I: " << I << "\t" << endl;
+          std::cout << "I * N: " << I * N << "\t" << endl;
+          std::cout << "ICos: " << ICos << "\t" << endl;
+        }
+        
         // Compute reflection vector
         R = ICos + ISin;              // Reflection vector
 
@@ -117,18 +125,20 @@ Vec3d RayTracer::traceRay(const ray& r, const Vec3d& thresh, int depth) {
         TSin = RRI * ISin;
 
         if (debugMode) {
-          std::cout << "i.t: " << i.t << "\t";
-          std::cout << "m.index(i): " << m.index(i) << "\t";
-          std::cout << "RRI: " << RRI << "\t";
-          std::cout << "TSin: " << TSin << "\t";
-          std::cout << "TSin.length2: " << TSin.length2() << "\t" << std::endl;
+//           std::cout << "i.t: " << i.t << "\t";
+//           std::cout << "m.index(i): " << m.index(i) << "\t";
+//           std::cout << "RRI: " << RRI << "\t";
+//           std::cout << "TSin: " << TSin << "\t";
+//           std::cout << "TSin.length2: " << TSin.length2() << "\t" << std::endl;
         }
 
         // Cast new refraction ray
-        if (m.kt(i).length2() > 0 && (TSin.length2() < 1)) {
+        if ((m.kt(i)[0] > 0 || m.kt(i)[1] > 0 || m.kt(i)[2] > 0) &&
+            (TSin.length2() < 1)) {
           // Total internal reflection not achieved
           TCos = sqrt(1 - TSin.length2()) * (-N);
           T = TCos + TSin;
+//           cout << "T.length() " << T.length() << endl;
           ray transmission = ray(isectPoint, T, ray::REFRACTION);
           Intensity += m.kt(i) % traceRay(transmission, thresh, depth + 1);
         }

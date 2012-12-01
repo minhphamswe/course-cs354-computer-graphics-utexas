@@ -58,37 +58,37 @@ Vec3d Material::shade(Scene *scene, const ray& r, const isect& i) const {
     sumLighting += lighting;
 
     if (debugMode) {
-      std::cout << "N: " << N << "\t";
-      std::cout << "I: " << I << "\t";
-      std::cout << "H: " << H << "\t";
-      std::cout << "i.t: " << i.t << "\t";
-      std::cout << "V: " << V << std::endl;
+//       std::cout << "N: " << N << "\t";
+//       std::cout << "I: " << I << "\t";
+//       std::cout << "H: " << H << "\t";
+//       std::cout << "i.t: " << i.t << "\t";
+//       std::cout << "V: " << V << std::endl;
 
-      std::cout << "distance attenuation: " << distance << "\t";
-      std::cout << "shadow attenuation: " << shadow << "\t";
-      std::cout << "Light: " << L << std::endl;
-
-      std::cout << "kd: " << kd(i) << "\t";
-      std::cout << "(I * N): " << (I * N) << "\t";
-      std::cout << "(kd(i) % L): " << (kd(i) % L) << "\t";
-      std::cout << "diffuse: " << diffuse << std::endl;
-
-      std::cout << "ks: " << ks(i) << "\t";
-      std::cout << "(N * H): " << (N * H) << "\t";
-      std::cout << "shininess: " << shininess(i) << "\t";
-
-      std::cout << "pow((N * H), shininess(i)): " << pow((N * H), shininess(i)) << "\t";
-      std::cout << "max(pow((N * H), shininess(i)), 0.0): " << max(pow((N * H), shininess(i)), 0.0) << std::endl;
-
-      std::cout << "(ks(i) % L): " << (ks(i) % L) << "\t";
-      std::cout << "specular: " << specular << std::endl;
-
-      std::cout << "sumLighting: " << sumLighting << std::endl;
-
-      std::cout << "ke(i): " << ke(i) << "\t";
-      std::cout << "kr(i): " << kr(i) << "\t";
-      std::cout << "kt(i): " << kt(i) << "\t";
-      std::cout << "index(i): " << index(i) << std::endl;
+//       std::cout << "distance attenuation: " << distance << "\t";
+//       std::cout << "shadow attenuation: " << shadow << "\t";
+//       std::cout << "Light: " << L << std::endl;
+// 
+//       std::cout << "kd: " << kd(i) << "\t";
+//       std::cout << "(I * N): " << (I * N) << "\t";
+//       std::cout << "(kd(i) % L): " << (kd(i) % L) << "\t";
+//       std::cout << "diffuse: " << diffuse << std::endl;
+// 
+//       std::cout << "ks: " << ks(i) << "\t";
+//       std::cout << "(N * H): " << (N * H) << "\t";
+//       std::cout << "shininess: " << shininess(i) << "\t";
+// 
+//       std::cout << "pow((N * H), shininess(i)): " << pow((N * H), shininess(i)) << "\t";
+//       std::cout << "max(pow((N * H), shininess(i)), 0.0): " << max(pow((N * H), shininess(i)), 0.0) << std::endl;
+// 
+//       std::cout << "(ks(i) % L): " << (ks(i) % L) << "\t";
+//       std::cout << "specular: " << specular << std::endl;
+// 
+//       std::cout << "sumLighting: " << sumLighting << std::endl;
+// 
+//       std::cout << "ke(i): " << ke(i) << "\t";
+//       std::cout << "kr(i): " << kr(i) << "\t";
+//       std::cout << "kt(i): " << kt(i) << "\t";
+//       std::cout << "index(i): " << index(i) << std::endl;
     }
   }
 
