@@ -1,0 +1,50 @@
+\documentclass[12pt]{letter}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage[margin=1in, paperwidth=8.5in, paperheight=11in]{geometry}
+\linespread{1.5}
+
+\begin{document}
+
+
+Student: Minh Pham \\
+EID: mlp2279 \\
+CSID: minhpham
+
+\begin{center}
+	\textbf{Homework 4} \\
+\end{center}
+
+\begin{enumerate}
+	\item (15 points)
+	Consider a line from point $(0.1, 0.7)$ to $(5.3, 2.3)$. Compute which pixels should be filled in according to Bresenham's algorithm by filling out the table below. Show your work.
+	
+k x d y
+0 1/2
+1 3/2
+2 5/2
+3 7/2
+4 9/2
+5 11/2
+
+	\item (15 points)
+	You wish to determine the two intersection points between a ray R and a sphere S. Ray R starts at $(1, 2, 1)$ and heads in the direction $(0.3, 0.8, 0.5)$. Sphere S is centered at the point $(6, 7, 4)$ and has a radius of length $\sqrt{26}$. At what two points does the ray intersect the sphere? Which point is closer to the origin of the ray? Hint: First parameterize the ray as R(t) and then solve for the value of t for each point of intersection.
+
+	\item (10 points) Consider 4 squares each with side length = 2. Their center points and normals are given below:
+	
+name center normal
+A (0, 1, 1) (1, 0, 0)
+B (1, 0, 1) (0, 1, 0)
+C (0, 3, 1) (1, 0, 0)
+D (1, 1, 1) (-1, 0, 0)
+
+	Let $f_{AB}$ be the form factor between squares A and B. Let the other form factors be named similarly. Give $f_{AB}$, $f_{AC}$, and $f_{AD}$ in sorted order from least to greatest. Explain why they are sorted in that order. You do not need to compute the form factors.
+
+	\item (10 points) A quadratic Bezier curve has the form
+$$P(t) = (1 - t)^2P_0 + 2t(1 - t)P_1 + t^2P_2 for 0 \leq t \leq $$
+	Given control points $P_0 = (0, 0)$, $P_1 = (0, 1)$, $P2 = (1, 0)$, sketch the Bezier curve. Label and give exact coordinates for points at t = 1=4, t = 1=2, and t = 3=4.
+
+\end{enumerate}
+
+\end{document}
