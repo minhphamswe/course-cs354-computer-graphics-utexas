@@ -165,5 +165,3 @@ int getopt(int argc, char **argv, char *optstring)
 	}
 	else return i;
 }
-
-#endif
