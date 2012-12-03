@@ -138,7 +138,15 @@ bool TrimeshFace::intersectLocal(const ray& r, isect& i) const {
 
     if (u > 0 && v > 0 && w > 0) {
       // The intersection point is inside the triangle
-      i.N = n;
+      if (parent->vertices.size() == parent->normals.size()) {
+        // Has per-vertex normal: interpolate
+        Vec3d Na = parent->normals[ids[0]];
+        Vec3d Nb = parent->normals[ids[1]];
+        Vec3d Nc = parent->normals[ids[2]];
+        i.N = (u * Na) + (v * Nb) + (w * Nc);
+      } else {
+        i.N = n;
+      }
       i.t = t;
       i.setObject(this);
       i.setBary(Vec3d(u, v, w));
