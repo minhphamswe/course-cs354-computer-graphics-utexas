@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.65])
-AC_INIT([FULL-PACKAGE-NAME], [VERSION], [BUG-REPORT-ADDRESS])
+AC_INIT([ray], [0.01], [minh.pham@utexas.edu])
 AM_INIT_AUTOMAKE
 AC_CONFIG_SRCDIR([src/general.h])
 AC_CONFIG_HEADERS([config.h])

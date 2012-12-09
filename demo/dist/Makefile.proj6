@@ -1,0 +1,17 @@
+# Self-destructing Makefile. This file will be gone by the time it's done
+
+.PHONY: all submit
+
+all:
+	tar -xvzf ray-0.01.tar.gz
+	rm ray-0.01.tar.gz
+	cp -r ./ray-0.01/* ./ && rm -rf ./ray-0.01 && ./configure && make
+
+submit:
+	turnin --submit edwardsj project6 *
+
+list:
+	turnin --list edwardsj project6
+
+verify:
+	turnin --verify edwardsj project6

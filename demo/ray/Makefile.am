@@ -63,8 +63,8 @@ ray_SOURCES = \
 	      $(srcdir)/src/SceneObjects/Square.cpp \
 	      $(srcdir)/src/SceneObjects/Square.h
 
-OPTS = -r 10 -w 512
-OPTS_SIMPLE = -r 10 -w 512
+OPTS = -r 3 -w 150
+OPTS_SIMPLE = -r 3 -w 150
 
 check-scenes: all
 	./ray $(OPTS) scenes/box.ray             scenes/box.bmp
@@ -135,7 +135,7 @@ check-polymesh: all
 	./ray $(OPTS) scenes/polymesh/turtle.ray        scenes/polymesh/turtle.bmp
 	./ray $(OPTS) scenes/polymesh/z-polytest.ray    scenes/polymesh/z-polytest.bmp
 
-check: check-simple check-scenes check-polymesh
+selfcheck: check-simple check-scenes check-polymesh
 
 MEMCHECK = --leak-check=full --show-reachable=yes
 MEMCHECK_LOG = memcheck
@@ -209,3 +209,8 @@ memcheck-polymesh: all
 	valgrind $(MEMCHECK) ./ray $(OPTS) scenes/polymesh/turtle.ray        scenes/polymesh/turtle.bmp        &> scenes/polymesh/turtle_$(MEMCHECK_LOG).log
 	valgrind $(MEMCHECK) ./ray $(OPTS) scenes/polymesh/z-polytest.ray    scenes/polymesh/z-polytest.bmp    &> scenes/polymesh/z-polytest_$(MEMCHECK_LOG).log
 memcheck: memcheck-scenes memcheck-simple memcheck-polymesh
+
+distclean-hook:
+	rm -f ./depcomp
+	rm -f ./install-sh
+	rm -f ./missing
