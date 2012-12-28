@@ -63,8 +63,8 @@ ray_SOURCES = \
 	      $(srcdir)/src/SceneObjects/Square.cpp \
 	      $(srcdir)/src/SceneObjects/Square.h
 
-OPTS = -r 3 -w 150
-OPTS_SIMPLE = -r 3 -w 150
+OPTS = -r 10 -w 512
+OPTS_SIMPLE = -r 10 -w 512
 
 check-scenes: all
 	./ray $(OPTS) scenes/box.ray             scenes/box.bmp
